@@ -35,6 +35,25 @@
     },
     "server": {
       "tags": []
+    },
+    "store": {
+      "tags": []
+    },
+    "store-e2e": {
+      "tags": [],
+      "implicitDependencies": ["store"]
+    },
+    "store-ssr": {
+      "tags": []
+    },
+    "theme": {
+      "tags": []
+    },
+    "client": {
+      "tags": []
+    },
+    "config": {
+      "tags": []
     }
   }
 }
