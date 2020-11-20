@@ -7,7 +7,7 @@ export function App() {
   /*
    * Replace the elements below with your own.
    *
-   * Note: The corresponding styles are in the ./app.scss file.
+   * Note: The corresponding styles are in the ./app.sass file.
    */
   return (
     <div className="app">

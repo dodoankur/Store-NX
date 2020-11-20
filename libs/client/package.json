@@ -1,0 +1,81 @@
+{
+  "name": "cezerin3-client",
+  "version": "0.1.1",
+  "description": "Cezerin3 API client library. Work on browser and server.",
+  "keywords": [
+    "cezerin3",
+    "cezerin",
+    "cezerin api",
+    "cezerin ajax",
+    "cezerin web store",
+    "ecommerce api",
+    "shopping cart api"
+  ],
+  "homepage": "https://cezerin3.web.app",
+  "bugs": "https://github.com/Cezerin3/Client/issues",
+  "license": "Unlicense",
+  "author": "Himadu Sirimanna <himadusirimanna.1@gmail.com>",
+  "contributors": [
+    "Restmount <jsonmount@gmail.com> (https://github.com/restmount)",
+    "Sergey Onufrienko <sergey@onufrienko.com> (https://github.com/sonufrienko)",
+    "Luke Busstra <luke.busstra@gmail.com> (https://github.com/lubuss)"
+  ],
+  "main": "lib/client.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cezerin3/Client"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "prepublishOnly": "yarn build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --write .",
+    "pretest": "babel src -d test --extensions .ts",
+    "test": "jest --coverage --runInBand --coverageDirectory=reports/coverage/",
+    "test:watch": "jest --watchAll"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "transform": {
+      "^.+\\.m?js$": "babel-jest"
+    }
+  },
+  "jest-junit": {
+    "output": "reports/junit/junit.xml",
+    "usePathForSuiteName": "true"
+  },
+  "dependencies": {
+    "cross-fetch": "^3.0.6",
+    "query-string": "^6.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.11.1",
+    "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "prettier": "^2.1.2",
+    "ts-loader": "^8.0.11",
+    "typescript": "^4.0.5",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0"
+  }
+}
