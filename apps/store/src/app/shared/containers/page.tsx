@@ -1,8 +1,7 @@
-import React from "react"
+import { PageContainer } from "@store/theme"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
-import { mapStateToProps, mapDispatchToProps } from "../containerProps"
-import { PageContainer } from "theme"
+import { mapDispatchToProps, mapStateToProps } from "../containerProps"
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(PageContainer)

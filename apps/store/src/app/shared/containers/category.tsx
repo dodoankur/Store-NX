@@ -1,8 +1,7 @@
-import React from "react"
+import { CategoryContainer } from "@store/theme"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
-import { mapStateToProps, mapDispatchToProps } from "../containerProps"
-import { CategoryContainer } from "theme"
+import { mapDispatchToProps, mapStateToProps } from "../containerProps"
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(CategoryContainer)

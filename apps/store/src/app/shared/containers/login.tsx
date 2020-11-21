@@ -1,8 +1,7 @@
-import React from "react"
+import { LoginContainer } from "@store/theme"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
-import { LoginContainer } from "theme"
-import { mapStateToProps, mapDispatchToProps } from "../containerProps"
+import { mapDispatchToProps, mapStateToProps } from "../containerProps"
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
