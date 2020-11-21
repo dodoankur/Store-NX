@@ -2,14 +2,14 @@ import fse from "fs-extra"
 import path from "path"
 import winston from "winston"
 
-const THEME_LOCALES_PATH = "theme/locales/"
+const themeLocalesPath = "theme/locales/"
 let text = null
 
 export const getText = locale => {
   if (text) {
     return Promise.resolve(text)
   } else {
-    const filePath = path.resolve(THEME_LOCALES_PATH + locale + ".json")
+    const filePath = path.resolve(themeLocalesPath + locale + ".json")
     return new Promise((resolve, reject) => {
       fse.readFile(filePath, "utf8", (err, data) => {
         if (err) {

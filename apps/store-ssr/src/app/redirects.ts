@@ -1,6 +1,6 @@
 import api from "./api"
 
-const IGNORE_PATH = ["/"]
+const ignorePath = ["/"]
 
 const getRedirect = req => {
   const absoluteUrl = `${req.protocol}://${req.hostname}${req.url}`
@@ -39,7 +39,7 @@ const redirectUrlIsValid = url => {
 }
 
 const redirects = (req, res, next) => {
-  if (IGNORE_PATH.includes(req.url)) {
+  if (ignorePath.includes(req.url)) {
     next()
   } else {
     getRedirect(req)

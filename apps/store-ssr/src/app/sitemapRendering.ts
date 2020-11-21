@@ -2,7 +2,7 @@ import sm from "sitemap"
 import winston from "winston"
 import api from "./api"
 
-const SITEMAP_EXCLUDE_PATH = [
+const sitemapExcludePath = [
   "/",
   "/checkout",
   "/checkout-success",
@@ -31,7 +31,7 @@ const sitemapRendering = (req, res) => {
         item =>
           item.type !== "reserved" &&
           item.type !== "search" &&
-          !SITEMAP_EXCLUDE_PATH.includes(item.path)
+          !sitemapExcludePath.includes(item.path)
       )
       .map(item => item.path)
     const sitemap = sm.createSitemap({ hostname, urls })

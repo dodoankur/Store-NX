@@ -1,5 +1,5 @@
 import winston from "winston"
-const LOGS_FILE = "logs/server.log"
+const logsFile = "logs/server.log"
 
 winston.configure({
   transports: [
@@ -15,7 +15,7 @@ winston.configure({
       level: "info",
       handleExceptions: true,
       format: winston.format.json(),
-      filename: LOGS_FILE,
+      filename: logsFile,
     }),
   ],
 })
