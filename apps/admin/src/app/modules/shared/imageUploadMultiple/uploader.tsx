@@ -1,17 +1,20 @@
 import { Button } from "@material-ui/core"
 import Snackbar from "material-ui/Snackbar"
-import React from "react"
+import React, { FC, useRef } from "react"
 import Dropzone from "react-dropzone"
 import { messages } from "../../../lib"
 import style from "./style.module.sass"
 
 interface props {
-  uploading
+  uploading: boolean
   onUpload: Function
+  children: Node
 }
 
-class MultiUploader extends React.Component<props> {
-  onDrop = files => {
+const MultiUploader: FC<props> = (props: props) => {
+  const dropzone = useRef<any>()
+
+  const onDrop = files => {
     let form = new FormData()
     files.map(file => {
       form.append("file", file)
@@ -21,51 +24,46 @@ class MultiUploader extends React.Component<props> {
 
     console.log(form)
 
-    this.props.onUpload(form)
+    props.onUpload(form)
   }
-  dropzone: any
 
-  render() {
-    const { uploading } = this.props
+  const { uploading } = props
 
-    return (
-      <>
-        <Dropzone
-          onDrop={this.onDrop}
-          multiple={true}
-          disableClick={true}
-          accept="image/*"
-          ref={node => {
-            this.dropzone = node
-          }}
-          style={{}}
-          className={style.dropzone}
-          activeClassName={style.dropzoneActive}
-          rejectClassName={style.dropzoneReject}
-        >
-          {this.props.children}
-          {!this.props.children && (
-            <div className={style.dropzoneEmpty}>{messages.help_dropHere}</div>
-          )}
-        </Dropzone>
-
-        {!uploading && (
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ marginLeft: 20, marginTop: 10 }}
-            onClick={() => {
-              this.dropzone.open()
-            }}
-          >
-            {messages.chooseImage}
-          </Button>
+  return (
+    <>
+      <Dropzone
+        onDrop={onDrop}
+        multiple
+        disableClick
+        accept="image/*"
+        ref={dropzone}
+        style={{}}
+        className={style.dropzone}
+        activeClassName={style.dropzoneActive}
+        rejectClassName={style.dropzoneReject}
+      >
+        {props.children}
+        {!props.children && (
+          <div className={style.dropzoneEmpty}>{messages.help_dropHere}</div>
         )}
+      </Dropzone>
 
-        <Snackbar open={uploading} message={messages.messages_uploading} />
-      </>
-    )
-  }
+      {!uploading && (
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginLeft: 20, marginTop: 10 }}
+          onClick={() => {
+            dropzone.current.open()
+          }}
+        >
+          {messages.chooseImage}
+        </Button>
+      )}
+
+      <Snackbar open={uploading} message={messages.messages_uploading} />
+    </>
+  )
 }
 
 export default MultiUploader

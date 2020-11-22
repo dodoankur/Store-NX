@@ -1,4 +1,5 @@
 import { Button, Paper } from "@material-ui/core"
+import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 import { api, messages } from "../../../../../lib"
 
@@ -563,8 +564,8 @@ const ProductImport = props => {
   )
 }
 
-/*ProductImport.propTypes = {
-	onStartImportProducts: PropTypes.func.isRequired
-}*/
+ProductImport.propTypes = {
+  onStartImportProducts: PropTypes.func.isRequired,
+}
 
 export default ProductImport

@@ -1,5 +1,5 @@
 import React from "react"
-import { themeSettings, text } from "../../lib/settings"
+import { text, themeSettings } from "../../lib/settings"
 
 const LoadMore = ({
   loadMoreProducts,
@@ -8,7 +8,7 @@ const LoadMore = ({
   className = "button is-fullwidth is-dark",
 }) => {
   if (hasMore) {
-    const buttonStyle = {}
+    const buttonStyle: any = {}
     if (
       themeSettings.button_loadmore_bg &&
       themeSettings.button_loadmore_bg.length > 0

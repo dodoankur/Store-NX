@@ -1,5 +1,5 @@
 import React from "react"
-import { themeSettings, text } from "../../lib/settings"
+import { text, themeSettings } from "../../lib/settings"
 
 const AddToCartButton = ({
   product,
@@ -7,7 +7,7 @@ const AddToCartButton = ({
   addCartItem,
   isAllOptionsSelected,
 }) => {
-  let buttonStyle = {}
+  let buttonStyle: any = {}
   if (
     themeSettings.button_addtocart_bg &&
     themeSettings.button_addtocart_bg.length > 0

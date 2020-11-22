@@ -1,31 +1,27 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 let scriptAdded = false
-class PayPalButton extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  addScript = () => {
+const PayPalButton = props => {
+  const addScript = () => {
     if (scriptAdded) {
-      this.executeScript()
+      executeScript()
       return
     }
 
-    const SCRIPT_URL = "https://www.paypalobjects.com/api/checkout.min.js"
+    const scriptUrl = "https://www.paypalobjects.com/api/checkout.min.js"
     const container = document.body || document.head
     const script = document.createElement("script")
-    script.src = SCRIPT_URL
+    script.src = scriptUrl
     script.onload = () => {
-      this.executeScript()
+      executeScript()
     }
     container.appendChild(script)
     scriptAdded = true
   }
 
-  executeScript = () => {
-    const { formSettings, shopSettings, onPayment } = this.props
-
+  const executeScript = () => {
+    const { formSettings, shopSettings, onPayment } = props
+    let paypal
     document.getElementById("paypal-button-container").innerHTML = null
 
     paypal.Button.render(
@@ -77,19 +73,17 @@ class PayPalButton extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this.addScript()
-  }
+  useEffect(() => {
+    addScript()
+  }, [])
 
-  componentDidUpdate() {
-    this.executeScript()
-  }
+  useEffect(() => {
+    executeScript()
+  })
 
-  render() {
-    const { formSettings, shopSettings, onPayment } = this.props
+  const { formSettings, shopSettings, onPayment } = props
 
-    return <div id="paypal-button-container" />
-  }
+  return <div id="paypal-button-container" />
 }
 
 export default PayPalButton
