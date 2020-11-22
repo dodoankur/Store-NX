@@ -11,6 +11,13 @@ import reducers from "../shared/reducers"
 import api from "./api"
 import clientSettings from "./settings"
 
+declare global {
+  interface Window {
+    __APP_STATE__: any
+    __APP_TEXT__: any
+  }
+}
+
 const initialState = window.__APP_STATE__
 const themeText = window.__APP_TEXT__
 

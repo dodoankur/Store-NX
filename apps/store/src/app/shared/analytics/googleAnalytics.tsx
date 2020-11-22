@@ -158,6 +158,8 @@ export const purchase = ({ order }) => {
   })
 }
 
+let gtag
+
 const isGtagInstalled = () => {
   return typeof gtag !== "undefined"
 }

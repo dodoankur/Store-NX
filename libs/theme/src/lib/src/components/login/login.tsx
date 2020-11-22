@@ -1,7 +1,7 @@
 import Lscache from "lscache"
 import React, { useState } from "react"
 import { Link, NavLink, Redirect } from "react-router-dom"
-import { Field, reduxForm } from "redux-form"
+import { Field, InjectedFormProps, reduxForm } from "redux-form"
 import { text } from "../../lib/settings"
 
 const validateRequired = value =>
@@ -39,7 +39,15 @@ const InputField = field => (
   </div>
 )
 
-const Login = props => {
+interface props {
+  checkoutFields
+  handleSubmit
+  customerProperties
+  cartlayerBtnInitialized
+  inputClassName
+}
+
+const Login = (props: props & InjectedFormProps) => {
   const [unauthorized, setUnauthorized] = useState(false)
 
   function verifyAuth() {
