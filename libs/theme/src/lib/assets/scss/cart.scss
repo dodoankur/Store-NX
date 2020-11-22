@@ -1,4 +1,7 @@
 .mini-cart {
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s,
+    right 0.4s cubic-bezier(0.01, -0.21, 0.27, 1.55);
   position: absolute;
   width: 460px;
   top: calc(100%);
@@ -17,6 +20,7 @@
 }
 
 .mini-cart-open .mini-cart {
+  visibility: visible;
   right: 0;
 }
 

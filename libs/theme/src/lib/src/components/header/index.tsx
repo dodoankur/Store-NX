@@ -132,7 +132,7 @@ const Header = props => {
   }
 
   const handleGoBack = () => {
-    // closeAll()
+    setSiteState(state.SITE)
     props.goBack()
   }
 
