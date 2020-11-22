@@ -1,0 +1,216 @@
+Microsoft Windows [Version 10.0.18363.1139]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Website2\cezerin4>yarn global add nx
+yarn global v1.22.10
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+info fsevents@1.2.13: The platform "win32" is incompatible with this module.
+info "fsevents@1.2.13" is an optional dependency and failed compatibility check. Excluding it from installation.
+info fsevents@2.1.3: The platform "win32" is incompatible with this module.
+info "fsevents@2.1.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+[3/4] Linking dependencies...
+warning "graphql-cli > graphql-config@3.0.3" has unmet peer dependency "graphql@^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0".
+warning "graphql-cli > @graphql-cli/common > @graphql-tools/load@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > @graphql-cli/init > openapi-to-graphql@2.1.0" has incorrect peer dependency "graphql@^0.9.6 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/graphql-file-loader@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/json-file-loader@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/merge@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/url-loader@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/utils@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/graphql-file-loader > @graphql-tools/import@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/merge > @graphql-tools/schema@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/url-loader > @graphql-tools/delegate@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+warning "graphql-cli > graphql-config > @graphql-tools/url-loader > @graphql-tools/wrap@6.2.2" has unmet peer dependency "graphql@^14.0.0 || ^15.0.0".
+[4/4] Building fresh packages...
+success Installed "nx@10.4.4" with binaries:
+      - nx
+Done in 52.46s.
+
+C:\Website2\cezerin4>npx create-nx-workspace@latest
+npx: installed 186 in 94.605s
+? Workspace name (e.g., org name)     Store
+? What to create in the new workspace react             [a workspace with a single React application]
+? Application name                    Admin
+? Default stylesheet format           SASS(.scss)  [ http://sass-lang.com   ]
+? Use Nx Cloud? (It's free and doesn't require registration.) Yes [Faster builds, run details, Github integration. Learn
+ more at https://nx.app]
+Creating a sandbox with Nx...
+added 195 packages from 153 contributors and audited 196 packages in 51.024s
+
+23 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+new Store  --preset="react" --appName="Admin" --style="scss" --linter="eslint" --nxCloud --interactive=false --collection=@nrwl/workspace
+√ Packages installed successfully.
+√ Packages installed successfully.
+CREATE jest.config.js (60 bytes)
+CREATE jest.preset.js (82 bytes)
+CREATE babel.config.json (62 bytes)
+CREATE .eslintrc.json (767 bytes)
+CREATE apps/admin/.eslintrc.json (98 bytes)
+CREATE apps/admin/tsconfig.app.json (365 bytes)
+CREATE apps/admin/.babelrc (56 bytes)
+CREATE apps/admin/.browserslistrc (562 bytes)
+CREATE apps/admin/tsconfig.json (336 bytes)
+CREATE apps/admin/src/favicon.ico (15086 bytes)
+CREATE apps/admin/src/index.html (320 bytes)
+CREATE apps/admin/src/main.tsx (202 bytes)
+CREATE apps/admin/src/polyfills.ts (218 bytes)
+CREATE apps/admin/src/styles.scss (80 bytes)
+CREATE apps/admin/src/app/logo.svg (2930 bytes)
+CREATE apps/admin/src/app/star.svg (347 bytes)
+CREATE apps/admin/src/app/app.spec.tsx (424 bytes)
+CREATE apps/admin/src/app/app.tsx (3507 bytes)
+CREATE apps/admin/src/app/app.scss (2108 bytes)
+CREATE apps/admin/src/assets/.gitkeep (0 bytes)
+CREATE apps/admin/src/environments/environment.prod.ts (52 bytes)
+CREATE apps/admin/src/environments/environment.ts (218 bytes)
+CREATE apps/admin-e2e/.eslintrc.json (282 bytes)
+CREATE apps/admin-e2e/cypress.json (410 bytes)
+CREATE apps/admin-e2e/tsconfig.e2e.json (222 bytes)
+CREATE apps/admin-e2e/tsconfig.json (147 bytes)
+CREATE apps/admin-e2e/src/fixtures/example.json (80 bytes)
+CREATE apps/admin-e2e/src/integration/app.spec.ts (402 bytes)
+CREATE apps/admin-e2e/src/plugins/index.js (832 bytes)
+CREATE apps/admin-e2e/src/support/app.po.ts (47 bytes)
+CREATE apps/admin-e2e/src/support/commands.ts (1133 bytes)
+CREATE apps/admin-e2e/src/support/index.ts (599 bytes)
+CREATE apps/admin/babel-jest.config.json (196 bytes)
+CREATE apps/admin/jest.config.js (390 bytes)
+CREATE apps/admin/tsconfig.spec.json (408 bytes)
+UPDATE workspace.json (3358 bytes)
+UPDATE package.json (2157 bytes)
+UPDATE .vscode/extensions.json (145 bytes)
+UPDATE nx.json (666 bytes)
+√ Packages installed successfully.
+warning: LF will be replaced by CRLF in .editorconfig.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in .eslintrc.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in .gitignore.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in .prettierignore.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in .prettierrc.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in .vscode/extensions.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in README.md.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/.eslintrc.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/cypress.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/src/fixtures/example.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/src/integration/app.spec.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/src/plugins/index.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/src/support/app.po.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/src/support/commands.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/src/support/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/tsconfig.e2e.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin-e2e/tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/.babelrc.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/.browserslistrc.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/.eslintrc.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/babel-jest.config.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/jest.config.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/app/app.scss.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/app/app.spec.tsx.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/app/app.tsx.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/app/logo.svg.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/app/star.svg.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/environments/environment.prod.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/environments/environment.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/index.html.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/main.tsx.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/polyfills.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/src/styles.scss.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/tsconfig.app.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in apps/admin/tsconfig.spec.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in babel.config.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in jest.config.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in jest.preset.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in nx.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tools/tsconfig.tools.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in workspace.json.
+The file will have its original line endings in your working directory
+    Successfully initialized git.
+CREATE store/nx.json (541 bytes)
+CREATE store/tsconfig.base.json (509 bytes)
+CREATE store/package.json (1214 bytes)
+CREATE store/README.md (3243 bytes)
+CREATE store/.editorconfig (245 bytes)
+CREATE store/.gitignore (503 bytes)
+CREATE store/.prettierignore (74 bytes)
+CREATE store/.prettierrc (26 bytes)
+CREATE store/workspace.json (96 bytes)
+CREATE store/tools/tsconfig.tools.json (223 bytes)
+CREATE store/tools/schematics/.gitkeep (0 bytes)
+CREATE store/.vscode/extensions.json (109 bytes)
+CREATE store/apps/.gitkeep (0 bytes)
+CREATE store/libs/.gitkeep (0 bytes)
+
+———————————————————————————————————————————————
+
+
+>  NX   NOTE  Nx Cloud has been enabled
+
+  Your workspace is currently public. Anybody with code access can view the workspace on nx.app.
+  You can connect the workspace to your Nx Cloud account at https://nx.app/orgs/workspace-setup?accessToken=OWVkOTI3ODktMjE3NC00NDUzLTg3ZWUtODhhYTQxODlkYjdkfHJlYWQtd3JpdGU=. (You can do this later.)
+
+UPDATE nx.json (871 bytes)
+
+———————————————————————————————————————————————
+
+
+>  NX   NOTE  First time using Nx? Check out this interactive Nx tutorial.
+
+  https://nx.dev/react/tutorial/01-create-application
+
+  Prefer watching videos? Check out this free Nx course on YouTube.
+  https://www.youtube.com/watch?v=2mYLe9Kp9VM&list=PLakNactNC1dH38AfqmwabvOszDmKriGco
+
+
+C:\Website2\cezerin4>
