@@ -1,31 +1,19 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
-import { themeSettings, text } from "../../lib/settings"
+import React, { useEffect, useState } from "react"
 
-class AttributeValue extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      checked: props.checked,
-    }
-  }
+const AttributeValue = props => {
+  const [checked, setChecked] = useState(props.checked)
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.checked !== this.props.checked) {
-      this.setState({ checked: nextProps.checked })
-    }
-  }
+  useEffect(() => {}, [props.checked])
 
-  onChange = event => {
+  const onChange = event => {
     const {
       attributeName,
       valueName,
       setFilterAttribute,
       unsetFilterAttribute,
-    } = this.props
-    const checked = event.target.checked
-
-    this.setState({ checked: checked })
+    } = props
+    const getChecked = event.target.checked
+    setChecked(getChecked)
 
     if (checked) {
       setFilterAttribute(attributeName, valueName)
@@ -34,24 +22,22 @@ class AttributeValue extends React.Component {
     }
   }
 
-  render() {
-    const { valueName, count } = this.props
-    const isDisabled = count === 0
-    const classChecked = this.state.checked ? "attribute-checked" : ""
-    const classDisabled = isDisabled ? "attribute-disabled" : ""
+  const { valueName, count } = props
+  const isDisabled = count === 0
+  const classChecked = checked ? "attribute-checked" : ""
+  const classDisabled = isDisabled ? "attribute-disabled" : ""
 
-    return (
-      <label className={classChecked + " " + classDisabled}>
-        <input
-          type="checkbox"
-          disabled={isDisabled}
-          onChange={this.onChange}
-          checked={this.state.checked}
-        />
-        {valueName}
-      </label>
-    )
-  }
+  return (
+    <label className={classChecked + " " + classDisabled}>
+      <input
+        type="checkbox"
+        disabled={isDisabled}
+        onChange={onChange}
+        checked={checked}
+      />
+      {valueName}
+    </label>
+  )
 }
 
 const AttributeSet = ({
