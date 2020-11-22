@@ -7,11 +7,7 @@ const CustomPageList = props => {
 
   useEffect(() => {
     fetchData(props)
-  }, [])
-
-  // useEffect(nextProps) {
-  //   fetchData(nextProps)
-  // }
+  }, [props])
 
   const fetchData = ({ tags, sort }) => {
     const filter = {

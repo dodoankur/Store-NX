@@ -12,9 +12,9 @@ const CustomProducts = props => {
     fetchProducts(props)
   }, [])
 
-  // useEffect(nextProps) {
-  //   fetchProducts(nextProps)
-  // }
+  useEffect(() => {
+    fetchProducts(props)
+  }, [props])
 
   useEffect(() => {
     return () => (isCancelled = true)
