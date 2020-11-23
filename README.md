@@ -1,5 +1,34 @@
 # Store
 
+This repository will be the future update of cezerin3,
+therefore we kindly request to make all pull request to this!
+
+This has little bit of bugs in here, but admin works very fine!
+To start,
+You need to have cli,
+yarn global add nx
+or
+npm install -g nx
+
+And also install deps with,
+Yarn
+Or
+npm I
+
+And now you can run admin with,
+nx run admin:serve --port=3000
+
+you can start server with,
+nx run server:serve --port=3001
+Though note server has a little bug in it.
+
+To start the store,
+You first need to build the store with,
+nx run store:build
+and then start ssr-server with,
+nx run store-ssr:serve --port=3000
+However also note store also note store also have some bugs.
+
 This project was generated using [Nx](https://nx.dev).
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
@@ -16,12 +45,6 @@ Below are our core plugins:
 
 - [React](https://reactjs.org)
   - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
 - [Express](https://expressjs.com)
   - `npm install --save-dev @nrwl/express`
 - [Node](https://nodejs.org)
