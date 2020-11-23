@@ -1,18 +1,16 @@
-import api from "./api"
-import queryString from "query-string"
 import {
   getParsedProductFilter,
   getProductFilterForCategory,
   getProductFilterForSearch,
-} from "../shared/actions"
-import * as themeLocales from "./themeLocales"
+} from "../../../../store/src/app/shared/shared/actions"
 import {
   PAGE,
-  PRODUCT_CATEGORY,
   PRODUCT,
-  RESERVED,
+  PRODUCT_CATEGORY,
   SEARCH,
-} from "../shared/pageTypes"
+} from "../../../store/src/app/shared/shared/pageTypes"
+import api from "./api"
+import * as themeLocales from "./themeLocales"
 
 const PRODUCT_FIELDS =
   "path,id,name,category_id,category_ids,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position"
@@ -192,7 +190,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 }
 
 const getFilter = (currentPage, urlQuery, settings) => {
-  let productFilter = {}
+  let productFilter: any = {}
 
   if (currentPage.type === PRODUCT_CATEGORY) {
     productFilter = getProductFilterForCategory(

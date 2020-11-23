@@ -1,6 +1,18 @@
-import React from "react"
+import React, { FC } from "react"
+import { InjectedFormProps } from "redux-form"
 
-const InputField = field => (
+interface props {
+  id
+  label
+  meta
+  className
+  input
+  placeholder
+  disabled
+  type
+}
+
+const InputField: FC<props> = (field: props & InjectedFormProps) => (
   <div className={field.className}>
     <label htmlFor={field.id}>
       {field.label}

@@ -1,18 +1,18 @@
-import winston from "winston"
+import { initOnServer } from "@store/theme"
 import CezerinClient from "cezerin2-client"
 import React from "react"
-import { StaticRouter } from "react-router-dom"
 import { renderToString } from "react-dom/server"
-import { createStore, applyMiddleware } from "redux"
-import thunkMiddleware from "redux-thunk"
-import { Provider } from "react-redux"
 import Helmet from "react-helmet"
-import { initOnServer } from "@store/theme"
-import serverSettings from "./settings"
-import reducers from "../shared/reducers"
+import { Provider } from "react-redux"
+import { StaticRouter } from "react-router-dom"
+import { applyMiddleware, createStore } from "redux"
+import thunkMiddleware from "redux-thunk"
+import winston from "winston"
+import App from "../../../store/src/app/shared/app"
+import reducers from "../../../store/src/app/shared/reducers"
 import { loadState } from "./loadState"
 import { indexHtml } from "./readIndexHtml"
-import App from "../shared/app"
+import serverSettings from "./settings"
 
 initOnServer({
   language: serverSettings.language,
@@ -113,7 +113,7 @@ const renderPage = (req, res, store, themeText, placeholders) => {
     .replace("{script}", head.script)
     .replace("{app_text}", JSON.stringify(themeText))
     .replace("{app_state}", JSON.stringify(state))
-    .replace("{app}", appHtml)
+    .replace("{root}", appHtml)
 
   const isHttps = req.protocol === "https"
   const full_url = `${req.protocol}://${req.hostname}${req.url}`

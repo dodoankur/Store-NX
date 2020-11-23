@@ -1,14 +1,14 @@
+import cookieParser from "cookie-parser"
 import express from "express"
 import helmet from "helmet"
-import responseTime from "response-time"
 import path from "path"
-import cookieParser from "cookie-parser"
+import responseTime from "response-time"
 import winston from "winston"
-import settings from "../../../config/server"
-import robotsRendering from "./robotsRendering"
-import sitemapRendering from "./sitemapRendering"
-import redirects from "./redirects"
 import pageRendering from "./pageRendering"
+import redirects from "./redirects"
+import robotsRendering from "./robotsRendering"
+import settings from "./settings"
+import sitemapRendering from "./sitemapRendering"
 
 const app = express()
 

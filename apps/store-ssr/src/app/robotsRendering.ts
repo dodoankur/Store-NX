@@ -2,11 +2,11 @@ import fse from "fs-extra"
 import path from "path"
 import api from "./api"
 
-const ROBOTS_TEMPLATE_PATH = "public/robots.template"
+const robotsTemplatePath = "public/robots.template"
 
 const robotsRendering = (req, res) => {
   api.settings.retrieve().then(settingsResponse => {
-    fse.readFile(path.resolve(ROBOTS_TEMPLATE_PATH), "utf8", (err, data) => {
+    fse.readFile(path.resolve(robotsTemplatePath), "utf8", (err, data) => {
       if (err) {
         res.status(500).end()
       } else {
