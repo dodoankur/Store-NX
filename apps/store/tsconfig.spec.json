@@ -3,10 +3,7 @@
   "compilerOptions": {
     "outDir": "../store-ssr/build",
     "module": "commonjs",
-    "types": [
-      "jest",
-      "node"
-    ]
+    "types": ["jest", "node"]
   },
   "include": [
     "**/*.spec.ts",
