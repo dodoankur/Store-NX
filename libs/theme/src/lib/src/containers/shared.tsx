@@ -6,7 +6,7 @@ import { themeSettings } from "../lib/settings"
 
 interface props {
   children
-  state: { currentPage; settings }
+  state: { currentPage: { path }; settings: {} }
 }
 
 const SharedContainer: FC<props> = (props: props) => {
