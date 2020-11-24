@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from "react"
 import { themeSettings } from "../../lib/settings"
 import Register from "./register"

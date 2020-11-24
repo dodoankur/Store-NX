@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { combineReducers } from "redux"
 import { reducer as formReducer } from "redux-form"
 import * as t from "./actionTypes"

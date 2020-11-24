@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Lscache from "lscache"
 import React from "react"
 import { Redirect } from "react-router-dom"

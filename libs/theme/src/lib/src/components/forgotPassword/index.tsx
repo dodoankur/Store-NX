@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react"
 import { themeSettings } from "../../lib/settings"
 import ForgotPassword from "./forgotPassword"
