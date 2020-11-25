@@ -27,7 +27,7 @@ You first need to build the store with,
 nx run store:build
 and then start ssr-server with,
 nx run store-ssr:serve --port=3000
-However also note store also note store also have some bugs.
+However also note store have some bugs.
 
 This project was generated using [Nx](https://nx.dev).
 

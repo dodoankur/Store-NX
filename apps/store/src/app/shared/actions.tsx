@@ -1,3 +1,4 @@
+// @ts-nocheck
 import queryString from "query-string"
 import { animateScroll } from "react-scroll"
 import api from "../client/api"

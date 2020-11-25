@@ -2,13 +2,13 @@ import {
   getParsedProductFilter,
   getProductFilterForCategory,
   getProductFilterForSearch,
-} from "../../../../store/src/app/shared/shared/actions"
+} from "../../../store/src/app/shared/actions"
 import {
   PAGE,
   PRODUCT,
   PRODUCT_CATEGORY,
   SEARCH,
-} from "../../../store/src/app/shared/shared/pageTypes"
+} from "../../../store/src/app/shared/pageTypes"
 import api from "./api"
 import * as themeLocales from "./themeLocales"
 

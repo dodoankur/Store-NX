@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react"
 import {
   arrayMove,
@@ -7,11 +8,13 @@ import {
 import GalleryItem from "./item"
 import style from "./style.module.sass"
 import MultiUploader from "./uploader"
+
 interface SortableItemProps {
   image
   onDelete
   onImageEdit
 }
+
 const SortableItem = SortableElement(
   ({ image, onDelete, onImageEdit }: SortableItemProps) => (
     <li className={style.item}>
@@ -27,11 +30,13 @@ const SortableItem = SortableElement(
     </li>
   )
 )
+
 interface SortableListProps {
   items
   onDelete
   onImageEdit
 }
+
 const SortableList = SortableContainer(
   ({ items, onDelete, onImageEdit }: SortableListProps) => (
     <ul className={style.list}>

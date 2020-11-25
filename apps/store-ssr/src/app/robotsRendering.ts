@@ -4,8 +4,9 @@ import api from "./api"
 
 const robotsTemplatePath = "public/robots.template"
 
-const robotsRendering = (req, res) => {
-  api.settings.retrieve().then(settingsResponse => {
+const robotsRendering = async (req, res) => {
+  try {
+    const settingsResponse = await api.settings.retrieve()
     fse.readFile(path.resolve(robotsTemplatePath), "utf8", (err, data) => {
       if (err) {
         res.status(500).end()
@@ -15,7 +16,9 @@ const robotsRendering = (req, res) => {
         res.send(robots)
       }
     })
-  })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export default robotsRendering

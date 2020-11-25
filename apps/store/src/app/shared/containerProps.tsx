@@ -1,24 +1,25 @@
+// @ts-nocheck
 import queryString from "query-string"
-import { getJSONLD } from "./lib/jsonld"
 import {
   addCartItem,
-  deleteCartItem,
-  updateCartItemQuantiry,
-  fetchMoreProducts,
-  setSort,
-  fetchShippingMethods,
-  fetchPaymentMethods,
-  updateCart,
-  customerData,
-  checkout,
-  loginUser,
-  loggedinUserTimeUp,
-  changecustomerProperties,
-  registerUser,
   cartLayerInitialized,
+  changecustomerProperties,
+  checkout,
+  customerData,
+  deleteCartItem,
+  fetchMoreProducts,
+  fetchPaymentMethods,
+  fetchShippingMethods,
   forgotPassword,
+  loggedinUserTimeUp,
+  loginUser,
+  registerUser,
   resetPassword,
+  setSort,
+  updateCart,
+  updateCartItemQuantiry,
 } from "./actions"
+import { getJSONLD } from "./lib/jsonld"
 
 const setQuery = (history, query) => {
   if (history && history.location) {

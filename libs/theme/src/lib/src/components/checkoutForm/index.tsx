@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Lscache from "lscache"
 import React, { useEffect, useState } from "react"
 import { text, themeSettings } from "../../lib/settings"
