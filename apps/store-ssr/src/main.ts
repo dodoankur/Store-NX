@@ -12,9 +12,7 @@ import sitemapRendering from "./app/sitemapRendering"
 
 const app = express()
 const port = process.env.port || settings.storeListenPort || 3334
-app.use(express.static(path.join(__dirname, "../admin")))
 
-const adminIndexPath = path.resolve("public/admin/index.html")
 const staticOptions = {
   maxAge: 1000 * 60 * 60 * 24 * 365, // One year
 }
@@ -28,16 +26,22 @@ app.get("/images/:entity/:id/:size/:filename", (req, res, next) => {
   next()
 })
 app.use(express.static("public/content", staticOptions))
-app.use("/assets", express.static("theme/assets", staticOptions))
-app.use("/admin-assets", express.static("public/admin-assets", staticOptions))
-app.use("/admin", (req, res) => {
-  res.sendFile(adminIndexPath)
-})
+app.use(
+  "/assets",
+  express.static(
+    path.join(__dirname, "../../libs/theme/src/lib/assets"),
+    staticOptions
+  )
+)
+app.use(
+  "/admin",
+  express.static(path.join(__dirname, "../admin"), staticOptions)
+)
 app.get(
   /^.+\.(jpg|jpeg|gif|png|bmp|ico|webp|svg|css|js|zip|rar|flv|swf|xls)$/,
   (req, res) => {
     // Send 404 image
-    res.sendFile(path.resolve("public/content/404.svg"))
+    res.status(404)
   }
 )
 app.get("/robots.txt", robotsRendering)
