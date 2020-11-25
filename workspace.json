@@ -256,7 +256,8 @@
             "outputPath": "dist/apps/store-ssr",
             "main": "apps/store-ssr/src/main.ts",
             "tsConfig": "apps/store-ssr/tsconfig.app.json",
-            "assets": ["apps/store-ssr/src/assets"]
+            "assets": ["apps/store-ssr/src/assets"],
+            "webpackConfig": "apps/store-ssr/webpack.config.js"
           },
           "configurations": {
             "production": {
