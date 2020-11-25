@@ -12,6 +12,7 @@ import sitemapRendering from "./app/sitemapRendering"
 
 const app = express()
 const port = process.env.port || settings.storeListenPort || 3334
+app.use(express.static(path.join(__dirname, "../admin")))
 
 const adminIndexPath = path.resolve("public/admin/index.html")
 const staticOptions = {
@@ -29,7 +30,6 @@ app.get("/images/:entity/:id/:size/:filename", (req, res, next) => {
 app.use(express.static("public/content", staticOptions))
 app.use("/assets", express.static("theme/assets", staticOptions))
 app.use("/admin-assets", express.static("public/admin-assets", staticOptions))
-app.use("/sw.js", express.static("theme/assets/sw.js"))
 app.use("/admin", (req, res) => {
   res.sendFile(adminIndexPath)
 })
