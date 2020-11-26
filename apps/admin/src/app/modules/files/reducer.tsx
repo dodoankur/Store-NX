@@ -1,23 +1,79 @@
-import * as t from "./actionTypes"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { api } from "../../lib"
 
-const initialState = {
-  files: [],
-  uploading: false,
+interface file {
+  file: string
+  size: number
+  modified: string
 }
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case t.FILES_RECEIVE:
-      return Object.assign({}, state, { files: action.files })
-    case t.FILES_UPLOAD_START:
-      return Object.assign({}, state, {
-        uploading: true,
-      })
-    case t.FILES_UPLOAD_END:
-      return Object.assign({}, state, {
-        uploading: false,
-      })
-    default:
-      return state
+export const fetchFiles = createAsyncThunk(
+  "products/fetchFiles",
+  async (args, { dispatch }) => {
+    try {
+      const { json } = await api.files.list()
+      return dispatch(receiveFiles(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
-}
+)
+
+export const uploadFiles = createAsyncThunk(
+  "products/uploadFiles",
+  async (form: any, { dispatch }) => {
+    try {
+      dispatch(filesUploadStart())
+      await api.files.upload(form)
+      dispatch(filesUploadEnd())
+      dispatch(fetchFiles())
+    } catch (error) {
+      console.error(error)
+      dispatch(filesUploadEnd())
+    }
+  }
+)
+
+export const deleteFile = createAsyncThunk(
+  "products/deleteFile",
+  async (fileName: string, { dispatch }) => {
+    try {
+      await api.files.delete(fileName)
+      return dispatch(fetchFiles())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+)
+
+const productSlice = createSlice({
+  name: "products",
+  initialState: {
+    files: [],
+    uploading: false,
+  },
+  reducers: {
+    receiveFiles(state, action: PayloadAction<[file]>) {
+      state.files = action.payload
+    },
+    filesUploadStart(state) {
+      state.uploading = true
+    },
+    filesUploadEnd(state) {
+      state.uploading = false
+    },
+  },
+  extraReducers: builder => {
+    builder.addCase(fetchFiles.pending, () => {}),
+      builder.addCase(uploadFiles.pending, () => {}),
+      builder.addCase(deleteFile.pending, () => {})
+  },
+})
+
+export const {
+  receiveFiles,
+  filesUploadStart,
+  filesUploadEnd,
+} = productSlice.actions
+
+export default productSlice.reducer

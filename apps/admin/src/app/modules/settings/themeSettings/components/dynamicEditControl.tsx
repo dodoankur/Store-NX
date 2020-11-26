@@ -8,11 +8,11 @@ import ImageEditor from "./imageEditor"
 import style from "./style.module.sass"
 
 interface props {
-  type
-  fieldName
-  label
-  options
-  properties
+  type: string
+  fieldName: string
+  label: string
+  options: { value: string; label: string }[]
+  properties: []
 }
 
 const DynamicEditControl = (props: props) => {
@@ -25,7 +25,7 @@ const DynamicEditControl = (props: props) => {
     return (
       <Field
         component={TextField}
-        fullWidth={true}
+        fullWidth
         name={fieldName}
         floatingLabelText={label}
       />
@@ -39,8 +39,8 @@ const DynamicEditControl = (props: props) => {
         component={SelectField}
         name={fieldName}
         floatingLabelText={label}
-        fullWidth={true}
-        autoWidth={true}
+        fullWidth
+        autoWidth
       >
         {selectOptions}
       </Field>
