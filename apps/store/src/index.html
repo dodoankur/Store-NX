@@ -122,8 +122,7 @@
   </head>
   <body>
     {placeholder_body_start}
-
-    <div id="app">{app}</div>
+    <div id="root">{root}</div>
     <!-- prettier-ignore -->
     <script>
       function resizeElements() {
@@ -141,7 +140,7 @@
       window.addEventListener("load", resizeElements);
     </script>
     <!-- prettier-ignore -->
-    <script charset="UTF-8">
+    <script charset="utf-8">
     window.__APP_TEXT__ = {app_text};
     window.__APP_STATE__ = {app_state};
     </script>
