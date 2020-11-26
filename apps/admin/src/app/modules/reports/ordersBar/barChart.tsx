@@ -1,5 +1,5 @@
 import { Paper } from "@material-ui/core"
-import React from "react"
+import React, { FC } from "react"
 import { Bar } from "react-chartjs-2"
 import style from "./style.module.sass"
 
@@ -10,7 +10,7 @@ interface props {
   legendDisplay?: boolean
 }
 
-const BarChart = (props: props) => {
+const BarChart: FC<props> = (props: props) => {
   const { data, title, subTitle, legendDisplay = false } = props
   return (
     <div className="row row--no-gutter">

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Provider } from "react-redux"
 import "./css/flexboxgrid.min.css"
 import "./css/style.css"
@@ -21,12 +21,20 @@ if (window.WebSocket) {
   console.info("WebSocket is not supported by your browser.")
 }
 
-const App = () => (
-  <Provider store={store}>
+const App = () => {
+  const [databaseOnline, setDatabaseOnline] = useState(true)
+
+  return (
     <React.StrictMode>
-      <Router />
+      {databaseOnline ? (
+        <Provider store={store}>
+          <Router />
+        </Provider>
+      ) : (
+        <p>Database is offline!</p>
+      )}
     </React.StrictMode>
-  </Provider>
-)
+  )
+}
 
 export default App

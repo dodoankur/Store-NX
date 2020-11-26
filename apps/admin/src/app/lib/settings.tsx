@@ -1,3 +1,3 @@
-import Config from "../config"
+import { Admin } from "@store/config"
 
-export default Config
+export default Admin
