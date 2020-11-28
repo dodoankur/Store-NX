@@ -3,7 +3,7 @@ import { Provider } from "react-redux"
 import "./css/flexboxgrid.min.css"
 import "./css/style.css"
 import { apiWebSoket, auth, settings } from "./lib"
-import { fetchSettings } from "./modules/settings/actions"
+import { fetchSettings } from "./modules/settings/reducer"
 import Router from "./router"
 import store from "./store"
 

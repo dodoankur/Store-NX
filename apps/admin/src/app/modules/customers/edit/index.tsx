@@ -8,7 +8,7 @@ import {
   setDefaultShippingAddress,
   updateAddress,
   updateCustomer,
-} from "../actions"
+} from "../reducer"
 import CustomerDetails from "./components/details"
 
 const mapStateToProps = (state, ownProps) => {

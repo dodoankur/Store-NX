@@ -4,7 +4,7 @@ import {
   fetchWebhook,
   receiveWebhook,
   updateWebhook,
-} from "../../actions"
+} from "../../reducer"
 import Form from "./components/form"
 
 const mapStateToProps = (state, ownProps) => {

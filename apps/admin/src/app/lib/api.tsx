@@ -1,4 +1,4 @@
-import CezerinClient from "cezerin2-client"
+import CezerinClient from "@store/client"
 import settings from "./settings"
 
 const dashboardToken = localStorage.getItem("dashboard_token")

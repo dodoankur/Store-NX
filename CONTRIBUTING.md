@@ -24,6 +24,7 @@ are also embracers of new technology,
 - Can't have empty divs and use <> when required,
 - Props in components is best put on the very top except above useState hooks,
 - Don't put ={true} in boolean props,
+- Always use async/await with try/catch and error handling is must!,
 - Always use interface without types when defining typescript,
 - Components and functions needed to be preditable and easily understood, and
   best follow code quality checkers and hears my definition, (Programming

@@ -2,7 +2,7 @@ import RestClient from "./restClient"
 
 class AjaxClient extends RestClient {
   getConfig(method: string, data, cookie) {
-    const config = {
+    const config: any = {
       credentials: this.getCredentialsConfig(this.baseUrl),
       method,
       headers: {

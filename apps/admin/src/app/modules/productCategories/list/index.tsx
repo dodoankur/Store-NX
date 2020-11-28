@@ -1,11 +1,11 @@
 import { connect } from "react-redux"
-import { fetchProducts } from "../../products/actions"
+import { fetchProducts } from "../../products/reducer"
+import List from "../components/list"
 import {
   createCategory,
   fetchCategoriesIfNeeded,
   selectCategory,
-} from "../actions"
-import List from "../components/list"
+} from "../reducer"
 
 const mapStateToProps = state => {
   return {

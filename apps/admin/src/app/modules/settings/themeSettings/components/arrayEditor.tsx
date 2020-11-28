@@ -3,7 +3,7 @@ import { Add } from "@material-ui/icons"
 import FloatingActionButton from "material-ui/FloatingActionButton"
 import React from "react"
 import { messages } from "../../../../lib"
-import DynamicEditControl from "./dynamicEditControl"
+// import DynamicEditControl from "./dynamicEditControl"
 import style from "./style.module.sass"
 
 interface props {
@@ -19,8 +19,8 @@ const ArrayEditor = (props: props) => {
       <div className={style.arrayTitle}>
         {label}
         <FloatingActionButton
-          mini={true}
-          secondary={true}
+          mini
+          secondary
           onClick={() => fields.push({})}
           style={{ marginLeft: "20px" }}
         >
@@ -68,16 +68,17 @@ const ArrayEditor = (props: props) => {
               <div className={style.arrayInnerBox}>
                 {properties.map((property, propertyIndex) => {
                   const fieldName = `${field}.${property.key}`
-                  return (
-                    <DynamicEditControl
-                      key={propertyIndex}
-                      type={property.type}
-                      fieldName={fieldName}
-                      label={property.label}
-                      options={property.options}
-                      properties={property.properties}
-                    />
-                  )
+                  // return (
+                  //   <DynamicEditControl
+                  //     key={propertyIndex}
+                  //     type={property.type}
+                  //     fieldName={fieldName}
+                  //     label={property.label}
+                  //     options={property.options}
+                  //     properties={property.properties}
+                  //   />
+                  // )
+                  return null
                 })}
               </div>
             </Paper>

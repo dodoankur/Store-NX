@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { fetchPaymentMethods } from "../actions"
+import { fetchPaymentMethods } from "../reducer"
 import Form from "./components/form"
 
 const mapStateToProps = state => {

@@ -322,8 +322,9 @@ const ProductImport = props => {
    *
    * @returns {undefined}
    */
-  function uploadImages() {
-    api.files.list().then(({ status, json }) => {
+  async function uploadImages() {
+    try {
+      const { json } = await api.files.list()
       imageFilesArray.forEach(aFile => {
         aFile.url.forEach(imageFile => {
           json.forEach(jFile => {
@@ -361,7 +362,9 @@ const ProductImport = props => {
           })
         })
       })
-    })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   useEffect(() => {

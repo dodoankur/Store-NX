@@ -1,5 +1,5 @@
+import CezerinClient from "@store/client"
 import { initOnServer } from "@store/theme"
-import CezerinClient from "cezerin2-client"
 import React from "react"
 import { renderToString } from "react-dom/server"
 import Helmet from "react-helmet"

@@ -8,7 +8,7 @@ interface file {
 }
 
 export const fetchFiles = createAsyncThunk(
-  "products/fetchFiles",
+  "files/fetchFiles",
   async (args, { dispatch }) => {
     try {
       const { json } = await api.files.list()
@@ -20,7 +20,7 @@ export const fetchFiles = createAsyncThunk(
 )
 
 export const uploadFiles = createAsyncThunk(
-  "products/uploadFiles",
+  "files/uploadFiles",
   async (form: any, { dispatch }) => {
     try {
       dispatch(filesUploadStart())
@@ -35,7 +35,7 @@ export const uploadFiles = createAsyncThunk(
 )
 
 export const deleteFile = createAsyncThunk(
-  "products/deleteFile",
+  "files/deleteFile",
   async (fileName: string, { dispatch }) => {
     try {
       await api.files.delete(fileName)
@@ -47,7 +47,7 @@ export const deleteFile = createAsyncThunk(
 )
 
 const productSlice = createSlice({
-  name: "products",
+  name: "files",
   initialState: {
     files: [],
     uploading: false,

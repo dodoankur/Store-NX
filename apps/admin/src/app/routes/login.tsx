@@ -1,5 +1,5 @@
 import { Button, Paper, TextField } from "@material-ui/core"
-import CezerinClient from "cezerin2-client"
+import CezerinClient from "@store/client"
 import React, { FC, useEffect, useState } from "react"
 import { auth, messages, settings } from "../lib"
 

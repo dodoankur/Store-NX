@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import { webstoreAuth } from "../../../lib"
-import { fetchServices } from "../actions"
+import { fetchServices } from "../reducer"
 import List from "./components/list"
 
 const mapStateToProps = (state, ownProps) => {

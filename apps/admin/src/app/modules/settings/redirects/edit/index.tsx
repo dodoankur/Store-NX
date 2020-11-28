@@ -1,10 +1,10 @@
 import { connect } from "react-redux"
 import {
-  fetchRedirect,
-  updateRedirect,
   createRedirect,
+  fetchRedirect,
   receiveRedirect,
-} from "../../actions"
+  updateRedirect,
+} from "../../reducer"
 import Form from "./components/form"
 
 const mapStateToProps = (state, ownProps) => {

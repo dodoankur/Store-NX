@@ -6,7 +6,7 @@ class Tokens {
     this.resourceUrl = "/security/tokens"
   }
 
-  list(filter: any) {
+  list(filter?: any) {
     return this.client.get(this.resourceUrl, filter)
   }
 

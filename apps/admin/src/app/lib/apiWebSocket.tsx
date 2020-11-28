@@ -1,5 +1,5 @@
-import { fetchOrders } from "../modules/orders/actions"
-import { installReceive } from "../modules/settings/actions"
+import { fetchOrders } from "../modules/orders/reducer"
+import { installReceive } from "../modules/settings/reducer"
 import settings from "./settings"
 import messages from "./text"
 

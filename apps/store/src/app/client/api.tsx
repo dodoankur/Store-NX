@@ -1,4 +1,4 @@
-import CezerinClient from "cezerin2-client"
+import CezerinClient from "@store/client"
 import clientSettings from "./settings"
 
 const api = new CezerinClient({

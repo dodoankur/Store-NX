@@ -7,7 +7,7 @@ import {
   fetchOptions,
   updateOption,
   updateOptionValue,
-} from "../../actions"
+} from "../../reducer"
 import ProductOptionForm from "./components/option"
 
 const mapStateToProps = (state, ownProps) => {
@@ -34,24 +34,24 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     deleteOption: () => {
       const { productId, optionId } = ownProps.match.params
-      dispatch(deleteOption(productId, optionId))
+      dispatch(deleteOption({ productId, optionId }))
       ownProps.history.push(`/admin/product/${productId}`)
     },
     onSubmit: values => {
       const { productId, optionId } = ownProps.match.params
-      dispatch(updateOption(productId, optionId, values))
+      dispatch(updateOption({ productId, optionId, values }))
     },
     createOptionValue: valueName => {
       const { productId, optionId } = ownProps.match.params
-      dispatch(createOptionValue(productId, optionId, valueName))
+      dispatch(createOptionValue({ productId, optionId, valueName }))
     },
     updateOptionValue: (valueId, valueName) => {
       const { productId, optionId } = ownProps.match.params
-      dispatch(updateOptionValue(productId, optionId, valueId, valueName))
+      dispatch(updateOptionValue({ productId, optionId, valueId, valueName }))
     },
     deleteOptionValue: valueId => {
       const { productId, optionId } = ownProps.match.params
-      dispatch(deleteOptionValue(productId, optionId, valueId))
+      dispatch(deleteOptionValue({ productId, optionId, valueId }))
     },
   }
 }

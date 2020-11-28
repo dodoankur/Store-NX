@@ -8,7 +8,7 @@ import {
   updateOrder,
   updateOrderItem,
   updateShippingAddress,
-} from "../actions"
+} from "../reducer"
 import OrderDetails from "./components/details"
 
 const mapStateToProps = (state, ownProps) => {

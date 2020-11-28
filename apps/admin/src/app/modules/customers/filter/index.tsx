@@ -5,7 +5,7 @@ import {
   setFilterDiscontinued,
   setFilterOnSale,
   setFilterStock,
-} from "../actions"
+} from "../reducer"
 import Filter from "./components/fields"
 
 const mapStateToProps = state => {

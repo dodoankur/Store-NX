@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { webstoreAuth } from "../../../lib"
-import { fetchAccount, updateAccount, updateDeveloperAccount } from "../actions"
+import { fetchAccount, updateAccount, updateDeveloperAccount } from "../reducer"
 import Details from "./components/details"
 
 const mapStateToProps = (state, ownProps) => {

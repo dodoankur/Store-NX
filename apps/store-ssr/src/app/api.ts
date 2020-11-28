@@ -1,4 +1,4 @@
-import CezerinClient from "cezerin2-client"
+import CezerinClient from "@store/client"
 import jwt from "jsonwebtoken"
 import serverSettings from "./settings"
 

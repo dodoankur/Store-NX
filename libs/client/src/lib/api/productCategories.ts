@@ -6,7 +6,7 @@ class ProductCategories {
     this.resourceUrl = "/product_categories"
   }
 
-  list(filter) {
+  list(filter?) {
     return this.client.get(this.resourceUrl, filter)
   }
 
@@ -14,7 +14,7 @@ class ProductCategories {
     return this.client.get(`${this.resourceUrl}/${id}`)
   }
 
-  create(data: string) {
+  create(data: { enabled: boolean; name?: string; parent_id?: string }) {
     return this.client.post(this.resourceUrl, data)
   }
 

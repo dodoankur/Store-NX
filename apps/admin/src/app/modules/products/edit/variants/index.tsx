@@ -6,7 +6,7 @@ import {
   deleteVariant,
   setVariantOption,
   updateVariant,
-} from "../../actions"
+} from "../../reducer"
 import ProductVariantsGrid from "./components/grid"
 
 const mapStateToProps = (state, ownProps) => {
@@ -29,23 +29,31 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onSkuChange: (variantId, value) => {
       const { productId } = ownProps.match.params
-      dispatch(updateVariant(productId, variantId, { sku: value }))
+      const variant = { sku: value }
+      const args = { productId, variantId, variant }
+      dispatch(updateVariant(args))
     },
     onPriceChange: (variantId, value) => {
       const { productId } = ownProps.match.params
-      dispatch(updateVariant(productId, variantId, { price: value }))
+      const variant = { price: value }
+      const args = { productId, variantId, variant }
+      dispatch(updateVariant(args))
     },
     onStockChange: (variantId, value) => {
       const { productId } = ownProps.match.params
-      dispatch(updateVariant(productId, variantId, { stock_quantity: value }))
+      const variant = { stock_quantity: value }
+      const args = { productId: productId, variantId: variantId, variant }
+      dispatch(updateVariant(args))
     },
     onWeightChange: (variantId, value) => {
       const { productId } = ownProps.match.params
-      dispatch(updateVariant(productId, variantId, { weight: value }))
+      const variant = { weight: value }
+      dispatch(updateVariant({ productId, variantId, variant }))
     },
     onOptionChange: (variantId, optionId, valueId) => {
       const { productId } = ownProps.match.params
-      dispatch(setVariantOption(productId, variantId, optionId, valueId))
+      const args = { productId, variantId, optionId, valueId }
+      dispatch(setVariantOption(args))
     },
     createVariant: () => {
       const { productId } = ownProps.match.params
@@ -53,7 +61,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     deleteVariant: variantId => {
       const { productId } = ownProps.match.params
-      dispatch(deleteVariant(productId, variantId))
+      dispatch(deleteVariant({ productId, variantId }))
     },
     createOption: () => {
       const { productId } = ownProps.match.params
@@ -63,7 +71,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         required: true,
         control: "select",
       }
-      dispatch(createOption(productId, newOption))
+      dispatch(createOption({ productId, newOption }))
     },
   }
 }

@@ -7,7 +7,7 @@ import {
   fetchProducts,
   selectAllProduct,
   selectProduct,
-} from "../actions"
+} from "../reducer"
 import List from "./components/list"
 
 const mapStateToProps = (state, ownProps) => {

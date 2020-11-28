@@ -3,14 +3,18 @@ import queryString from "query-string"
 
 class RestClient {
   baseUrl: string
-  token: any
-  constructor({ baseUrl, token }) {
+  token?: string
+  constructor({ baseUrl, token }: { baseUrl: string; token?: string }) {
     this.baseUrl = baseUrl
     this.token = token
   }
 
-  getConfig(method: string, data?: any) {
-    const config = {
+  getConfig(method: string, data?: any, cookie?: any) {
+    const config: {
+      method: string
+      headers: { "Content-Type": string; Authorization: string }
+      body?: string
+    } = {
       method,
       headers: {
         "Content-Type": "application/json",

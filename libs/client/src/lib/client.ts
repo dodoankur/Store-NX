@@ -54,21 +54,21 @@ class Client {
   apiToken: any
   ajaxBaseUrl: any
   webstoreToken: any
-  products: Products
+  products: any | Products
   productCategories: ProductCategories
   customers: Customers
-  orders: Orders
+  orders: any | Orders
   orderStatuses: OrderStatuses
   shippingMethods: ShippingMethods
   paymentMethods: PaymentMethods
   paymentGateways: PaymentGateways
   customerGroups: CustomerGroups
   sitemap: Sitemap
-  theme: Theme
+  theme: any | Theme
   countries: Countries
   currencies: Currencies
   text: Text
-  settings: Settings
+  settings: any | Settings
   checkoutFields: CheckoutFields
   pages: Pages
   tokens: Tokens
@@ -154,7 +154,7 @@ class Client {
 
   static authorize = (baseUrl, email) => ApiClient.authorize(baseUrl, email)
 
-  static authorizeInWebStore = (email, adminUrl) =>
+  static authorizeInWebStore = (email, adminUrl): any =>
     WebStoreClient.authorize(email, adminUrl)
 }
 

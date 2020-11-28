@@ -1,11 +1,5 @@
 import { connect } from "react-redux"
-import {
-  updateCategory,
-  deselectCategory,
-  fetchCategories,
-  deleteImage,
-  uploadImage,
-} from "../actions"
+import { deleteImage, updateCategory, uploadImage } from "../reducer"
 import ProductCategoryEditForm from "./components/form"
 
 const mapStateToProps = state => {

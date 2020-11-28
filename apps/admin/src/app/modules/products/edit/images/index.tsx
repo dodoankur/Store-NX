@@ -5,7 +5,7 @@ import {
   updateImage,
   updateImages,
   uploadImages,
-} from "../../actions"
+} from "../../reducer"
 import ProductImages from "./components/images"
 
 const mapStateToProps = (state, ownProps) => {
@@ -24,23 +24,18 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onImageDelete: (productId, imageId) => {
-      dispatch(deleteImage(productId, imageId))
+      dispatch(deleteImage({ productId, imageId }))
     },
     onImageSort: (productId, images) => {
-      dispatch(updateImages(productId, images))
+      dispatch(updateImages({ productId, images }))
     },
     onImageUpdate: image => {
       const { productId } = ownProps.match.params
-      dispatch(
-        updateImage(productId, {
-          id: image.id,
-          alt: image.alt,
-        })
-      )
+      dispatch(updateImage({ productId, image }))
     },
     onImageUpload: form => {
       const { productId } = ownProps.match.params
-      dispatch(uploadImages(productId, form))
+      dispatch(uploadImages({ productId, form }))
     },
   }
 }

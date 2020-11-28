@@ -1,10 +1,10 @@
 import { connect } from "react-redux"
 import {
-  exportRequest,
   exportReceive,
-  installRequest,
+  exportRequest,
   installReceive,
-} from "../actions"
+  installRequest,
+} from "../reducer"
 import Form from "./components/form"
 
 const mapStateToProps = state => {

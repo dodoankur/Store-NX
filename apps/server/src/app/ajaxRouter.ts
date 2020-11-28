@@ -1,5 +1,5 @@
+import CezerinClient from "@store/client"
 import bcrypt from "bcrypt"
-import CezerinClient from "cezerin2-client"
 import express from "express"
 import handlebars from "handlebars"
 import jwt from "jsonwebtoken"

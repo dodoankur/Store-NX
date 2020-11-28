@@ -7,7 +7,7 @@ import {
   fetchOrders,
   selectAllOrder,
   selectOrder,
-} from "../actions"
+} from "../reducer"
 import List from "./components/list"
 
 const mapStateToProps = (state, ownProps) => {

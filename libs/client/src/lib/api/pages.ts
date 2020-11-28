@@ -6,7 +6,7 @@ class Pages {
     this.resourceUrl = "/pages"
   }
 
-  list(filter) {
+  list(filter?) {
     return this.client.get(this.resourceUrl, filter)
   }
 

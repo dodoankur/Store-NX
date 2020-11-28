@@ -6,7 +6,7 @@ class Files {
     this.resourceUrl = "/files"
   }
 
-  list(filter) {
+  list(filter?) {
     return this.client.get(this.resourceUrl, filter)
   }
 

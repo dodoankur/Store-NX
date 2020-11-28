@@ -6,7 +6,7 @@ class OrderStatuses {
     this.resourceUrl = "/order_statuses"
   }
 
-  list(filter) {
+  list(filter?) {
     return this.client.get(this.resourceUrl, filter)
   }
 

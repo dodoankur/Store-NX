@@ -1,11 +1,10 @@
-import React from "react"
 import { connect } from "react-redux"
 import {
-  fetchCustomers,
   deleteCustomers,
-  setGroup,
+  fetchCustomers,
   setFilterSearch,
-} from "../actions"
+  setGroup,
+} from "../reducer"
 import Buttons from "./components/buttons"
 
 const mapStateToProps = state => {

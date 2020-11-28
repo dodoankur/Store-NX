@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import { messages } from "../../../lib"
-import { fetchCategoriesIfNeeded } from "../../productCategories/actions"
-import { cancelProductEdit, fetchProduct } from "../actions"
+import { fetchCategoriesIfNeeded } from "../../productCategories/reducer"
+import { cancelProductEdit, fetchProduct } from "../reducer"
 import ProductAdditional from "./additional"
 import ProductAttributes from "./attributes"
 import ProductGeneral from "./general"
@@ -14,9 +14,6 @@ import ProductVariants from "./variants"
 const ProductEditContainer = props => {
   useEffect(() => {
     props.fetchData()
-  }, [])
-
-  useEffect(() => {
     return () => props.eraseData()
   }, [])
 

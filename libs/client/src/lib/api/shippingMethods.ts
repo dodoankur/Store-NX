@@ -6,11 +6,11 @@ class ShippingMethods {
     this.resourceUrl = "/shipping_methods"
   }
 
-  list(filter) {
+  list(filter?) {
     return this.client.get(this.resourceUrl, filter)
   }
 
-  retrieve(id: string, filter) {
+  retrieve(id: string, filter?) {
     return this.client.get(`${this.resourceUrl}/${id}`, filter)
   }
 

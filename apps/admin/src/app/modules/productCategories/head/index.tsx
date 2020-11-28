@@ -7,7 +7,7 @@ import {
   moveDownCategory,
   moveUpCategory,
   replaceCategory,
-} from "../actions"
+} from "../reducer"
 import Buttons from "./components/buttons"
 
 const mapStateToProps = state => {

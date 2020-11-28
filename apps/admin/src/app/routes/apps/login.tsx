@@ -1,5 +1,5 @@
 import { Button, Paper, TextField } from "@material-ui/core"
-import CezerinClient from "cezerin2-client"
+import CezerinClient from "@store/client"
 import React, { useEffect, useState } from "react"
 import { auth, messages } from "../../lib"
 
@@ -17,19 +17,22 @@ const LoginForm = () => {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsFetching(true)
     setEmailIsSent(false)
     setError(null)
 
-    CezerinClient.authorizeInWebStore(
-      email,
-      window.location.origin + "/admin"
-    ).then(({ status, json }) => {
+    try {
+      const { status, json } = await CezerinClient.authorizeInWebStore(
+        email,
+        window.location.origin + "/admin"
+      )
       setIsFetching(false)
       setEmailIsSent(status === 200)
       setError(status !== 200 && json ? json.message : null)
-    })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   useEffect(() => {
