@@ -218,7 +218,7 @@ class OrdersService {
                 : ""
 
             // generate password-hash
-            const salt = bcrypt.genSaltSync(saltRounds)
+            const salt = bcrypt.genSaltSync(Number(saltRounds))
             const hashPassword = bcrypt.hashSync(order.password, salt)
 
             return CustomersService.addCustomer({

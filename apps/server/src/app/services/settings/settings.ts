@@ -8,6 +8,7 @@ import settings from "../../lib/settings"
 import utils from "../../lib/utils"
 
 class SettingsService {
+  defaultSettings: any
   constructor() {
     this.defaultSettings = {
       store_name: "",

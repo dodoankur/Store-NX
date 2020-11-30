@@ -16,7 +16,9 @@ const getPaymentFormSettings = options => {
 
 const processOrderPayment = async ({ order, gatewaySettings, settings }) => {
   try {
-    const stripe = stripePackage(gatewaySettings.secret_key)
+    const stripe = new stripePackage(gatewaySettings.secret_key, {
+      apiVersion: "2020-08-27",
+    })
     const charge = await stripe.charges.create({
       amount: order.grand_total * 100,
       currency: settings.currency_code,

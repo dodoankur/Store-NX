@@ -8,20 +8,20 @@ const cache = new lruCache({
   maxAge: 1000 * 60 * 60 * 24, // 24h
 })
 
-const WEBHOOKS_CACHE_KEY = "webhooks"
+const webhooksCacheKey = "webhooks"
 
 class WebhooksService {
   constructor() {}
 
-  async getWebhooks() {
-    const webhooksFromCache = cache.get(WEBHOOKS_CACHE_KEY)
+  async getWebhooks(query?) {
+    const webhooksFromCache = cache.get(webhooksCacheKey)
 
     if (webhooksFromCache) {
       return webhooksFromCache
     } else {
       const items = await db.collection("webhooks").find().toArray()
       const result = items.map(item => this.changeProperties(item))
-      cache.set(WEBHOOKS_CACHE_KEY, result)
+      cache.set(webhooksCacheKey, result)
       return result
     }
   }
@@ -42,7 +42,7 @@ class WebhooksService {
   async addWebhook(data) {
     const webhook = this.getValidDocumentForInsert(data)
     const res = await db.collection("webhooks").insertMany([webhook])
-    cache.del(WEBHOOKS_CACHE_KEY)
+    cache.del(webhooksCacheKey)
     const newWebhookId = res.ops[0]._id.toString()
     const newWebhook = await this.getSingleWebhook(newWebhookId)
     return newWebhook
@@ -64,7 +64,7 @@ class WebhooksService {
       }
     )
 
-    cache.del(WEBHOOKS_CACHE_KEY)
+    cache.del(webhooksCacheKey)
     const newWebhook = await this.getSingleWebhook(id)
     return newWebhook
   }
@@ -77,7 +77,7 @@ class WebhooksService {
     const res = await db
       .collection("webhooks")
       .deleteOne({ _id: webhookObjectID })
-    cache.del(WEBHOOKS_CACHE_KEY)
+    cache.del(webhooksCacheKey)
     return res.deletedCount > 0
   }
 

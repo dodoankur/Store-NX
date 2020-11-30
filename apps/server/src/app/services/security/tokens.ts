@@ -1,14 +1,14 @@
-import { ObjectID } from "mongodb"
-import url from "url"
-import jwt from "jsonwebtoken"
-import moment from "moment"
-import uaParser from "ua-parser-js"
 import handlebars from "handlebars"
+import jwt from "jsonwebtoken"
 import lruCache from "lru-cache"
+import moment from "moment"
+import { ObjectID } from "mongodb"
+import { UAParser } from "ua-parser-js"
+import url from "url"
+import mailer from "../../lib/mailer"
 import { db } from "../../lib/mongo"
 import parse from "../../lib/parse"
 import settings from "../../lib/settings"
-import mailer from "../../lib/mailer"
 import SettingsService from "../settings/settings"
 
 const cache = new lruCache({
@@ -16,13 +16,13 @@ const cache = new lruCache({
   maxAge: 1000 * 60 * 60 * 24, // 24h
 })
 
-const BLACKLIST_CACHE_KEY = "blacklist"
+const blackListCacheKey = "blacklist"
 
 class SecurityTokensService {
   constructor() {}
 
-  getTokens(params = {}) {
-    let filter = {
+  getTokens(params: any = {}) {
+    let filter: any = {
       is_revoked: false,
     }
     const id = parse.getObjectIDIfValid(params.id)
@@ -43,7 +43,7 @@ class SecurityTokensService {
   }
 
   getTokensBlacklist() {
-    const blacklistFromCache = cache.get(BLACKLIST_CACHE_KEY)
+    const blacklistFromCache = cache.get(blackListCacheKey)
 
     if (blacklistFromCache) {
       return Promise.resolve(blacklistFromCache)
@@ -59,7 +59,7 @@ class SecurityTokensService {
         .toArray()
         .then(items => {
           const blacklistFromDB = items.map(item => item._id.toString())
-          cache.set(BLACKLIST_CACHE_KEY, blacklistFromDB)
+          cache.set(blackListCacheKey, blacklistFromDB)
           return blacklistFromDB
         })
     }
@@ -129,7 +129,7 @@ class SecurityTokensService {
         }
       )
       .then(res => {
-        cache.del(BLACKLIST_CACHE_KEY)
+        cache.del(blackListCacheKey)
       })
   }
 
@@ -149,7 +149,7 @@ class SecurityTokensService {
   getValidDocumentForInsert(data) {
     const email = parse.getString(data.email)
     return this.checkTokenEmailUnique(email).then(email => {
-      let token = {
+      let token: any = {
         is_revoked: false,
         date_created: new Date(),
       }
@@ -170,7 +170,7 @@ class SecurityTokensService {
       return new Error("Required fields are missing")
     }
 
-    let token = {
+    let token: any = {
       date_updated: new Date(),
     }
 
@@ -197,9 +197,9 @@ class SecurityTokensService {
 
   getSignedToken(token) {
     return new Promise((resolve, reject) => {
-      const jwtOptions = {}
+      const jwtOptions: any = {}
 
-      let payload = {
+      let payload: any = {
         scopes: token.scopes,
         jti: token.id,
       }
@@ -281,7 +281,7 @@ class SecurityTokensService {
 
   async sendDashboardSigninUrl(req) {
     const email = req.body.email
-    const userAgent = uaParser(req.get("user-agent"))
+    const userAgent = new UAParser(req.get("user-agent"))
     const country = req.get("cf-ipcountry") || ""
     const ip = this.getIP(req)
     const date = moment(new Date()).format("dddd, MMMM DD, YYYY h:mm A")
@@ -290,10 +290,15 @@ class SecurityTokensService {
     if (link) {
       const linkObj = url.parse(link)
       const domain = `${linkObj.protocol}//${linkObj.host}`
-      const device = userAgent.device.vendor
-        ? userAgent.device.vendor + " " + userAgent.device.model + ", "
+      const device = userAgent.getDevice().vendor
+        ? userAgent.getDevice().vendor +
+          " " +
+          userAgent.getDevice().model +
+          ", "
         : ""
-      const requestFrom = `${device}${userAgent.os.name}, ${userAgent.browser.name}<br />
+      const requestFrom = `${device}${userAgent.getOS().name}, ${
+        userAgent.getBrowser().name
+      }<br />
       ${date}<br />
       IP: ${ip}<br />
       ${country}`
@@ -301,7 +306,7 @@ class SecurityTokensService {
       const message = {
         to: email,
         subject: this.getTextFromHandlebars(this.getSigninMailSubject(), {
-          from: userAgent.os.name,
+          from: userAgent.getOS().name,
         }),
         html: this.getTextFromHandlebars(this.getSigninMailBody(), {
           link,

@@ -95,7 +95,7 @@ const fillCartItems = cartResponse => {
 }
 
 ajaxRouter.get("/products", (req, res) => {
-  const filter = req.query
+  const filter: any = req.query
   filter.enabled = true
   api.products
     .list(filter)
@@ -237,7 +237,7 @@ ajaxRouter.post("/forgot-password", async (req, res, next) => {
 })
 
 ajaxRouter.post("/customer-account", async (req, res, next) => {
-  const customerData = {
+  const customerData: any = {
     token: "",
     authenticated: false,
     customer_settings: null,
@@ -349,7 +349,7 @@ ajaxRouter.post("/register", async (req, res, next) => {
     // if requestToken array has no splitable part response token is wrong
     if (requestTokenArray.length < 2) {
       data.isRightToken = false
-      res.status("200").send(data)
+      res.status(200).send(data)
       return false
     }
 
@@ -373,7 +373,7 @@ ajaxRouter.post("/register", async (req, res, next) => {
         )
       ) {
         data.isRightToken = false
-        res.status("200").send(data)
+        res.status(200).send(data)
         return false
       }
 
@@ -408,7 +408,7 @@ ajaxRouter.post("/register", async (req, res, next) => {
       })
     })()
     data.isCustomerSaved = true
-    res.status("200").send(data)
+    res.status(200).send(data)
     return true
   }
 
@@ -452,7 +452,7 @@ ajaxRouter.post("/register", async (req, res, next) => {
             shop_name: settings.store_name,
           }),
         }),
-        res.status("200").send(data),
+        res.status(200).send(data),
       ])
     }
     return false
@@ -478,14 +478,14 @@ ajaxRouter.post("/register", async (req, res, next) => {
 ajaxRouter.put("/customer-account", async (req, res, next) => {
   const customerData = req.body
   const token = AuthHeader.decodeUserLoginAuth(req.body.token)
-  const userId = null
+  let userId = null
   try {
     userId = JSON.stringify(token.userId).replace(/["']/g, "")
   } catch (erro) {}
 
   // generate password-hash
   const inputPassword = customerData.password
-  const salt = bcrypt.genSaltSync(saltRounds)
+  const salt = bcrypt.genSaltSync(Number(saltRounds))
   const hashPassword = bcrypt.hashSync(inputPassword, salt)
 
   // setup objects and filter
@@ -516,7 +516,7 @@ ajaxRouter.put("/customer-account", async (req, res, next) => {
   try {
     // update customer
     await db.collection("customers").updateMany(
-      { _id: ObjectID(userId) },
+      { _id: new ObjectID(userId) },
       {
         $set: customerDraftObj,
       },
@@ -524,7 +524,7 @@ ajaxRouter.put("/customer-account", async (req, res, next) => {
       async (error, result) => {
         if (error) {
           // alert
-          res.status("200").send(error)
+          res.status(200).send(error)
         }
         customerDataObj.customer_settings = result
         customerDataObj.customer_settings.password = "*******"
@@ -534,13 +534,13 @@ ajaxRouter.put("/customer-account", async (req, res, next) => {
         if (customerData.saved_addresses === 0) {
           let objJsonB64 = JSON.stringify(customerDataObj)
           objJsonB64 = Buffer.from(objJsonB64).toString("base64")
-          res.status("200").send(JSON.stringify(objJsonB64))
+          res.status(200).send(JSON.stringify(objJsonB64))
           return false
         }
 
         // update orders
         await db.collection("orders").updateMany(
-          { customer_id: ObjectID(userId) },
+          { customer_id: new ObjectID(userId) },
           {
             $set: {
               shipping_address: customerData.shipping_address,
@@ -550,12 +550,12 @@ ajaxRouter.put("/customer-account", async (req, res, next) => {
           (error, result) => {
             if (error) {
               // alert
-              res.status("200").send(error)
+              res.status(200).send(error)
             }
             customerDataObj.order_statuses = result
             let objJsonB64 = JSON.stringify(customerDataObj)
             objJsonB64 = Buffer.from(objJsonB64).toString("base64")
-            res.status("200").send(JSON.stringify(objJsonB64))
+            res.status(200).send(JSON.stringify(objJsonB64))
           }
         )
       }
@@ -565,7 +565,7 @@ ajaxRouter.put("/customer-account", async (req, res, next) => {
 
 ajaxRouter.post("/cart/items", (req, res, next) => {
   const isHttps = req.protocol === "https"
-  const CART_COOKIE_OPTIONS = getCartCookieOptions(isHttps)
+  const cartCookieOptions = getCartCookieOptions(isHttps)
 
   const { order_id } = req.signedCookies
   const item = req.body
@@ -577,7 +577,7 @@ ajaxRouter.post("/cart/items", (req, res, next) => {
         res.status(status).send(json)
       })
   } else {
-    const orderDraft = {
+    const orderDraft: any = {
       draft: true,
       referrer_url: req.signedCookies.referrer_url,
       landing_url: req.signedCookies.landing_url,
@@ -607,7 +607,7 @@ ajaxRouter.post("/cart/items", (req, res, next) => {
       .then(orderDraft => {
         api.orders.create(orderDraft).then(orderResponse => {
           const orderId = orderResponse.json.id
-          res.cookie("order_id", orderId, CART_COOKIE_OPTIONS)
+          res.cookie("order_id", orderId, cartCookieOptions)
           api.orders.items
             .create(orderId, item)
             .then(cartResponse => fillCartItems(cartResponse))
@@ -757,7 +757,7 @@ ajaxRouter.get("/pages/:id", (req, res) => {
 
 ajaxRouter.get("/sitemap", async (req, res) => {
   let result = null
-  const filter = req.query
+  const filter: any = req.query
   filter.enabled = true
 
   const sitemapResponse = await api.sitemap.retrieve(req.query)
