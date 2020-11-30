@@ -15,6 +15,7 @@ yarn global add nx
 echo "................................"
 
 echo "Building Cezerin3"
+nx run admin:build --baseHref=/admin --deployUrl=/admin/ --extractCss --extractLicenses --no-namedChunks --optimization --outputHashing=all --no-sourceMap --no-vendorChunk
 nx run admin:build
 nx run store:build
 echo "................................"
