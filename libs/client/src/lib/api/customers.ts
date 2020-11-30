@@ -6,7 +6,7 @@ class Customers {
     this.resourceUrl = "/customers"
   }
 
-  list(filter) {
+  list(filter?) {
     return this.client.get(this.resourceUrl, filter)
   }
 
