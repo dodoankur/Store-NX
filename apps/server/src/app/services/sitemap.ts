@@ -2,9 +2,7 @@ import { db } from "../lib/mongo"
 import parse from "../lib/parse"
 
 class SitemapService {
-  constructor() {}
-
-  getPaths(onlyEnabled) {
+  getPaths(onlyEnabled?) {
     const slug = null
     onlyEnabled = parse.getBooleanIfValid(onlyEnabled, false)
 

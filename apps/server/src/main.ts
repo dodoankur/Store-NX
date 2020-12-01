@@ -41,6 +41,7 @@ app.use(logger.sendResponse)
 const server = app.listen(port, () => {
   console.log(`API listening at http://localhost:${port}/`)
 })
-server.on("error", console.error)
 
 dashboardWebSocket.listen(server)
+
+server.on("error", console.error)

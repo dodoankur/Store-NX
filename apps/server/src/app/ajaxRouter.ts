@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CezerinClient from "@store/client"
 import bcrypt from "bcrypt"
 import express from "express"

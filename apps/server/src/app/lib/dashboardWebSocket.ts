@@ -1,10 +1,11 @@
+import { Server } from "http"
 import url from "url"
 import WebSocket from "ws"
 import security from "./security"
 
 let wss = null
 
-const listen = server => {
+const listen = (server: Server) => {
   wss = new WebSocket.Server({
     path: "/ws/dashboard", //Accept only connections matching this path
     maxPayload: 1024, //The maximum allowed message size
@@ -21,38 +22,38 @@ const getTokenFromRequestPath = requestPath => {
   try {
     const urlObj = url.parse(requestPath, true)
     return urlObj.query.token
-  } catch (e) {
+  } catch (error) {
+    console.error(error)
     return null
   }
 }
 
-const verifyClient = (info, done) => {
+const verifyClient = async (info, done) => {
   if (security.DEVELOPER_MODE === true) {
     done(true)
   } else {
     const requestPath = info.req.url
     const token = getTokenFromRequestPath(requestPath)
-    security
-      .verifyToken(token)
-      .then(tokenDecoded => {
-        // TODO: check access to dashboard
-        done(true)
-      })
-      .catch(err => {
-        done(false, 401)
-      })
+    try {
+      await security.verifyToken(token)
+      // TODO: check access to dashboard
+      done(true)
+    } catch (error) {
+      console.error(error)
+      done(false, 401)
+    }
   }
 }
 
-const onConnection = (ws, req) => {
+const onConnection = (ws: WebSocket, req) => {
   // TODO: ws.user = token.email
-  ws.on("error", () => {})
+  ws.on("error", console.error)
 }
 
 const broadcastToAll = data => {
   wss.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) {
-      client.send(data, error => {})
+      client.send(data, console.error)
     }
   })
 }

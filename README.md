@@ -6,25 +6,25 @@ therefore we kindly request to make all pull request to this!
 This has little bit of bugs in here, but admin works very fine!
 To start,
 You need to have cli,
-yarn global add nx
+`yarn global add nx`
 or
-npm install -g nx
+`npm i -g nx`
 
 And also install deps with,
-Yarn
-Or
-npm I
+`yarn`
+or
+`npm i`
 
 And now you can run admin with,
-nx run admin:serve --port=3000
+`nx run admin:serve`
 
 you can start server with,
-nx run server:serve --port=3001
+`nx run server:serve`
 Though note server has a little bug in it.
 
 To start the store,
 You first need to build the store with,
-nx run store:build
+`nx run store:build`
 and then start ssr-server with,
 nx run store-ssr:serve --port=3000
 However also note store have some bugs.
