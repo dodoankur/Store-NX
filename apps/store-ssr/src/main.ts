@@ -1,5 +1,6 @@
 import cookieParser from "cookie-parser"
 import * as express from "express"
+import fse from "fs-extra"
 import helmet from "helmet"
 import path from "path"
 import responseTime from "response-time"
@@ -33,12 +34,25 @@ app.use(
     staticOptions
   )
 )
-
-app.use("/admin", express.static(path.resolve(__dirname, "../admin")))
+app.use(
+  "/admin",
+  express.static(path.resolve(__dirname, "../admin"), staticOptions)
+)
 
 app.use("/admin", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../admin", "index.html"))
 })
+
+app.use("/", (req, res, next) => {
+  if (fse.existsSync(path.resolve(__dirname, "../store/index.html"))) {
+    fse.moveSync(
+      path.resolve(__dirname, "../store/index.html"),
+      path.resolve(__dirname, "../store/assets/index.html")
+    )
+  }
+  next()
+})
+app.use("/", express.static(path.resolve(__dirname, "../store"), staticOptions))
 
 app.get(
   /^.+\.(jpg|jpeg|gif|png|bmp|ico|webp|svg|css|js|zip|rar|flv|swf|xls)$/,
@@ -52,6 +66,7 @@ app.get("/sitemap.xml", sitemapRendering)
 app.get("*", redirects)
 app.use(responseTime())
 app.use(cookieParser(settings.cookieSecretKey))
+
 app.get("*", pageRendering)
 
 const server = app.listen(port, () => {

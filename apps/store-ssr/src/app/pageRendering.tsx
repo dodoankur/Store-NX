@@ -1,5 +1,6 @@
 import CezerinClient from "@store/client"
 import { initOnServer } from "@store/theme"
+import { Request, Response } from "express"
 import React from "react"
 import { renderToString } from "react-dom/server"
 import Helmet from "react-helmet"
@@ -133,23 +134,22 @@ const renderPage = (req, res, store, themeText, placeholders) => {
   res.status(httpStatusCode).send(html)
 }
 
-const pageRendering = (req, res) => {
-  loadState(req, serverSettings.language)
-    .then(({ state, themeText, placeholders }) => {
-      initOnServer({
-        themeSettings: state.app.themeSettings,
-        text: themeText,
-      })
-      const store = createStore(
-        reducers,
-        state,
-        applyMiddleware(thunkMiddleware)
-      )
-      renderPage(req, res, store, themeText, placeholders)
+const pageRendering = async (req: Request, res: Response) => {
+  try {
+    const { state, themeText, placeholders } = await loadState(
+      req,
+      serverSettings.language
+    )
+    initOnServer({
+      themeSettings: state.app.themeSettings,
+      text: themeText,
     })
-    .catch(err => {
-      renderError(req, res, err)
-    })
+    const store = createStore(reducers, state, applyMiddleware(thunkMiddleware))
+    renderPage(req, res, store, themeText, placeholders)
+  } catch (error) {
+    console.error(error)
+    renderError(req, res, error)
+  }
 }
 
 export default pageRendering
