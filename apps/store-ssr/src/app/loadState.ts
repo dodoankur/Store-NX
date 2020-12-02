@@ -1,3 +1,4 @@
+import { Request } from "express"
 import {
   getParsedProductFilter,
   getProductFilterForCategory,
@@ -214,7 +215,7 @@ const getFilter = (currentPage, urlQuery, settings) => {
   return productFilter
 }
 
-export const loadState = (req, language) => {
+export const loadState = async (req: Request, language: string) => {
   const cookie = req.get("cookie")
   const urlPath = req.path
   const urlQuery = req.url.includes("?")
@@ -227,27 +228,28 @@ export const loadState = (req, language) => {
     hash: "",
   }
 
-  return Promise.all([
-    getCurrentPage(req.path),
-    api.settings.retrieve().then(({ status, json }) => json),
-    themeLocales.getText(language),
-    api.theme.placeholders.list(),
-  ]).then(([currentPage, settings, themeText, placeholdersResponse]) => {
+  try {
+    const currentPage = await getCurrentPage(req.path)
+    const { json } = await api.settings.retrieve()
+    const settings = json
+    const themeText = await themeLocales.getText(language)
+    const placeholdersResponse = await api.theme.placeholders.list()
     const productFilter = getFilter(currentPage, urlQuery, settings)
 
-    return getAllData(currentPage, productFilter, cookie).then(allData => {
-      const state = getState(
-        currentPage,
-        settings,
-        allData,
-        location,
-        productFilter
-      )
-      return {
-        state: state,
-        themeText: themeText,
-        placeholders: placeholdersResponse.json,
-      }
-    })
-  })
+    const allData = await getAllData(currentPage, productFilter, cookie)
+    const state = getState(
+      currentPage,
+      settings,
+      allData,
+      location,
+      productFilter
+    )
+    return {
+      state: state,
+      themeText: themeText,
+      placeholders: placeholdersResponse.json,
+    }
+  } catch (error) {
+    console.error(error)
+  }
 }
