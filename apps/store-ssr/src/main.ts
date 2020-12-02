@@ -34,6 +34,14 @@ app.use(
     staticOptions
   )
 )
+app.use(
+  "/admin",
+  express.static(path.resolve(__dirname, "../admin"), staticOptions)
+)
+
+app.use("/admin", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "../admin", "index.html"))
+})
 
 app.use("/", (req, res, next) => {
   if (fse.existsSync(path.resolve(__dirname, "../store/index.html"))) {
@@ -45,14 +53,6 @@ app.use("/", (req, res, next) => {
   next()
 })
 app.use("/", express.static(path.resolve(__dirname, "../store"), staticOptions))
-app.use(
-  "/admin",
-  express.static(path.resolve(__dirname, "../admin"), staticOptions)
-)
-
-app.use("/admin", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "../admin", "index.html"))
-})
 
 app.get(
   /^.+\.(jpg|jpeg|gif|png|bmp|ico|webp|svg|css|js|zip|rar|flv|swf|xls)$/,
