@@ -5,7 +5,7 @@ class AjaxCart {
   }
 
   retrieve(cookie) {
-    return this.client.get(`/cart`, null, cookie)
+    return this.client.get(`/cart`, cookie)
   }
 
   update(data) {
