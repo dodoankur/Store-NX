@@ -3,7 +3,7 @@
 This repository will be the future update of cezerin3,
 therefore we kindly request to make all pull request to this!
 
-This has little bit of bugs in here, but admin works very fine!
+This has little bit of bugs in here, but admin, server works very fine!
 To start,
 You need to have cli,
 `yarn global add nx`
@@ -15,18 +15,17 @@ And also install deps with,
 or
 `npm i`
 
+you can first start server with,
+`nx run server:serve`
+
 And now you can run admin with,
 `nx run admin:serve`
-
-you can start server with,
-`nx run server:serve`
-Though note server has a little bug in it.
 
 To start the store,
 You first need to build the store with,
 `nx run store:build`
 and then start ssr-server with,
-nx run store-ssr:serve --port=3000
+nx run store-ssr:serve
 However also note store have some bugs.
 
 This project was generated using [Nx](https://nx.dev).
