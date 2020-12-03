@@ -47,7 +47,8 @@ app.use("/", (req, res, next) => {
   if (fse.existsSync(path.resolve(__dirname, "../store/index.html"))) {
     fse.moveSync(
       path.resolve(__dirname, "../store/index.html"),
-      path.resolve(__dirname, "../store/assets/index.html")
+      path.resolve(__dirname, "../store/assets/index.html"),
+      { overwrite: true }
     )
   }
   next()

@@ -3,35 +3,42 @@ import React, { useEffect, useState } from "react"
 import api from "../../lib/api"
 import ProductList from "../productList"
 
-let isCancelled
+let isCancelled: boolean
 const CustomProducts = props => {
   const [products, setProducts] = useState([])
+
+  const {
+    settings,
+    addCartItem,
+    isCentered,
+    className,
+    columnCountOnMobile,
+    columnCountOnTablet,
+    columnCountOnDesktop,
+    columnCountOnWidescreen,
+    columnCountOnFullhd,
+  } = props
 
   useEffect(() => {
     // isCancelled = false
     fetchProducts(props)
-  }, [])
-
-  useEffect(() => {
-    fetchProducts(props)
+    return () => (isCancelled = true)
   }, [props])
 
-  useEffect(() => {
-    return () => (isCancelled = true)
-  }, [])
+  const fetchProducts = async params => {
+    const {
+      ids,
+      sku,
+      sort,
+      limit,
+      category_id,
+      tags,
+      attributes,
+      price_from,
+      price_to,
+      on_sale,
+    } = params
 
-  const fetchProducts = ({
-    ids,
-    sku,
-    sort,
-    limit,
-    category_id,
-    tags,
-    attributes,
-    price_from,
-    price_to,
-    on_sale,
-  }) => {
     const filter = {
       ids,
       sku,
@@ -54,27 +61,15 @@ const CustomProducts = props => {
       })
     }
 
-    api.ajax.products
-      .list(filter)
-      .then(({ json }) => {
-        if (!isCancelled) {
-          setProducts(json.data)
-        }
-      })
-      .catch(() => {})
+    try {
+      const { json } = await api.ajax.products.list(filter)
+      if (!isCancelled) {
+        setProducts(json.data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
-
-  const {
-    settings,
-    addCartItem,
-    isCentered,
-    className,
-    columnCountOnMobile,
-    columnCountOnTablet,
-    columnCountOnDesktop,
-    columnCountOnWidescreen,
-    columnCountOnFullhd,
-  } = props
 
   return (
     <ProductList

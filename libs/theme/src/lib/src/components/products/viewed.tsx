@@ -3,8 +3,17 @@ import React, { useEffect, useState } from "react"
 import { text } from "../../lib/settings"
 import CustomProductList from "./custom"
 
-const ViewedProducts = props => {
+interface props {
+  limit
+  settings
+  addCartItem
+  product
+}
+
+const ViewedProducts = (props: props) => {
   const [viewedProducts, setViewedProducts] = useState([])
+
+  const { limit, settings, addCartItem, product } = props
 
   useEffect(() => {
     const { product } = props
@@ -12,12 +21,6 @@ const ViewedProducts = props => {
 
     if (product && product.id) {
       addProductIdToLocalStorage(product.id)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (props.product.id) {
-      addProductIdToLocalStorage(props.product.id)
     }
   }, [props.product])
 
@@ -36,8 +39,8 @@ const ViewedProducts = props => {
           values = viewedProductsParsed
         }
       }
-    } catch (e) {
-      //
+    } catch (error) {
+      console.error(error)
     }
 
     return values
@@ -59,8 +62,6 @@ const ViewedProducts = props => {
       setViewedProducts(getViewedProducts)
     }
   }
-
-  const { limit, settings, addCartItem, product } = props
 
   if (viewedProducts && product && product.id) {
     setViewedProducts(viewedProducts.filter(id => id !== product.id))

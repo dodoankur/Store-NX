@@ -1,15 +1,15 @@
 import { Request, Response } from "express"
 import formidable from "formidable"
 import fse from "fs-extra"
-import Grid from "gridfs"
-import mongo from "mongodb"
+// import Grid from "gridfs"
+// import mongo from "mongodb"
 import path from "path"
-import { db } from "../lib/mongo"
+// import { db } from "../lib/mongo"
 import settings from "../lib/settings"
 import utils from "../lib/utils"
 
 const CONTENT_PATH = path.resolve(settings.filesUploadPath)
-const gfs = Grid(db, mongo)
+// const gfs = Grid(db, mongo)
 
 class FilesService {
   getFileData(fileName: string) {

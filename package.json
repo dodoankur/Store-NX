@@ -24,7 +24,8 @@
     "update": "nx migrate latest",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "sstart": "concurrently \"nx run server:serve\" \"nx run store-ssr:serve\""
   },
   "private": true,
   "dependencies": {
