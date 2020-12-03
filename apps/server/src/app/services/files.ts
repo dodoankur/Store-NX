@@ -1,13 +1,18 @@
-import path from "path"
-import fse from "fs-extra"
+import { Request, Response } from "express"
 import formidable from "formidable"
-import utils from "../lib/utils"
+import fse from "fs-extra"
+import Grid from "gridfs"
+import mongo from "mongodb"
+import path from "path"
+import { db } from "../lib/mongo"
 import settings from "../lib/settings"
+import utils from "../lib/utils"
 
 const CONTENT_PATH = path.resolve(settings.filesUploadPath)
+const gfs = Grid(db, mongo)
 
 class FilesService {
-  getFileData(fileName) {
+  getFileData(fileName: string) {
     const filePath = CONTENT_PATH + "/" + fileName
     const stats = fse.statSync(filePath)
     if (stats.isFile()) {
@@ -23,7 +28,7 @@ class FilesService {
 
   getFilesData(files) {
     return files
-      .map(fileName => this.getFileData(fileName))
+      .map((fileName: string) => this.getFileData(fileName))
       .filter(fileData => fileData !== null)
       .sort((a, b) => a.modified - b.modified)
   }
@@ -41,7 +46,7 @@ class FilesService {
     })
   }
 
-  deleteFile(fileName) {
+  deleteFile(fileName: string) {
     return new Promise((resolve, reject) => {
       const filePath = CONTENT_PATH + "/" + fileName
       if (fse.existsSync(filePath)) {
@@ -54,7 +59,7 @@ class FilesService {
     })
   }
 
-  uploadFile(req, res, next) {
+  uploadFile(req: Request, res: Response) {
     const uploadDir = CONTENT_PATH
 
     let form = new formidable.IncomingForm(),
@@ -69,13 +74,13 @@ class FilesService {
         file.name = utils.getCorrectFileName(file.name)
         file.path = uploadDir + "/" + file.name
       })
-      .on("file", function (name, file) {
+      .on("file", (name, file) => {
         // every time a file has been uploaded successfully,
         file_name = file.name
         file_size = file.size
       })
-      .on("error", err => {
-        res.status(500).send(this.getErrorMessage(err))
+      .on("error", error => {
+        res.status(500).send(this.getErrorMessage(error))
       })
       .on("end", () => {
         //Emitted when the entire request has been received, and all contained files have finished flushing to disk.
@@ -84,15 +89,15 @@ class FilesService {
         } else {
           res
             .status(400)
-            .send(this.getErrorMessage("Required fields are missing"))
+            .send(this.getErrorMessage("Required fields are missing!"))
         }
       })
 
     form.parse(req)
   }
 
-  getErrorMessage(err) {
-    return { error: true, message: err.toString() }
+  getErrorMessage(error: string) {
+    return { error: true, message: error.toString() }
   }
 }
 
