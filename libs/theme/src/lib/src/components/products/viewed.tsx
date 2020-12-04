@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import React, { useEffect, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { text } from "../../lib/settings"
 import CustomProductList from "./custom"
 
@@ -10,23 +10,21 @@ interface props {
   product
 }
 
-const ViewedProducts = (props: props) => {
+const ViewedProducts: FC<props> = (props: props) => {
   const [viewedProducts, setViewedProducts] = useState([])
+  const [prevProductProp, setPrevProductProp] = useState(props.product)
 
   const { limit, settings, addCartItem, product } = props
 
   useEffect(() => {
     const { product } = props
+    setPrevProductProp(props.product)
     setViewedProducts(getArrayFromLocalStorage())
 
     if (product && product.id) {
       addProductIdToLocalStorage(product.id)
     }
-  }, [props.product])
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return viewedProducts !== nextState.viewedProducts
-  // }
+  }, [props.product !== prevProductProp])
 
   const getArrayFromLocalStorage = () => {
     let values = []

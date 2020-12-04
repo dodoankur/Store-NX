@@ -8,7 +8,7 @@ const Quantity = props => {
     if (quantity > props.maxQuantity) {
       setQuantities(props.maxQuantity)
     }
-  }, [props.maxQuantity])
+  }, [quantity > props.maxQuantity])
 
   const handleChange = event => {
     setQuantities(event.target.value)
