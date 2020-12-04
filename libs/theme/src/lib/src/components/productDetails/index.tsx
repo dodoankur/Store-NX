@@ -19,11 +19,19 @@ const Description = ({ description }) => (
   />
 )
 
-const ProductDetails = props => {
+interface props {
+  product
+  addCartItem
+  settings
+  categories
+}
+
+const ProductDetails = (props: props) => {
   const [selectedOptions, setSelectedOptions] = useState({})
   const [selectedVariant, setSelectedVariant] = useState(null)
   const [isAllOptionsSelected, setIsAllOptionsSelected] = useState(false)
   const [quantity, setQuantity] = useState(1)
+  const { product, addCartItem, settings, categories } = props
 
   function onOptionChange(optionId, valueId) {
     if (valueId === "") {
@@ -53,8 +61,6 @@ const ProductDetails = props => {
   }
 
   function addToCart() {
-    const { product, addCartItem } = props
-
     let item: any = {
       product_id: product.id,
       quantity: quantity,
@@ -75,7 +81,6 @@ const ProductDetails = props => {
     setIsAllOptionsSelected(allOptionsSelected)
   }
 
-  const { product, settings, categories } = props
   const maxQuantity =
     product.stock_status === "discontinued"
       ? 0

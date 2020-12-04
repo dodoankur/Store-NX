@@ -1,17 +1,29 @@
-import React from "react"
 import PropTypes from "prop-types"
+import React from "react"
 import Helmet from "react-helmet"
 
-const MetaTags = ({
-  title = null,
-  description,
-  canonicalUrl,
-  imageUrl,
-  ogType,
-  ogTitle,
-  ogDescription,
-  jsonld,
-}) => {
+interface props {
+  title: string
+  description: string
+  canonicalUrl: string
+  imageUrl: string
+  ogType: string
+  ogTitle: string
+  ogDescription: string
+  jsonld: string
+}
+
+const MetaTags = (props: props) => {
+  const {
+    title = null,
+    description,
+    canonicalUrl,
+    imageUrl,
+    ogType,
+    ogTitle,
+    ogDescription,
+    jsonld,
+  } = props
   const metaArray = []
   const linkArray = []
 

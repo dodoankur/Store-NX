@@ -2,7 +2,24 @@ import React from "react"
 import Item from "./item"
 import LoadMore from "./loadMore"
 
-const ProductList = props => {
+interface props {
+  products: any
+  addCartItem: any
+  settings: any
+  loadMoreProducts: boolean
+  hasMore: boolean
+  loadingProducts?: boolean
+  loadingMoreProducts?: boolean
+  isCentered?: boolean
+  className?: string
+  columnCountOnMobile?: number
+  columnCountOnTablet?: number
+  columnCountOnDesktop?: number
+  columnCountOnWidescreen?: number
+  columnCountOnFullhd?: number
+}
+
+const ProductList = (props: props) => {
   const {
     products,
     addCartItem,

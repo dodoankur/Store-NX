@@ -3,8 +3,49 @@ import React, { useEffect, useState } from "react"
 import api from "../../lib/api"
 import ProductList from "../productList"
 
+interface props {
+  ids?: any[]
+  sku?: string
+  sort?: string
+  limit: number
+  category_id?: string
+  tags?: string
+  attributes: {
+    name: string
+    value: string
+  }
+  price_from?: number
+  price_to?: number
+  on_sale?: boolean
+  settings: {}
+  addCartItem: Function
+  isCentered?: boolean
+  className?: string
+  columnCountOnMobile?: number
+  columnCountOnTablet?: number
+  columnCountOnDesktop?: number
+  columnCountOnWidescreen?: number
+  columnCountOnFullhd?: number
+}
+
+interface params {
+  ids?: any[]
+  sku?: string
+  sort?: string
+  limit: number
+  category_id?: string
+  tags?: string
+  attributes: {
+    name: string
+    value: string
+  }
+  price_from?: number
+  price_to?: number
+  on_sale?: boolean
+}
+
 let isCancelled: boolean
-const CustomProducts = props => {
+const CustomProducts = (props: props) => {
   const [products, setProducts] = useState([])
 
   const {
@@ -25,7 +66,7 @@ const CustomProducts = props => {
     return () => (isCancelled = true)
   }, [props])
 
-  const fetchProducts = async params => {
+  const fetchProducts = async (params: params) => {
     const {
       ids,
       sku,
