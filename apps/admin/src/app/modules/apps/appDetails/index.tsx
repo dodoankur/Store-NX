@@ -10,9 +10,9 @@ interface props {
 
 const AppDetails: FC<props> = ({ match }: props) => {
   const { appKey } = match.params
-  const app = apps.find(a => a.Description.key === appKey)
-  const AppModule = app.App
-  const appDescription = app.Description
+  const adminApps = apps.find(a => a.Description.key === appKey)
+  const AppModule = adminApps.App
+  const appDescription = adminApps.Description
 
   return (
     <div className={style.detailsContainer + " scroll col-full-height"}>
