@@ -7,9 +7,3 @@ export default {
   currencies: Currencies,
   timezones: Timezones,
 }
-
-export interface Reporter {
-  log: (message: string) => void
-}
-
-const _SNOWPACK = true // https://github.com/snowpackjs/snowpack/discussions/1589
