@@ -3,7 +3,14 @@ export let text = null
 export let language = null
 export let api = null
 
-const setVariables = options => {
+interface options {
+  themeSettings?
+  text?
+  language: string
+  api?
+}
+
+const setVariables = (options: options) => {
   if (options.themeSettings) {
     ;({ themeSettings } = options)
   }
@@ -21,10 +28,6 @@ const setVariables = options => {
   }
 }
 
-export const initOnClient = options => {
-  setVariables(options)
-}
-
-export const initOnServer = options => {
+export const initOnClient = (options: options) => {
   setVariables(options)
 }
