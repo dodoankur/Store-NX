@@ -15,7 +15,7 @@ import CategoryContainer from "./containers/category"
 import CheckoutContainer from "./containers/checkout"
 import CheckoutSuccessContainer from "./containers/checkoutSuccess"
 import ForgotPasswordContainer from "./containers/forgotPassword"
-// import IndexContainer from "./containers/index"
+import IndexContainer from "./containers/index"
 // import LoginContainer from "./containers/login"
 import NotFoundContainer from "./containers/notfound"
 import PageContainer from "./containers/page"
@@ -66,7 +66,7 @@ const SwitchContainers: FC<props> = (props: props) => {
     <Router>
       {/* <SharedContainer> */}
       <Switch>
-        {/* <Route component={IndexContainer} path="/" /> */}
+        <Route component={IndexContainer} path="/" />
         <Route component={ProductContainer} path="/product" />
         <Route component={CategoryContainer} path="/product-category" />
         <Route component={SearchContainer} path="/search" />

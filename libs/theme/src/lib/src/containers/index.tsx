@@ -21,16 +21,22 @@ interface props {
 const IndexContainer: FC<props> = (props: props) => {
   const {
     addCartItem,
-    state: {
-      pageDetails: {
-        meta_title = "",
-        meta_description = "",
-        url = "",
-        content = "",
-      },
-      settings,
-    },
+    state: { pageDetails = {}, settings },
   } = props
+
+  const {
+    meta_title = "",
+    meta_description = "",
+    url = "",
+    content = "",
+  } = pageDetails
+
+  let validatedThemeSettings: { home_slider?: [] } = {}
+  if (themeSettings) {
+    validatedThemeSettings = themeSettings
+  }
+
+  const { home_slider } = validatedThemeSettings
 
   return (
     <>
@@ -42,7 +48,7 @@ const IndexContainer: FC<props> = (props: props) => {
         ogDescription={meta_description}
       />
 
-      <HomeSlider images={themeSettings.home_slider} />
+      {home_slider ? <HomeSlider images={home_slider} /> : null}
 
       {content && content.length > 10 && (
         <section className="section">
@@ -57,21 +63,22 @@ const IndexContainer: FC<props> = (props: props) => {
           </div>
         </section>
       )}
-
-      <section className="section">
-        <div className="container">
-          <div className="title is-4 has-text-centered">
-            {themeSettings.home_products_title}
+      {themeSettings ? (
+        <section className="section">
+          <div className="container">
+            <div className="title is-4 has-text-centered">
+              {themeSettings.home_products_title}
+            </div>
+            <CustomProducts
+              sku={themeSettings.home_products_sku}
+              sort={themeSettings.home_products_sort}
+              limit={themeSettings.home_products_limit}
+              settings={settings}
+              addCartItem={addCartItem}
+            />
           </div>
-          <CustomProducts
-            sku={themeSettings.home_products_sku}
-            sort={themeSettings.home_products_sort}
-            limit={themeSettings.home_products_limit}
-            settings={settings}
-            addCartItem={addCartItem}
-          />
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   )
 }

@@ -4,10 +4,10 @@ export let language = null
 export let api = null
 
 interface options {
-  themeSettings?
-  text?
+  themeSettings
+  text
   language: string
-  api?
+  api
 }
 
 const setVariables = (options: options) => {
