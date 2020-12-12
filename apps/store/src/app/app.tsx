@@ -64,6 +64,7 @@ const SwitchContainers: FC<props> = (props: props) => {
 
   return (
     <Router>
+      {/* <SharedContainer> */}
       <Switch>
         {/* <Route component={IndexContainer} path="/" /> */}
         <Route component={ProductContainer} path="/product" />
@@ -79,6 +80,7 @@ const SwitchContainers: FC<props> = (props: props) => {
         <Route component={PageContainer} path="/page" />
         <Route component={NotFoundContainer} />
       </Switch>
+      {/* </SharedContainer> */}
     </Router>
   )
 }
