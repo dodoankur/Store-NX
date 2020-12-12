@@ -1,35 +1,56 @@
-import React from "react"
 import PropTypes from "prop-types"
-import { themeSettings } from "../lib/settings"
+import React from "react"
+import HomeSlider from "../components/homeSlider"
 import MetaTags from "../components/metaTags"
 import CustomProducts from "../components/products/custom"
-import HomeSlider from "../components/homeSlider"
+import { themeSettings } from "../lib/settings"
 
-const IndexContainer = props => {
+interface props {
+  addCartItem
+  state: {
+    pageDetails: {
+      meta_title?: string
+      meta_description?: string
+      url?: string
+      content?: string
+    }
+    settings
+  }
+}
+
+const IndexContainer = (props: props) => {
   const {
     addCartItem,
-    state: { pageDetails, settings },
+    state: {
+      pageDetails: {
+        meta_title = "",
+        meta_description = "",
+        url = "",
+        content = "",
+      },
+      settings,
+    },
   } = props
 
   return (
     <>
       <MetaTags
-        title={pageDetails.meta_title}
-        description={pageDetails.meta_description}
-        canonicalUrl={pageDetails.url}
-        ogTitle={pageDetails.meta_title}
-        ogDescription={pageDetails.meta_description}
+        title={meta_title}
+        description={meta_description}
+        canonicalUrl={url}
+        ogTitle={meta_title}
+        ogDescription={meta_description}
       />
 
       <HomeSlider images={themeSettings.home_slider} />
 
-      {pageDetails.content && pageDetails.content.length > 10 && (
+      {content && content.length > 10 && (
         <section className="section">
           <div className="container">
             <div className="content">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: pageDetails.content,
+                  __html: content,
                 }}
               />
             </div>
@@ -53,6 +74,14 @@ const IndexContainer = props => {
       </section>
     </>
   )
+}
+
+IndexContainer.defaultProps = {
+  addCartItem: () => {},
+  state: {
+    settings: {},
+    pageDetails: { meta_title: "", meta_description: "", url: "" },
+  },
 }
 
 IndexContainer.propTypes = {
