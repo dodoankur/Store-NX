@@ -404,31 +404,34 @@ export const setCurrentPage = location => async (dispatch, getState) => {
       })
     )
 
-    const category = app.categories.find(c => c.path === locationPathname)
-    if (category) {
-      const newCurrentPage = {
-        type: "product-category",
-        path: category.path,
-        resource: category.id,
-      }
-      dispatch(receiveSitemap(newCurrentPage)) // remove .data
-      dispatch(fetchDataOnCurrentPageChange(newCurrentPage))
-    } else {
-      const sitemapResponse = await api.ajax.sitemap.retrieve({
-        path: locationPathname,
-      })
-      if (sitemapResponse.status === 404) {
-        dispatch(
-          receiveSitemap({
-            type: 404,
-            path: locationPathname,
-            resource: null,
-          })
-        )
-      } else {
-        const newCurrentPage = sitemapResponse.json
-        dispatch(receiveSitemap(newCurrentPage))
+    if (app.categories) {
+      const category = app.categories.find(c => c.path === locationPathname)
+
+      if (category) {
+        const newCurrentPage = {
+          type: "product-category",
+          path: category.path,
+          resource: category.id,
+        }
+        dispatch(receiveSitemap(newCurrentPage)) // remove .data
         dispatch(fetchDataOnCurrentPageChange(newCurrentPage))
+      } else {
+        const sitemapResponse = await api.ajax.sitemap.retrieve({
+          path: locationPathname,
+        })
+        if (sitemapResponse.status === 404) {
+          dispatch(
+            receiveSitemap({
+              type: 404,
+              path: locationPathname,
+              resource: null,
+            })
+          )
+        } else {
+          const newCurrentPage = sitemapResponse.json
+          dispatch(receiveSitemap(newCurrentPage))
+          dispatch(fetchDataOnCurrentPageChange(newCurrentPage))
+        }
       }
     }
   }
