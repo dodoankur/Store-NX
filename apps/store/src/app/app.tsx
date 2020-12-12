@@ -1,7 +1,13 @@
 import { initOnClient, StoreLocales } from "@store/theme"
-import React, { FC } from "react"
+import React, { FC, useEffect, useRef } from "react"
 import { connect, Provider } from "react-redux"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter,
+} from "react-router-dom"
+import { animateScroll } from "react-scroll"
 // import { animateScroll } from "react-scroll"
 import { setCurrentPage } from "./actions"
 import AccountContainer from "./containers/account"
@@ -31,30 +37,30 @@ interface props {
 }
 
 const SwitchContainers: FC<props> = (props: props) => {
-  // const pathname = useRef(props.location.pathname)
-  // const search = useRef(props.location.search)
-  // const { location, currentPage, setCurrentPage } = props
+  const pathname = useRef(props.location.pathname)
+  const search = useRef(props.location.search)
+  const { location, currentPage, setCurrentPage } = props
 
-  // useEffect(() => {
-  //   setCurrentPage(location)
+  useEffect(() => {
+    setCurrentPage(location)
 
-  //   if (props.location) {
-  //     const pathnameChanged = props.location.pathname !== pathname.current
-  //     const queryChanged = props.location.search !== search.current
-  //     const isSearchPage = props.location.pathname === "/search"
+    if (props.location) {
+      const pathnameChanged = props.location.pathname !== pathname.current
+      const queryChanged = props.location.search !== search.current
+      const isSearchPage = props.location.pathname === "/search"
 
-  //     if (pathnameChanged || (queryChanged && isSearchPage)) {
-  //       animateScroll.scrollToTop({
-  //         duration: 500,
-  //         delay: 100,
-  //         smooth: true,
-  //       })
-  //     }
-  //   }
-  // }, [props.location])
+      if (pathnameChanged || (queryChanged && isSearchPage)) {
+        animateScroll.scrollToTop({
+          duration: 500,
+          delay: 100,
+          smooth: true,
+        })
+      }
+    }
+  }, [props.location])
 
-  // const locationPathname =
-  //   location && location.pathname ? location.pathname : "/"
+  const locationPathname =
+    location && location.pathname ? location.pathname : "/"
 
   return (
     <Router>
@@ -91,10 +97,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const SwitchContainersConnected = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SwitchContainers)
+const SwitchContainersConnected = withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SwitchContainers)
+)
 
 // const App = () => (
 //   <SharedContainer>
@@ -113,7 +118,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <SwitchContainersConnected />
+      <Router>
+        <SwitchContainersConnected />
+      </Router>
     </Provider>
   )
 }

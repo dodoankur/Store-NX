@@ -1,24 +1,24 @@
 import PropTypes from "prop-types"
-import React from "react"
+import React, { FC } from "react"
 import HomeSlider from "../components/homeSlider"
 import MetaTags from "../components/metaTags"
 import CustomProducts from "../components/products/custom"
 import { themeSettings } from "../lib/settings"
 
 interface props {
-  addCartItem
+  addCartItem: Function
   state: {
-    pageDetails: {
+    pageDetails?: {
       meta_title?: string
       meta_description?: string
       url?: string
       content?: string
     }
-    settings
+    settings?: {}
   }
 }
 
-const IndexContainer = (props: props) => {
+const IndexContainer: FC<props> = (props: props) => {
   const {
     addCartItem,
     state: {
@@ -80,7 +80,7 @@ IndexContainer.defaultProps = {
   addCartItem: () => {},
   state: {
     settings: {},
-    pageDetails: { meta_title: "", meta_description: "", url: "" },
+    pageDetails: { meta_title: "", meta_description: "", url: "", content: "" },
   },
 }
 
@@ -88,7 +88,12 @@ IndexContainer.propTypes = {
   addCartItem: PropTypes.func.isRequired,
   state: PropTypes.shape({
     settings: PropTypes.shape({}),
-    pageDetails: PropTypes.shape({}),
+    pageDetails: PropTypes.shape({
+      meta_title: PropTypes.string,
+      meta_description: PropTypes.string,
+      url: PropTypes.string,
+      content: PropTypes.string,
+    }),
   }).isRequired,
 }
 
