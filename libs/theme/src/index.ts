@@ -1,3 +1,4 @@
+import "./lib/assets/scss/theme.scss"
 // export * from "./lib/theme"
 export { default as StoreLocales, default as Text } from "./lib/locales/locale"
 export { default as AccountContainer } from "./lib/src/containers/account"
@@ -17,6 +18,6 @@ export { default as SharedContainer } from "./lib/src/containers/shared"
 export { initOnClient } from "./lib/src/lib/settings"
 
 // combine all css files into one with webpack. Hack to deal with server side rendering.
-if (typeof window !== "undefined") {
-  require("./lib/assets/scss/theme.scss")
-}
+// if (typeof window !== "undefined") {
+//   require("./lib/assets/scss/theme.scss")
+// }
