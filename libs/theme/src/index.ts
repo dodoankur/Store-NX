@@ -1,5 +1,5 @@
 // export * from "./lib/theme"
-export { default as Text } from "./lib/locales/locale"
+export { default as StoreLocales, default as Text } from "./lib/locales/locale"
 export { default as AccountContainer } from "./lib/src/containers/account"
 export { default as CategoryContainer } from "./lib/src/containers/category"
 export { default as CheckoutContainer } from "./lib/src/containers/checkout"
