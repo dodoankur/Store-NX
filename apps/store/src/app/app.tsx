@@ -8,7 +8,6 @@ import {
   withRouter,
 } from "react-router-dom"
 import { animateScroll } from "react-scroll"
-// import { animateScroll } from "react-scroll"
 import { setCurrentPage } from "./actions"
 import AccountContainer from "./containers/account"
 import CategoryContainer from "./containers/category"
@@ -16,14 +15,14 @@ import CheckoutContainer from "./containers/checkout"
 import CheckoutSuccessContainer from "./containers/checkoutSuccess"
 import ForgotPasswordContainer from "./containers/forgotPassword"
 import IndexContainer from "./containers/index"
-// import LoginContainer from "./containers/login"
+import LoginContainer from "./containers/login"
 import NotFoundContainer from "./containers/notfound"
 import PageContainer from "./containers/page"
 import ProductContainer from "./containers/product"
 import RegisterContainer from "./containers/register"
 import ResetPasswordContainer from "./containers/resetPassword"
 import SearchContainer from "./containers/search"
-// import SharedContainer from "./containers/shared"
+import SharedContainer from "./containers/shared"
 import api from "./lib/api"
 import settings from "./lib/settings"
 // import { PAGE, PRODUCT, PRODUCT_CATEGORY, SEARCH } from "./pageTypes"
@@ -64,23 +63,26 @@ const SwitchContainers: FC<props> = (props: props) => {
 
   return (
     <Router>
-      {/* <SharedContainer> */}
-      <Switch>
-        <Route component={IndexContainer} path="/" />
-        <Route component={ProductContainer} path="/product" />
-        <Route component={CategoryContainer} path="/product-category" />
-        <Route component={SearchContainer} path="/search" />
-        {/* <Route component={LoginContainer} path="/login" /> */}
-        <Route component={RegisterContainer} path="/register" />
-        <Route component={AccountContainer} path="/customer-account" />
-        <Route component={ForgotPasswordContainer} path="/forgot-password" />
-        <Route component={ResetPasswordContainer} path="/reset-password" />
-        <Route component={CheckoutContainer} path="/checkout" />
-        <Route component={CheckoutSuccessContainer} path="/checkout-success" />
-        <Route component={PageContainer} path="/page" />
-        <Route component={NotFoundContainer} />
-      </Switch>
-      {/* </SharedContainer> */}
+      <SharedContainer>
+        <Switch>
+          <Route component={IndexContainer} path="/" />
+          <Route component={ProductContainer} path="/product" />
+          <Route component={CategoryContainer} path="/product-category" />
+          <Route component={SearchContainer} path="/search" />
+          <Route component={LoginContainer} path="/login" />
+          <Route component={RegisterContainer} path="/register" />
+          <Route component={AccountContainer} path="/customer-account" />
+          <Route component={ForgotPasswordContainer} path="/forgot-password" />
+          <Route component={ResetPasswordContainer} path="/reset-password" />
+          <Route component={CheckoutContainer} path="/checkout" />
+          <Route
+            component={CheckoutSuccessContainer}
+            path="/checkout-success"
+          />
+          <Route component={PageContainer} path="/page" />
+          <Route component={NotFoundContainer} />
+        </Switch>
+      </SharedContainer>
     </Router>
   )
 }
