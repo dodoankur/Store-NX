@@ -48,7 +48,7 @@ const IndexContainer: FC<props> = (props: props) => {
         ogDescription={meta_description}
       />
 
-      {home_slider ? <HomeSlider images={home_slider} /> : null}
+      {home_slider && <HomeSlider images={home_slider} />}
 
       {content && content.length > 10 && (
         <section className="section">

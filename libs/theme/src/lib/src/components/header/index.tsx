@@ -149,7 +149,12 @@ const Header = props => {
   const classToggle = mobileMenuIsActive()
     ? "navbar-burger is-hidden-tablet is-active"
     : "navbar-burger is-hidden-tablet"
-  const showBackButton = currentPage.type === "product" && location.hasHistory
+  let showBackButton = false
+  if (currentPage) {
+    if (currentPage.type) {
+      showBackButton = currentPage.type === "product" && location.hasHistory
+    }
+  }
 
   return (
     <>
@@ -164,11 +169,13 @@ const Header = props => {
             </div>
 
             <div className="column is-4 has-text-centered column-logo">
-              <Logo
-                src={settings.logo}
-                onClick={() => setSiteStates(state.SITE)}
-                alt="logo"
-              />
+              {settings && (
+                <Logo
+                  src={settings.logo}
+                  onClick={() => setSiteStates(state.SITE)}
+                  alt="logo"
+                />
+              )}
             </div>
 
             <div className="column is-4 has-text-right header-block-right">
@@ -183,11 +190,13 @@ const Header = props => {
                   style={{ minWidth: 24 }}
                 />
               </span>
-              <SearchBox
-                value={productFilter.search}
-                onSearch={handleSearch}
-                className={mobileSearchIsActive ? "search-active" : ""}
-              />
+              {productFilter && (
+                <SearchBox
+                  value={productFilter.search}
+                  onSearch={handleSearch}
+                  className={mobileSearchIsActive ? "search-active" : ""}
+                />
+              )}
               <Login onClick={handleLogin} />
               <CartIndicator
                 cart={cart}
