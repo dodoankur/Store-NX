@@ -134,7 +134,6 @@
     "@types/express-jwt": "^0.0.42",
     "@types/formidable": "^1.0.31",
     "@types/fs-extra": "^9.0.4",
-    "@types/helmet": "^4.0.0",
     "@types/html-to-draftjs": "^1.4.0",
     "@types/jest": "26.0.8",
     "@types/jsonwebtoken": "^8.5.0",
