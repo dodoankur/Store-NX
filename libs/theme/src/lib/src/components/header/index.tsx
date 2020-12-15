@@ -1,6 +1,6 @@
 import Lscache from "lscache"
 import React, { useEffect, useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { text } from "../../lib/settings"
 import Cart from "./cart"
 import CartIndicator from "./cartIndicator"
@@ -45,8 +45,14 @@ const Header = props => {
   const [siteState, setSiteState] = useState(state.SITE)
   const [mobileSearchIsActive, setMobileSearchIsActive] = useState(false)
 
+  let path: string
+  path = useLocation().pathname
+  if (path) {
+    path = path ? path : ""
+  }
+
   useEffect(() => {
-    if (props.state.currentPage.path !== "/checkout") {
+    if (path !== "/checkout") {
       setSiteState(state.CART)
     }
   }, [props.state.cart])
@@ -122,7 +128,7 @@ const Header = props => {
   }
 
   const handleSearch = search => {
-    if (props.state.currentPage.path === "/search") {
+    if (path === "/search") {
       props.setSearch(search)
     } else {
       if (search && search !== "") {
@@ -150,10 +156,11 @@ const Header = props => {
     ? "navbar-burger is-hidden-tablet is-active"
     : "navbar-burger is-hidden-tablet"
   let showBackButton = false
-  if (currentPage) {
-    if (currentPage.type) {
-      showBackButton = currentPage.type === "product" && location.hasHistory
-    }
+  if (path) {
+    // if (currentPage.type) {
+    // showBackButton = currentPage.type === "product" && location.hasHistory
+    showBackButton = path === "product" && location.hasHistory
+    // }
   }
 
   return (

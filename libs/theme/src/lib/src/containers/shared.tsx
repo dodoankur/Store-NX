@@ -1,11 +1,17 @@
 import React, { FC } from "react"
+import { useLocation } from "react-router-dom"
 import Footer from "../components/footer"
 import Header from "../components/header"
 import { themeSettings } from "../lib/settings"
 
+// interface props {
+//   children: Node
+//   state: { currentPage: { path: string }; settings: {} }
+// }
+
 interface props {
   children: Node
-  state: { currentPage: { path: string }; settings: {} }
+  state: { currentPage: {}; settings: {} }
 }
 
 const SharedContainer: FC<props> = (props: props) => {
@@ -14,11 +20,9 @@ const SharedContainer: FC<props> = (props: props) => {
   const { currentPage, settings } = state
 
   let path: string
-
-  if (currentPage) {
-    if (currentPage.path) {
-      path = currentPage.path ? currentPage.path : ""
-    }
+  path = useLocation().pathname
+  if (path) {
+    path = path ? path : ""
   }
 
   const hideFooter =
