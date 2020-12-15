@@ -113,8 +113,7 @@ const SwitchContainersConnected = withRouter(
 
 const App = () => {
   initOnClient({
-    //@ts-ignore
-    themeSettings: store.getState().app.themeSettings,
+    themeSettings: StoreLocales,
     text: StoreLocales,
     language: settings.language,
     api: api,
@@ -123,7 +122,33 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <SwitchContainersConnected />
+        <Switch>
+          <Route component={IndexContainer} path="/" exact />
+          <Route component={ProductContainer} path="/product" exact />
+          <Route component={CategoryContainer} path="/product-category" exact />
+          <Route component={SearchContainer} path="/search" exact />
+          <Route component={LoginContainer} path="/login" exact />
+          <Route component={RegisterContainer} path="/register" exact />
+          <Route component={AccountContainer} path="/customer-account" exact />
+          <Route
+            component={ForgotPasswordContainer}
+            path="/forgot-password"
+            exact
+          />
+          <Route
+            component={ResetPasswordContainer}
+            path="/reset-password"
+            exact
+          />
+          <Route component={CheckoutContainer} path="/checkout" exact />
+          <Route
+            component={CheckoutSuccessContainer}
+            path="/checkout-success"
+            exact
+          />
+          <Route component={PageContainer} path="/page" exact />
+          <Route component={NotFoundContainer} />
+        </Switch>
       </Router>
     </Provider>
   )

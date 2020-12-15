@@ -19,11 +19,21 @@ export const formatNumber = (number, settings) => {
 }
 
 const amountPattern = "{amount}"
-export const formatCurrency = (number = 0, settings) =>
-  settings.currency_format.replace(
-    amountPattern,
-    formatNumber(number, settings)
-  )
+export const formatCurrency = (
+  number = 0,
+  settings: { currency_format: string }
+) => {
+  if (settings) {
+    return (
+      <>
+        {settings.currency_format.replace(
+          amountPattern,
+          formatNumber(number, settings)
+        )}
+      </>
+    )
+  } else return null
+}
 
 export const getThumbnailUrl = (originalUrl, width) => {
   if (originalUrl && originalUrl.length > 0) {
