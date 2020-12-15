@@ -34,7 +34,7 @@ const SharedContainer: FC<props> = (props: props) => {
       {themeSettings && <Header {...props} />}
 
       {children}
-      {!hideFooter && settings && <Footer settings={settings} />}
+      {!hideFooter && <Footer settings={settings} />}
     </>
   )
 }
