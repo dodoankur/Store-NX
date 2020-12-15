@@ -50,7 +50,7 @@ class FilesService {
       const filePath = contentPath + "/" + fileName
       if (fse.existsSync(filePath)) {
         fse.unlink(filePath, err => {
-          resolve()
+          resolve(200)
         })
       } else {
         reject("File not found")
