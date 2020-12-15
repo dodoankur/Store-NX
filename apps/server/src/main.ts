@@ -1,4 +1,4 @@
-import * as bodyParser from "body-parser"
+import { json, urlencoded } from "body-parser"
 import * as cookieParser from "cookie-parser"
 import * as express from "express"
 import * as helmet from "helmet"
@@ -32,8 +32,8 @@ app.all("*", (req, res, next) => {
 })
 app.use(responseTime())
 app.use(cookieParser(settings.cookieSecretKey))
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(urlencoded({ extended: true }))
+app.use(json())
 app.use("/ajax", ajaxRouter)
 app.use("/api", apiRouter)
 app.use(logger.sendResponse)
