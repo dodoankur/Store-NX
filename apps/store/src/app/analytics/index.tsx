@@ -1,4 +1,4 @@
-import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from "../pageTypes"
+import { PAGE, PRODUCT, SEARCH } from "../state/pageTypes"
 import * as googleAnalytics from "./googleAnalytics"
 
 export const onPageLoad = ({ state }) => {

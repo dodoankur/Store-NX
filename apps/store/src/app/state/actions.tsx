@@ -1,9 +1,9 @@
 // @ts-nocheck
 import queryString from "query-string"
 import { animateScroll } from "react-scroll"
+import * as analytics from "../analytics"
+import api from "../lib/api"
 import * as t from "./actionTypes"
-import * as analytics from "./analytics"
-import api from "./lib/api"
 import { PAGE, PRODUCT, PRODUCT_CATEGORY, SEARCH } from "./pageTypes"
 
 const requestProduct = () => ({ type: t.PRODUCT_REQUEST })

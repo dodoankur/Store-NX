@@ -8,7 +8,6 @@ import {
   withRouter,
 } from "react-router-dom"
 import { animateScroll } from "react-scroll"
-import { setCurrentPage } from "./actions"
 import AccountContainer from "./containers/account"
 import CategoryContainer from "./containers/category"
 import CheckoutContainer from "./containers/checkout"
@@ -25,8 +24,9 @@ import SearchContainer from "./containers/search"
 import SharedContainer from "./containers/shared"
 import api from "./lib/api"
 import settings from "./lib/settings"
+import { setCurrentPage } from "./state/actions"
 // import { PAGE, PRODUCT, PRODUCT_CATEGORY, SEARCH } from "./pageTypes"
-import store from "./store"
+import store from "./state/store"
 
 interface props {
   history?: string

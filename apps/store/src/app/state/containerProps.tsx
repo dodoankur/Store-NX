@@ -1,5 +1,6 @@
 // @ts-nocheck
 import queryString from "query-string"
+import { getJSONLD } from "../lib/jsonld"
 import {
   addCartItem,
   cartLayerInitialized,
@@ -19,7 +20,6 @@ import {
   updateCart,
   updateCartItemQuantiry,
 } from "./actions"
-import { getJSONLD } from "./lib/jsonld"
 
 const setQuery = (history, query) => {
   if (history && history.location) {

@@ -1,9 +1,10 @@
+import { StoreLocales as themeLocales } from "@store/theme"
+import api from "../lib/api"
 import {
   getParsedProductFilter,
   getProductFilterForCategory,
   getProductFilterForSearch,
 } from "./actions"
-import api from "./lib/api"
 import { PAGE, PRODUCT, PRODUCT_CATEGORY, SEARCH } from "./pageTypes"
 
 const PRODUCT_FIELDS =
@@ -66,35 +67,43 @@ const getThemeSettings = () => {
     .catch(err => ({}))
 }
 
-const getAllData = async (currentPage, productFilter, cookie) => {
-  const checkoutFields = await api.checkoutFields
-    .list()
-    .then(({ status, json }) => json)
-  const categories = await api.productCategories
-    .list({ enabled: true, fields: CATEGORIES_FIELDS })
-    .then(({ status, json }) => json)
-  const cart = await api.ajax.cart
-    .retrieve(cookie)
-    .then(({ status, json }) => json)
-  const products = await getProducts(currentPage, productFilter)
-  const product = await getProduct(currentPage)
-  const page = await getPage(currentPage)
-  const themeSettings = await getThemeSettings()
-
-  let categoryDetails = null
-  if (currentPage.type === PRODUCT_CATEGORY) {
-    categoryDetails = categories.find(c => c.id === currentPage.resource)
-  }
-  return {
-    checkoutFields,
-    categories,
-    cart,
-    products,
-    product,
-    page,
-    categoryDetails,
-    themeSettings,
-  }
+const getAllData = (currentPage, productFilter, cookie) => {
+  return Promise.all([
+    api.checkoutFields.list().then(({ status, json }) => json),
+    api.productCategories
+      .list({ enabled: true, fields: CATEGORIES_FIELDS })
+      .then(({ status, json }) => json),
+    api.ajax.cart.retrieve(cookie).then(({ status, json }) => json),
+    getProducts(currentPage, productFilter),
+    getProduct(currentPage),
+    getPage(currentPage),
+    getThemeSettings(),
+  ]).then(
+    ([
+      checkoutFields,
+      categories,
+      cart,
+      products,
+      product,
+      page,
+      themeSettings,
+    ]) => {
+      let categoryDetails = null
+      if (currentPage.type === PRODUCT_CATEGORY) {
+        categoryDetails = categories.find(c => c.id === currentPage.resource)
+      }
+      return {
+        checkoutFields,
+        categories,
+        cart,
+        products,
+        product,
+        page,
+        categoryDetails,
+        themeSettings,
+      }
+    }
+  )
 }
 
 const getState = (currentPage, settings, allData, location, productFilter) => {
@@ -201,16 +210,10 @@ const getFilter = (currentPage, urlQuery, settings) => {
 }
 
 export const loadState = async (req?, language?) => {
-  // const cookie = req.get("cookie")
-  // const urlPath = req.path
-  // const urlQuery = req.url.includes("?")
-  //   ? req.url.substring(req.url.indexOf("?"))
-  //   : ""
-  const empty = ""
-  const cookie = "" //req.get("cookie")
-  const urlPath = empty
-  const urlQuery = empty.includes("?")
-    ? empty.substring(empty.indexOf("?"))
+  const cookie = req.get("cookie")
+  const urlPath = req.path
+  const urlQuery = req.url.includes("?")
+    ? req.url.substring(req.url.indexOf("?"))
     : ""
   const location = {
     hasHistory: false,
@@ -219,25 +222,24 @@ export const loadState = async (req?, language?) => {
     hash: "",
   }
 
-  try {
-    const currentPage = await getCurrentPage(empty)
-    const { json } = await api.settings.retrieve()
-    const settings = json
-    const productFilter = getFilter(currentPage, urlQuery, settings)
+  const currentPage = await getCurrentPage(req.path)
+  const settings = await api.settings.retrieve().json
+  const themeText = themeLocales
+  const placeholdersResponse = await api.theme.placeholders.list()
+  const productFilter = getFilter(currentPage, urlQuery, settings)
 
-    return getAllData(currentPage, productFilter, cookie).then(allData => {
-      const state = getState(
-        currentPage,
-        settings,
-        allData,
-        location,
-        productFilter
-      )
-      return {
-        state: state,
-      }
-    })
-  } catch (error) {
-    console.error(error)
-  }
+  return getAllData(currentPage, productFilter, cookie).then(allData => {
+    const state = getState(
+      currentPage,
+      settings,
+      allData,
+      location,
+      productFilter
+    )
+    return {
+      state: state,
+      themeText: themeText,
+      placeholders: placeholdersResponse.json,
+    }
+  })
 }
