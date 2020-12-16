@@ -111,14 +111,13 @@ const SwitchContainersConnected = withRouter(
 //   </SharedContainer>
 // )
 
-const getThemeSettings = () => {
-  return api.theme.settings
-    .retrieve()
-    .then(({ status, json }) => {
-      console.log(json)
-      return json
-    })
-    .catch(err => ({}))
+const getThemeSettings = async () => {
+  try {
+    const { json } = await api.theme.settings.retrieve()
+    return json
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const App = () => {
