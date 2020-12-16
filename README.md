@@ -22,10 +22,8 @@ And now you can run admin with,
 `nx run admin:serve`
 
 To start the store,
-You first need to build the store with,
-`nx run store:build`
-and then start ssr-server with,
-nx run store-ssr:serve
+`nx run admin:store
+
 However also note store have some bugs.
 
 This project was generated using [Nx](https://nx.dev).
