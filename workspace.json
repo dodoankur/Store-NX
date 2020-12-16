@@ -15,13 +15,8 @@
             "main": "apps/admin/src/main.tsx",
             "polyfills": "apps/admin/src/polyfills.ts",
             "tsConfig": "apps/admin/tsconfig.app.json",
-            "assets": [
-              "apps/admin/src/favicon.ico",
-              "apps/admin/src/assets"
-            ],
-            "styles": [
-              "apps/admin/src/styles.sass"
-            ],
+            "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
+            "styles": ["apps/admin/src/styles.sass"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -64,9 +59,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/admin/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["apps/admin/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
@@ -99,9 +92,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/admin-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/admin-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -119,9 +110,7 @@
             "outputPath": "dist/apps/server",
             "main": "apps/server/src/main.ts",
             "tsConfig": "apps/server/tsconfig.app.json",
-            "assets": [
-              "apps/server/src/assets"
-            ]
+            "assets": ["apps/server/src/assets"]
           },
           "configurations": {
             "production": {
@@ -146,9 +135,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/server/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/server/**/*.ts"]
           }
         },
         "test": {
@@ -174,13 +161,8 @@
             "main": "apps/store/src/main.tsx",
             "polyfills": "apps/store/src/polyfills.ts",
             "tsConfig": "apps/store/tsconfig.app.json",
-            "assets": [
-              "apps/store/src/favicon.ico",
-              "apps/store/src/assets"
-            ],
-            "styles": [
-              "apps/store/src/styles.sass"
-            ],
+            "assets": ["apps/store/src/favicon.ico", "apps/store/src/assets"],
+            "styles": ["apps/store/src/styles.sass"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -223,9 +205,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/store/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["apps/store/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
@@ -258,9 +238,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/store-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/store-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -274,9 +252,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/theme/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/theme/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
@@ -297,9 +273,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/client/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/client/**/*.ts"]
           }
         },
         "test": {
@@ -320,9 +294,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/config/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/config/**/*.ts"]
           }
         },
         "test": {
