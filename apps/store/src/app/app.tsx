@@ -111,9 +111,19 @@ const SwitchContainersConnected = withRouter(
 //   </SharedContainer>
 // )
 
+const getThemeSettings = () => {
+  return api.theme.settings
+    .retrieve()
+    .then(({ status, json }) => {
+      console.log(json)
+      return json
+    })
+    .catch(err => ({}))
+}
+
 const App = () => {
   initOnClient({
-    themeSettings: StoreLocales,
+    themeSettings: getThemeSettings(),
     text: StoreLocales,
     language: settings.language,
     api: api,
