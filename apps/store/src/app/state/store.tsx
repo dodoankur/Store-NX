@@ -5,7 +5,7 @@ import reducer from "./reducers"
 let state
 
 async function stateLoad() {
-  state = (await loadState("", "en")).state
+  state = await loadState()
 }
 
 stateLoad()

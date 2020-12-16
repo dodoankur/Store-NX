@@ -200,7 +200,7 @@ const getFilter = (currentPage, urlQuery, settings) => {
   return productFilter
 }
 
-export const loadState = async (req?, language?) => {
+export const loadState = async () => {
   // const cookie = req.get("cookie")
   // const urlPath = req.path
   // const urlQuery = req.url.includes("?")
@@ -233,9 +233,7 @@ export const loadState = async (req?, language?) => {
         location,
         productFilter
       )
-      return {
-        state: state,
-      }
+      return state
     })
   } catch (error) {
     console.error(error)

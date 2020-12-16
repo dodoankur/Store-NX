@@ -1,5 +1,5 @@
 import { initOnClient, StoreLocales } from "@store/theme"
-import React, { FC, useEffect, useRef } from "react"
+import React, { FC, useEffect, useRef, useState } from "react"
 import { connect, Provider } from "react-redux"
 import {
   BrowserRouter as Router,
@@ -111,18 +111,24 @@ const SwitchContainersConnected = withRouter(
 //   </SharedContainer>
 // )
 
-const getThemeSettings = async () => {
-  try {
-    const { json } = await api.theme.settings.retrieve()
-    return json
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 const App = () => {
+  const [themeSettings, setThemeSettings] = useState()
+
+  const getThemeSettings = async () => {
+    try {
+      const { json } = await api.theme.settings.retrieve()
+      setThemeSettings(json)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    getThemeSettings()
+  }, [])
+
   initOnClient({
-    themeSettings: getThemeSettings(),
+    themeSettings: themeSettings,
     text: StoreLocales,
     language: settings.language,
     api: api,
