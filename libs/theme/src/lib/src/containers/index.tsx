@@ -1,65 +1,106 @@
-import React from "react"
 import PropTypes from "prop-types"
-import { themeSettings } from "../lib/settings"
+import React, { FC } from "react"
+import HomeSlider from "../components/homeSlider"
 import MetaTags from "../components/metaTags"
 import CustomProducts from "../components/products/custom"
-import HomeSlider from "../components/homeSlider"
+import { themeSettings } from "../lib/settings"
 
-const IndexContainer = props => {
+interface props {
+  addCartItem: Function
+  state: {
+    pageDetails?: {
+      meta_title?: string
+      meta_description?: string
+      url?: string
+      content?: string
+    }
+    settings?: {}
+  }
+}
+
+const IndexContainer: FC<props> = (props: props) => {
   const {
     addCartItem,
-    state: { pageDetails, settings },
+    state: { pageDetails = {}, settings },
   } = props
+
+  const {
+    meta_title = "",
+    meta_description = "",
+    url = "",
+    content = "",
+  } = pageDetails
+
+  let validatedThemeSettings: { home_slider?: [] } = {}
+  if (themeSettings) {
+    validatedThemeSettings = themeSettings
+  }
+
+  const { home_slider } = validatedThemeSettings
 
   return (
     <>
       <MetaTags
-        title={pageDetails.meta_title}
-        description={pageDetails.meta_description}
-        canonicalUrl={pageDetails.url}
-        ogTitle={pageDetails.meta_title}
-        ogDescription={pageDetails.meta_description}
+        title={meta_title}
+        description={meta_description}
+        canonicalUrl={url}
+        ogTitle={meta_title}
+        ogDescription={meta_description}
       />
 
-      <HomeSlider images={themeSettings.home_slider} />
+      {home_slider && <HomeSlider images={home_slider} />}
 
-      {pageDetails.content && pageDetails.content.length > 10 && (
+      {content && content.length > 10 && (
         <section className="section">
           <div className="container">
             <div className="content">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: pageDetails.content,
+                  __html: content,
                 }}
               />
             </div>
           </div>
         </section>
       )}
-
-      <section className="section">
-        <div className="container">
-          <div className="title is-4 has-text-centered">
-            {themeSettings.home_products_title}
+      {themeSettings ? (
+        <section className="section">
+          <div className="container">
+            <div className="title is-4 has-text-centered">
+              {themeSettings.home_products_title}
+            </div>
+            <CustomProducts
+              sku={themeSettings.home_products_sku}
+              sort={themeSettings.home_products_sort}
+              limit={themeSettings.home_products_limit}
+              settings={settings}
+              addCartItem={addCartItem}
+            />
           </div>
-          <CustomProducts
-            sku={themeSettings.home_products_sku}
-            sort={themeSettings.home_products_sort}
-            limit={themeSettings.home_products_limit}
-            settings={settings}
-            addCartItem={addCartItem}
-          />
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   )
+}
+
+IndexContainer.defaultProps = {
+  addCartItem: () => {},
+  state: {
+    settings: {},
+    pageDetails: { meta_title: "", meta_description: "", url: "", content: "" },
+  },
 }
 
 IndexContainer.propTypes = {
   addCartItem: PropTypes.func.isRequired,
   state: PropTypes.shape({
     settings: PropTypes.shape({}),
-    pageDetails: PropTypes.shape({}),
+    pageDetails: PropTypes.shape({
+      meta_title: PropTypes.string,
+      meta_description: PropTypes.string,
+      url: PropTypes.string,
+      content: PropTypes.string,
+    }),
   }).isRequired,
 }
 

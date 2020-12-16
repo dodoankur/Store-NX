@@ -1,4 +1,6 @@
+import "./lib/assets/scss/theme.scss"
 // export * from "./lib/theme"
+export { default as StoreLocales, default as Text } from "./lib/locales/locale"
 export { default as AccountContainer } from "./lib/src/containers/account"
 export { default as CategoryContainer } from "./lib/src/containers/category"
 export { default as CheckoutContainer } from "./lib/src/containers/checkout"
@@ -13,9 +15,9 @@ export { default as RegisterContainer } from "./lib/src/containers/register"
 export { default as ResetPasswordContainer } from "./lib/src/containers/resetPassword"
 export { default as SearchContainer } from "./lib/src/containers/search"
 export { default as SharedContainer } from "./lib/src/containers/shared"
-export { initOnClient, initOnServer } from "./lib/src/lib/settings"
+export { initOnClient } from "./lib/src/lib/settings"
 
 // combine all css files into one with webpack. Hack to deal with server side rendering.
-if (typeof window !== "undefined") {
-  require("./lib/assets/scss/theme.scss")
-}
+// if (typeof window !== "undefined") {
+//   require("./lib/assets/scss/theme.scss")
+// }

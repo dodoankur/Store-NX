@@ -1,11 +1,11 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
-import SettingsService from "../services/settings/settings"
-import EmailSettingsService from "../services/settings/email"
-import ImportSettingsService from "../services/settings/import"
-import CommerceSettingsService from "../services/settings/commerce"
-import EmailTemplatesService from "../services/settings/emailTemplates"
 import CheckoutFieldsService from "../services/settings/checkoutFields"
-import { Router } from "express"
+import CommerceSettingsService from "../services/settings/commerce"
+import EmailSettingsService from "../services/settings/email"
+import EmailTemplatesService from "../services/settings/emailTemplates"
+import ImportSettingsService from "../services/settings/import"
+import SettingsService from "../services/settings/settings"
 
 const router = Router()
 
@@ -86,12 +86,14 @@ router
     deleteLogo.bind(this)
   )
 
-function getSettings(req, res, next) {
-  SettingsService.getSettings()
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+async function getSettings(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await SettingsService.getSettings()
+    res.send(data)
+  } catch (error) {
+    console.error(error)
+    next()
+  }
 }
 
 function updateSettings(req, res, next) {

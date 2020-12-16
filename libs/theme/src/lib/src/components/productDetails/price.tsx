@@ -2,8 +2,9 @@ import React from "react"
 import * as helper from "../../lib/helper"
 import { themeSettings } from "../../lib/settings"
 
-const FormattedCurrency = ({ number, settings }) =>
-  helper.formatCurrency(number, settings)
+const FormattedCurrency = ({ number, settings }) => {
+  return helper.formatCurrency(number, settings)
+}
 
 const NewAndOldPrices = ({ newPrice, oldPrice, settings }) => (
   <div className="product-price">

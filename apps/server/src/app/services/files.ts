@@ -1,19 +1,18 @@
 import { Request, Response } from "express"
 import formidable from "formidable"
 import fse from "fs-extra"
-// import Grid from "gridfs"
-// import mongo from "mongodb"
+// import mongodb from "mongodb"
 import path from "path"
 // import { db } from "../lib/mongo"
 import settings from "../lib/settings"
 import utils from "../lib/utils"
 
-const CONTENT_PATH = path.resolve(settings.filesUploadPath)
-// const gfs = Grid(db, mongo)
+const contentPath = path.resolve(settings.filesUploadPath)
+// const bucket = new mongodb.GridFSBucket(db)
 
 class FilesService {
   getFileData(fileName: string) {
-    const filePath = CONTENT_PATH + "/" + fileName
+    const filePath = contentPath + "/" + fileName
     const stats = fse.statSync(filePath)
     if (stats.isFile()) {
       return {
@@ -35,7 +34,7 @@ class FilesService {
 
   getFiles() {
     return new Promise((resolve, reject) => {
-      fse.readdir(CONTENT_PATH, (err, files) => {
+      fse.readdir(contentPath, (err, files) => {
         if (err) {
           reject(err)
         } else {
@@ -48,10 +47,10 @@ class FilesService {
 
   deleteFile(fileName: string) {
     return new Promise((resolve, reject) => {
-      const filePath = CONTENT_PATH + "/" + fileName
+      const filePath = contentPath + "/" + fileName
       if (fse.existsSync(filePath)) {
         fse.unlink(filePath, err => {
-          resolve()
+          resolve(200)
         })
       } else {
         reject("File not found")
@@ -60,7 +59,7 @@ class FilesService {
   }
 
   uploadFile(req: Request, res: Response) {
-    const uploadDir = CONTENT_PATH
+    const uploadDir = contentPath
 
     let form = new formidable.IncomingForm(),
       file_name = null,

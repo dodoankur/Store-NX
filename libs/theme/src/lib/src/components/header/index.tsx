@@ -1,6 +1,6 @@
 import Lscache from "lscache"
 import React, { useEffect, useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { text } from "../../lib/settings"
 import Cart from "./cart"
 import CartIndicator from "./cartIndicator"
@@ -45,8 +45,14 @@ const Header = props => {
   const [siteState, setSiteState] = useState(state.SITE)
   const [mobileSearchIsActive, setMobileSearchIsActive] = useState(false)
 
+  let path: string
+  path = useLocation().pathname
+  if (path) {
+    path = path ? path : ""
+  }
+
   useEffect(() => {
-    if (props.state.currentPage.path !== "/checkout") {
+    if (path !== "/checkout") {
       setSiteState(state.CART)
     }
   }, [props.state.cart])
@@ -122,7 +128,7 @@ const Header = props => {
   }
 
   const handleSearch = search => {
-    if (props.state.currentPage.path === "/search") {
+    if (path === "/search") {
       props.setSearch(search)
     } else {
       if (search && search !== "") {
@@ -149,7 +155,13 @@ const Header = props => {
   const classToggle = mobileMenuIsActive()
     ? "navbar-burger is-hidden-tablet is-active"
     : "navbar-burger is-hidden-tablet"
-  const showBackButton = currentPage.type === "product" && location.hasHistory
+  let showBackButton = false
+  if (path) {
+    // if (currentPage.type) {
+    // showBackButton = currentPage.type === "product" && location.hasHistory
+    showBackButton = path === "product" && location.hasHistory
+    // }
+  }
 
   return (
     <>
@@ -164,11 +176,13 @@ const Header = props => {
             </div>
 
             <div className="column is-4 has-text-centered column-logo">
-              <Logo
-                src={settings.logo}
-                onClick={() => setSiteStates(state.SITE)}
-                alt="logo"
-              />
+              {settings && (
+                <Logo
+                  src={settings.logo}
+                  onClick={() => setSiteStates(state.SITE)}
+                  alt="logo"
+                />
+              )}
             </div>
 
             <div className="column is-4 has-text-right header-block-right">
@@ -183,11 +197,13 @@ const Header = props => {
                   style={{ minWidth: 24 }}
                 />
               </span>
-              <SearchBox
-                value={productFilter.search}
-                onSearch={handleSearch}
-                className={mobileSearchIsActive ? "search-active" : ""}
-              />
+              {productFilter && (
+                <SearchBox
+                  value={productFilter.search}
+                  onSearch={handleSearch}
+                  className={mobileSearchIsActive ? "search-active" : ""}
+                />
+              )}
               <Login onClick={handleLogin} />
               <CartIndicator
                 cart={cart}
