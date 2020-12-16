@@ -37,16 +37,16 @@ const validate = values => {
 const asyncValidate = (values /*, dispatch */) => {
   return new Promise((resolve, reject) => {
     if (!values.slug && values.is_system) {
-      resolve()
+      resolve(200)
     } else {
       api.sitemap.retrieve({ path: values.slug }).then(({ status, json }) => {
         if (status === 404) {
-          resolve()
+          resolve(404)
         } else {
           if (json && !Object.is(json.resource, values.id)) {
             reject({ slug: messages.errors_urlTaken })
           } else {
-            resolve()
+            resolve(404)
           }
         }
       })

@@ -1,9 +1,7 @@
-import { Button } from "@material-ui/core"
 import Snackbar from "material-ui/Snackbar"
-import React, { FC, useRef } from "react"
-import Dropzone from "react-dropzone"
+import React, { FC, useCallback } from "react"
+import { useDropzone } from "react-dropzone"
 import { messages } from "../../../../../lib"
-import style from "./style.module.sass"
 
 interface props {
   uploading: boolean
@@ -11,20 +9,29 @@ interface props {
 }
 
 const MultiUploader: FC<props> = (props: props) => {
-  const dropzone = useRef<any>()
-
-  const onDrop = files => {
+  const onDrop = useCallback(acceptedFiles => {
+    // Do something with the files
     let form = new FormData()
-    files.map(file => {
+    acceptedFiles.map(file => {
       form.append("file", file)
     })
     props.onUpload(form)
-  }
+  }, [])
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   const { uploading } = props
   return (
     <>
-      <Dropzone
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div>
+      {/* <Dropzone
         onDrop={onDrop}
         multiple
         disableClick
@@ -45,7 +52,7 @@ const MultiUploader: FC<props> = (props: props) => {
             {messages.chooseImage}
           </Button>
         </div>
-      </Dropzone>
+      </Dropzone> */}
 
       <Snackbar open={uploading} message={messages.messages_uploading} />
     </>
