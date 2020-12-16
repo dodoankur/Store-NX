@@ -3,11 +3,11 @@ import serverConfigs from "./settings"
 
 const cert = serverConfigs.jwtSecretKey
 class AuthHeader {
-  encodeUserLoginAuth(userId:string) {
+  encodeUserLoginAuth(userId: string) {
     return jwt.sign({ userId: userId }, cert)
   }
 
-  decodeUserLoginAuth(token:string) {
+  decodeUserLoginAuth(token: string) {
     try {
       return jwt.verify(token, cert)
     } catch (error) {
@@ -15,11 +15,11 @@ class AuthHeader {
     }
   }
 
-  encodeUserPassword(token:string) {
+  encodeUserPassword(token: string) {
     return jwt.sign({ password: token }, cert)
   }
 
-  decodeUserPassword(token:string) {
+  decodeUserPassword(token: string) {
     return jwt.verify(token, cert)
   }
 }

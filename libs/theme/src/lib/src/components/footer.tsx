@@ -76,9 +76,11 @@ const Contacts = ({ contacts }) => {
 }
 
 const Footer = props => {
-  const { settings } = props
+  const { settings = { logo: "" } } = props
   const footerLogoUrl =
-    themeSettings.footer_logo_url && themeSettings.footer_logo_url.length > 0
+    themeSettings &&
+    themeSettings.footer_logo_url &&
+    themeSettings.footer_logo_url.length > 0
       ? "/assets/images/" + themeSettings.footer_logo_url
       : settings.logo
 
@@ -89,27 +91,31 @@ const Footer = props => {
         <div className="container">
           <div className="content">
             <div className="columns is-gapless">
-              <div className="column is-5">
-                <div className="mobile-padding">
-                  <div className="footer-logo">
-                    <img src={footerLogoUrl} alt="logo" />
+              {themeSettings && (
+                <>
+                  <div className="column is-5">
+                    <div className="mobile-padding">
+                      <div className="footer-logo">
+                        <img src={footerLogoUrl} alt="logo" />
+                      </div>
+                      <p>
+                        <small>{themeSettings.footer_about}</small>
+                      </p>
+                      <Contacts contacts={themeSettings.footer_contacts} />
+                      <SocialIcons icons={themeSettings.footer_social} />
+                    </div>
                   </div>
-                  <p>
-                    <small>{themeSettings.footer_about}</small>
-                  </p>
-                  <Contacts contacts={themeSettings.footer_contacts} />
-                  <SocialIcons icons={themeSettings.footer_social} />
-                </div>
-              </div>
-              <div className="column is-1 is-hidden-mobile" />
-              <FooterMenu
-                title={themeSettings.footer_menu_1_title}
-                items={themeSettings.footer_menu_1_items}
-              />
-              <FooterMenu
-                title={themeSettings.footer_menu_2_title}
-                items={themeSettings.footer_menu_2_items}
-              />
+                  <div className="column is-1 is-hidden-mobile" />
+                  <FooterMenu
+                    title={themeSettings.footer_menu_1_title}
+                    items={themeSettings.footer_menu_1_items}
+                  />
+                  <FooterMenu
+                    title={themeSettings.footer_menu_2_title}
+                    items={themeSettings.footer_menu_2_items}
+                  />
+                </>
+              )}
             </div>
           </div>
         </div>

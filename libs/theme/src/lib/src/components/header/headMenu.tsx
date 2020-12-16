@@ -72,15 +72,17 @@ const HeadMenuItem = props => {
 }
 
 const HeadMenu = props => {
-  const { categories, onClick, isMobile } = props
+  const { categories = [], onClick, isMobile } = props
   let addItemsToMenu = []
-  if (themeSettings.header_menu && themeSettings.header_menu.length > 0) {
-    addItemsToMenu = themeSettings.header_menu.map(item => ({
-      name: item.text,
-      path: item.url,
-      id: item.id || "",
-      parent_id: item.parent_id || null,
-    }))
+  if (themeSettings) {
+    if (themeSettings.header_menu && themeSettings.header_menu.length > 0) {
+      addItemsToMenu = themeSettings.header_menu.map(item => ({
+        name: item.text,
+        path: item.url,
+        id: item.id || "",
+        parent_id: item.parent_id || null,
+      }))
+    }
   }
   const menuItems = [...categories, ...addItemsToMenu]
 

@@ -78,7 +78,14 @@ class Client {
   apps: any
   ajax: any
   webstore: any
-  constructor(options: any = {}) {
+  constructor(
+    options: {
+      apiBaseUrl?: string
+      apiToken?: string
+      ajaxBaseUrl?: string
+      webstoreToken?
+    } = {}
+  ) {
     this.apiBaseUrl = options.apiBaseUrl || "/api/v1"
     this.apiToken = options.apiToken
     this.ajaxBaseUrl = options.ajaxBaseUrl || "/ajax"

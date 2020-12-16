@@ -1,6 +1,6 @@
-import path from "path"
-import fse from "fs-extra"
 import formidable from "formidable"
+import fse from "fs-extra"
+import path from "path"
 import settings from "../../lib/settings"
 
 class ThemeAssetsService {
@@ -11,7 +11,7 @@ class ThemeAssetsService {
       )
       if (fse.existsSync(filePath)) {
         fse.unlink(filePath, err => {
-          resolve()
+          resolve(200)
         })
       } else {
         reject("File not found")

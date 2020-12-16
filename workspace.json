@@ -243,57 +243,6 @@
         }
       }
     },
-    "store-ssr": {
-      "root": "apps/store-ssr",
-      "sourceRoot": "apps/store-ssr/src",
-      "projectType": "application",
-      "prefix": "store-ssr",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/store-ssr",
-            "main": "apps/store-ssr/src/main.ts",
-            "tsConfig": "apps/store-ssr/tsconfig.app.json",
-            "assets": ["apps/store-ssr/src/assets"],
-            "webpackConfig": "apps/store-ssr/webpack.config.js"
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/store-ssr/src/environments/environment.ts",
-                  "with": "apps/store-ssr/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "store-ssr:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/store-ssr/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/store-ssr/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "theme": {
       "root": "libs/theme",
       "sourceRoot": "libs/theme/src",

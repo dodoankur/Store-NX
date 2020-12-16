@@ -18,7 +18,7 @@ const Config = {
   ajaxBaseUrl: `http://localhost:3001/ajax`,
 
   // Access-Control-Allow-Origin
-  storeBaseUrl: `http://localhost:3000`,
+  storeBaseUrl: `http://localhost:4200`,
 
   // used by API
   adminLoginUrl: "/admin/login",

@@ -2,8 +2,8 @@ import { Paper } from "@material-ui/core"
 import { CloudUpload, Delete, PhotoCamera } from "@material-ui/icons"
 import IconButton from "material-ui/IconButton"
 import Snackbar from "material-ui/Snackbar"
-import React, { FC, useEffect, useRef, useState } from "react"
-import Dropzone from "react-dropzone"
+import React, { FC, useCallback, useEffect, useState } from "react"
+import { useDropzone } from "react-dropzone"
 import { messages } from "../../../lib"
 import style from "./style.module.sass"
 
@@ -16,7 +16,6 @@ interface props {
 
 const ImageUpload: FC<props> = (props: props) => {
   const [imagePreview, setImagePreview] = useState(props.imageUrl)
-  const dropzone = useRef<any>(null)
   const { uploading } = props
 
   const onDelete = () => {
@@ -28,11 +27,14 @@ const ImageUpload: FC<props> = (props: props) => {
     setImagePreview(props.imageUrl)
   }, [props.imageUrl])
 
-  const onDrop = files => {
+  const onDrop = useCallback(acceptedFiles => {
+    // Do something with the files
     let form = new FormData()
-    form.append("file", files[0])
+    form.append("file", acceptedFiles[0])
     props.onUpload(form)
-  }
+  }, [])
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   const hasPreview = imagePreview !== null && imagePreview !== ""
   const previewIsFileUrl = hasPreview ? imagePreview.startsWith("http") : null
@@ -52,7 +54,16 @@ const ImageUpload: FC<props> = (props: props) => {
 
   return (
     <Paper elevation={4} square style={{ width: 200 }}>
-      <Dropzone
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div>
+
+      {/* <Dropzone
         onDrop={onDrop}
         multiple={false}
         disableClick={hasPreview}
@@ -64,14 +75,14 @@ const ImageUpload: FC<props> = (props: props) => {
         rejectClassName={style.dropzoneReject}
       >
         <div className={style.preview}>{htmlPreview}</div>
-      </Dropzone>
+      </Dropzone> */}
 
       <div className={style.footer}>
         <IconButton
           touch
           tooltip={messages.actions_upload}
           onClick={() => {
-            dropzone.current.open()
+            // dropzone.current.open()
           }}
           tooltipPosition="top-right"
         >

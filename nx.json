@@ -43,9 +43,6 @@
       "tags": [],
       "implicitDependencies": ["store"]
     },
-    "store-ssr": {
-      "tags": []
-    },
     "theme": {
       "tags": []
     },
