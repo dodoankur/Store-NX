@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import CategoriesService from "../services/products/productCategories"
 
@@ -41,52 +42,66 @@ router
     deleteCategoryImage.bind(this)
   )
 
-function getCategories(req: Request, res: Response, next: NextFunction) {
-  CategoriesService.getCategories(req.query)
-    .then(data => {
+async function getCategories(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CategoriesService.getCategories(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleCategory(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await CategoriesService.getSingleCategory(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleCategory(req: Request, res: Response, next: NextFunction) {
-  CategoriesService.getSingleCategory(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addCategory(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CategoriesService.addCategory(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addCategory(req: Request, res: Response, next: NextFunction) {
-  CategoriesService.addCategory(req.body)
-    .then(data => {
+async function updateCategory(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CategoriesService.updateCategory(req.params.id, req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateCategory(req: Request, res: Response, next: NextFunction) {
-  CategoriesService.updateCategory(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function deleteCategory(req: Request, res: Response, next: NextFunction) {
-  CategoriesService.deleteCategory(req.params.id)
-    .then(data => {
-      res.status(data ? 200 : 404).end()
-    })
-    .catch(next)
+async function deleteCategory(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CategoriesService.deleteCategory(req.params.id)
+    res.status(data ? 200 : 404).end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 function uploadCategoryImage(req: Request, res: Response, next: NextFunction) {

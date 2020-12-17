@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import PaymentGateways from "../paymentGateways"
 import OrderAddressService from "../services/orders/orderAddress"
@@ -128,228 +129,311 @@ router
     chargeOrder.bind(this)
   )
 
-function getOrders(req: Request, res: Response, next: NextFunction) {
-  OrdersService.getOrders(req.query)
-    .then(data => {
+async function getOrders(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrdersService.getOrders(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleOrder(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrdersService.getSingleOrder(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleOrder(req: Request, res: Response, next: NextFunction) {
-  OrdersService.getSingleOrder(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addOrder(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrdersService.addOrder(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addOrder(req: Request, res: Response, next: NextFunction) {
-  OrdersService.addOrder(req.body)
-    .then(data => {
+async function updateOrder(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrdersService.updateOrder(req.params.id, req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateOrder(req: Request, res: Response, next: NextFunction) {
-  OrdersService.updateOrder(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function deleteOrder(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrdersService.deleteOrder(req.params.id)
+    res.status(data ? 200 : 404).end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function deleteOrder(req: Request, res: Response, next: NextFunction) {
-  OrdersService.deleteOrder(req.params.id)
-    .then(data => {
-      res.status(data ? 200 : 404).end()
-    })
-    .catch(next)
-}
-
-function recalculateOrder(req: Request, res: Response, next: NextFunction) {
-  OrderItemsService.calculateAndUpdateAllItems(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function checkoutOrder(req: Request, res: Response, next: NextFunction) {
-  OrdersService.checkoutOrder(req.params.id)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
-}
-
-function cancelOrder(req: Request, res: Response, next: NextFunction) {
-  OrdersService.cancelOrder(req.params.id)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
-}
-
-function closeOrder(req: Request, res: Response, next: NextFunction) {
-  OrdersService.closeOrder(req.params.id)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
-}
-
-function updateBillingAddress(req: Request, res: Response, next: NextFunction) {
-  OrderAddressService.updateBillingAddress(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function updateShippingAddress(
+async function recalculateOrder(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  OrderAddressService.updateShippingAddress(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function addItem(req: Request, res: Response, next: NextFunction) {
-  const order_id = req.params.id
-  OrderItemsService.addItem(order_id, req.body)
-    .then(data => {
+  try {
+    const data = await OrderItemsService.calculateAndUpdateAllItems(
+      req.params.id
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateItem(req: Request, res: Response, next: NextFunction) {
+async function checkoutOrder(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrdersService.checkoutOrder(req.params.id)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function cancelOrder(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrdersService.cancelOrder(req.params.id)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function closeOrder(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrdersService.closeOrder(req.params.id)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function updateBillingAddress(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await OrderAddressService.updateBillingAddress(
+      req.params.id,
+      req.body
+    )
+    if (data) {
+      res.send(data)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function updateShippingAddress(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await OrderAddressService.updateShippingAddress(
+      req.params.id,
+      req.body
+    )
+    if (data) {
+      res.send(data)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function addItem(req: Request, res: Response, next: NextFunction) {
+  const order_id = req.params.id
+  try {
+    const data = await OrderItemsService.addItem(order_id, req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function updateItem(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const item_id = req.params.item_id
-  OrderItemsService.updateItem(order_id, item_id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+  try {
+    const data = await OrderItemsService.updateItem(order_id, item_id, req.body)
+    if (data) {
+      res.send(data)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function deleteItem(req: Request, res: Response, next: NextFunction) {
+async function deleteItem(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const item_id = req.params.item_id
-  OrderItemsService.deleteItem(order_id, item_id)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+  try {
+    const data = await OrderItemsService.deleteItem(order_id, item_id)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addTransaction(req: Request, res: Response, next: NextFunction) {
+async function addTransaction(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
-  OrdertTansactionsService.addTransaction(order_id, req.body)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+  try {
+    const data = await OrdertTansactionsService.addTransaction(
+      order_id,
+      req.body
+    )
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateTransaction(req: Request, res: Response, next: NextFunction) {
-  const order_id = req.params.id
-  const transaction_id = req.params.item_id
-  OrdertTansactionsService.updateTransaction(order_id, transaction_id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function deleteTransaction(req: Request, res: Response, next: NextFunction) {
+async function updateTransaction(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const order_id = req.params.id
   const transaction_id = req.params.item_id
-  OrdertTansactionsService.deleteTransaction(order_id, transaction_id)
-    .then(data => {
+  try {
+    const data = await OrdertTansactionsService.updateTransaction(
+      order_id,
+      transaction_id,
+      req.body
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addDiscount(req: Request, res: Response, next: NextFunction) {
+async function deleteTransaction(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const order_id = req.params.id
-  OrdertDiscountsService.addDiscount(order_id, req.body)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+  const transaction_id = req.params.item_id
+  try {
+    const data = await OrdertTansactionsService.deleteTransaction(
+      order_id,
+      transaction_id
+    )
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateDiscount(req: Request, res: Response, next: NextFunction) {
+async function addDiscount(req: Request, res: Response, next: NextFunction) {
+  const order_id = req.params.id
+  try {
+    const data = await OrdertDiscountsService.addDiscount(order_id, req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function updateDiscount(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const discount_id = req.params.item_id
-  OrdertDiscountsService.updateDiscount(order_id, discount_id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+  try {
+    const data = await OrdertDiscountsService.updateDiscount(
+      order_id,
+      discount_id,
+      req.body
+    )
+    if (data) {
+      res.send(data)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function deleteDiscount(req: Request, res: Response, next: NextFunction) {
+async function deleteDiscount(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const discount_id = req.params.item_id
-  OrdertDiscountsService.deleteDiscount(order_id, discount_id)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+  try {
+    const data = await OrdertDiscountsService.deleteDiscount(
+      order_id,
+      discount_id
+    )
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getPaymentFormSettings(
+async function getPaymentFormSettings(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const orderId = req.params.id
-  PaymentGateways.getPaymentFormSettings(orderId)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+  try {
+    const data = await PaymentGateways.getPaymentFormSettings(orderId)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 async function chargeOrder(req: Request, res: Response, next: NextFunction) {

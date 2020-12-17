@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import PaymentMethodsService from "../services/orders/paymentMethods"
 
@@ -31,52 +32,69 @@ router
     deleteMethod.bind(this)
   )
 
-function getMethods(req: Request, res: Response, next: NextFunction) {
-  PaymentMethodsService.getMethods(req.query)
-    .then(data => {
+async function getMethods(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await PaymentMethodsService.getMethods(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleMethod(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await PaymentMethodsService.getSingleMethod(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleMethod(req: Request, res: Response, next: NextFunction) {
-  PaymentMethodsService.getSingleMethod(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addMethod(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await PaymentMethodsService.addMethod(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addMethod(req: Request, res: Response, next: NextFunction) {
-  PaymentMethodsService.addMethod(req.body)
-    .then(data => {
+async function updateMethod(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await PaymentMethodsService.updateMethod(
+      req.params.id,
+      req.body
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateMethod(req: Request, res: Response, next: NextFunction) {
-  PaymentMethodsService.updateMethod(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function deleteMethod(req: Request, res: Response, next: NextFunction) {
-  PaymentMethodsService.deleteMethod(req.params.id)
-    .then(data => {
-      res.status(data ? 200 : 404).end()
-    })
-    .catch(next)
+async function deleteMethod(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await PaymentMethodsService.deleteMethod(req.params.id)
+    res.status(data ? 200 : 404).end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

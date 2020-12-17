@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import ShippingMethodsService from "../services/orders/shippingMethods"
 
@@ -31,44 +32,59 @@ router
     deleteMethod.bind(this)
   )
 
-function getMethods(req: Request, res: Response, next: NextFunction) {
-  ShippingMethodsService.getMethods(req.query)
-    .then(data => {
+async function getMethods(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await ShippingMethodsService.getMethods(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleMethod(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await ShippingMethodsService.getSingleMethod(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleMethod(req: Request, res: Response, next: NextFunction) {
-  ShippingMethodsService.getSingleMethod(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addMethod(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await ShippingMethodsService.addMethod(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addMethod(req: Request, res: Response, next: NextFunction) {
-  ShippingMethodsService.addMethod(req.body)
-    .then(data => {
+async function updateMethod(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await ShippingMethodsService.updateMethod(
+      req.params.id,
+      req.body
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
-}
-
-function updateMethod(req: Request, res: Response, next: NextFunction) {
-  ShippingMethodsService.updateMethod(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 async function deleteMethod(req: Request, res: Response, next: NextFunction) {

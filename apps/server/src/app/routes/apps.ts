@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import AppSettingsService from "../services/apps/settings"
 
@@ -16,24 +17,31 @@ router
     updateSettings.bind(this)
   )
 
-function getSettings(req: Request, res: Response, next: NextFunction) {
-  AppSettingsService.getSettings(req.params.key)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+async function getSettings(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await AppSettingsService.getSettings(req.params.key)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateSettings(req: Request, res: Response, next: NextFunction) {
-  AppSettingsService.updateSettings(req.params.key, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function updateSettings(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await AppSettingsService.updateSettings(
+      req.params.key,
+      req.body
+    )
+    if (data) {
+      res.send(data)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router
