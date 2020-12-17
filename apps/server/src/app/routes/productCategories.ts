@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import CategoriesService from "../services/products/productCategories"
-import { Router } from "express"
 
 const router = Router()
 
@@ -41,7 +41,7 @@ router
     deleteCategoryImage.bind(this)
   )
 
-function getCategories(req, res, next) {
+function getCategories(req: Request, res: Response, next: NextFunction) {
   CategoriesService.getCategories(req.query)
     .then(data => {
       res.send(data)
@@ -49,7 +49,7 @@ function getCategories(req, res, next) {
     .catch(next)
 }
 
-function getSingleCategory(req, res, next) {
+function getSingleCategory(req: Request, res: Response, next: NextFunction) {
   CategoriesService.getSingleCategory(req.params.id)
     .then(data => {
       if (data) {
@@ -61,7 +61,7 @@ function getSingleCategory(req, res, next) {
     .catch(next)
 }
 
-function addCategory(req, res, next) {
+function addCategory(req: Request, res: Response, next: NextFunction) {
   CategoriesService.addCategory(req.body)
     .then(data => {
       res.send(data)
@@ -69,7 +69,7 @@ function addCategory(req, res, next) {
     .catch(next)
 }
 
-function updateCategory(req, res, next) {
+function updateCategory(req: Request, res: Response, next: NextFunction) {
   CategoriesService.updateCategory(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -81,7 +81,7 @@ function updateCategory(req, res, next) {
     .catch(next)
 }
 
-function deleteCategory(req, res, next) {
+function deleteCategory(req: Request, res: Response, next: NextFunction) {
   CategoriesService.deleteCategory(req.params.id)
     .then(data => {
       res.status(data ? 200 : 404).end()
@@ -89,11 +89,11 @@ function deleteCategory(req, res, next) {
     .catch(next)
 }
 
-function uploadCategoryImage(req, res, next) {
+function uploadCategoryImage(req: Request, res: Response, next: NextFunction) {
   CategoriesService.uploadCategoryImage(req, res, next)
 }
 
-function deleteCategoryImage(req, res, next) {
+function deleteCategoryImage(req: Request, res: Response, next: NextFunction) {
   CategoriesService.deleteCategoryImage(req.params.id)
   res.end()
 }

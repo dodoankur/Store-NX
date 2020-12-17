@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import PaymentGatewaysService from "../services/settings/paymentGateways"
-import { Router } from "express"
 
 const router = Router()
 
@@ -16,7 +16,7 @@ router
     updateGateway.bind(this)
   )
 
-function getGateway(req, res, next) {
+function getGateway(req: Request, res: Response, next: NextFunction) {
   PaymentGatewaysService.getGateway(req.params.name)
     .then(data => {
       res.send(data)
@@ -24,7 +24,7 @@ function getGateway(req, res, next) {
     .catch(next)
 }
 
-function updateGateway(req, res, next) {
+function updateGateway(req: Request, res: Response, next: NextFunction) {
   PaymentGatewaysService.updateGateway(req.params.name, req.body)
     .then(data => {
       res.send(data)

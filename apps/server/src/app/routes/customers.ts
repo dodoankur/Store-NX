@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import CustomersService from "../services/customers/customers"
-import { Router } from "express"
 
 const router = Router()
 
@@ -56,7 +56,7 @@ router
     setDefaultShipping.bind(this)
   )
 
-function getCustomers(req, res, next) {
+function getCustomers(req: Request, res: Response, next: NextFunction) {
   CustomersService.getCustomers(req.query)
     .then(data => {
       res.send(data)
@@ -64,7 +64,7 @@ function getCustomers(req, res, next) {
     .catch(next)
 }
 
-function getSingleCustomer(req, res, next) {
+function getSingleCustomer(req: Request, res: Response, next: NextFunction) {
   CustomersService.getSingleCustomer(req.params.id)
     .then(data => {
       if (data) {
@@ -76,7 +76,7 @@ function getSingleCustomer(req, res, next) {
     .catch(next)
 }
 
-function addCustomer(req, res, next) {
+function addCustomer(req: Request, res: Response, next: NextFunction) {
   CustomersService.addCustomer(req.body)
     .then(data => {
       res.send(data)
@@ -84,7 +84,7 @@ function addCustomer(req, res, next) {
     .catch(next)
 }
 
-function updateCustomer(req, res, next) {
+function updateCustomer(req: Request, res: Response, next: NextFunction) {
   CustomersService.updateCustomer(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -96,7 +96,7 @@ function updateCustomer(req, res, next) {
     .catch(next)
 }
 
-function deleteCustomer(req, res, next) {
+function deleteCustomer(req: Request, res: Response, next: NextFunction) {
   CustomersService.deleteCustomer(req.params.id)
     .then(data => {
       res.status(data ? 200 : 404).end()
@@ -104,7 +104,7 @@ function deleteCustomer(req, res, next) {
     .catch(next)
 }
 
-function addAddress(req, res, next) {
+function addAddress(req: Request, res: Response, next: NextFunction) {
   const customer_id = req.params.id
   CustomersService.addAddress(customer_id, req.body)
     .then(data => {
@@ -113,7 +113,7 @@ function addAddress(req, res, next) {
     .catch(next)
 }
 
-function updateAddress(req, res, next) {
+function updateAddress(req: Request, res: Response, next: NextFunction) {
   const customer_id = req.params.id
   const address_id = req.params.address_id
   CustomersService.updateAddress(customer_id, address_id, req.body)
@@ -123,7 +123,7 @@ function updateAddress(req, res, next) {
     .catch(next)
 }
 
-function deleteAddress(req, res, next) {
+function deleteAddress(req: Request, res: Response, next: NextFunction) {
   const customer_id = req.params.id
   const address_id = req.params.address_id
   CustomersService.deleteAddress(customer_id, address_id)
@@ -133,7 +133,7 @@ function deleteAddress(req, res, next) {
     .catch(next)
 }
 
-function setDefaultBilling(req, res, next) {
+function setDefaultBilling(req: Request, res: Response, next: NextFunction) {
   const customer_id = req.params.id
   const address_id = req.params.address_id
   CustomersService.setDefaultBilling(customer_id, address_id)
@@ -143,7 +143,7 @@ function setDefaultBilling(req, res, next) {
     .catch(next)
 }
 
-function setDefaultShipping(req, res, next) {
+function setDefaultShipping(req: Request, res: Response, next: NextFunction) {
   const customer_id = req.params.id
   const address_id = req.params.address_id
   CustomersService.setDefaultShipping(customer_id, address_id)

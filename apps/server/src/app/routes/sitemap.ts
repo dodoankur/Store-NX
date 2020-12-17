@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import SitemapService from "../services/sitemap"
-import { Router } from "express"
 
 const router = Router()
 
@@ -10,9 +10,9 @@ router.get(
   getPaths.bind(this)
 )
 
-function getPaths(req, res, next) {
+function getPaths(req: Request, res: Response, next: NextFunction) {
   if (req.query.path) {
-    SitemapService.getSinglePath(req.query.path, req.query.enabled)
+    SitemapService.getSinglePath(req.query.path, req.query.enabled === "true")
       .then(data => {
         if (data) {
           res.send(data)

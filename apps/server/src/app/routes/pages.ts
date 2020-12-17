@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import PagesService from "../services/pages/pages"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,7 +31,7 @@ router
     deletePage.bind(this)
   )
 
-function getPages(req, res, next) {
+function getPages(req: Request, res: Response, next: NextFunction) {
   PagesService.getPages(req.query)
     .then(data => {
       res.send(data)
@@ -39,7 +39,7 @@ function getPages(req, res, next) {
     .catch(next)
 }
 
-function getSinglePage(req, res, next) {
+function getSinglePage(req: Request, res: Response, next: NextFunction) {
   PagesService.getSinglePage(req.params.id)
     .then(data => {
       if (data) {
@@ -51,7 +51,7 @@ function getSinglePage(req, res, next) {
     .catch(next)
 }
 
-function addPage(req, res, next) {
+function addPage(req: Request, res: Response, next: NextFunction) {
   PagesService.addPage(req.body)
     .then(data => {
       res.send(data)
@@ -59,7 +59,7 @@ function addPage(req, res, next) {
     .catch(next)
 }
 
-function updatePage(req, res, next) {
+function updatePage(req: Request, res: Response, next: NextFunction) {
   PagesService.updatePage(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -71,7 +71,7 @@ function updatePage(req, res, next) {
     .catch(next)
 }
 
-function deletePage(req, res, next) {
+function deletePage(req: Request, res: Response, next: NextFunction) {
   PagesService.deletePage(req.params.id)
     .then(data => {
       res.status(data ? 200 : 404).end()

@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import CustomerGroupsService from "../services/customers/customerGroups"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,7 +31,7 @@ router
     deleteGroup.bind(this)
   )
 
-function getGroups(req, res, next) {
+function getGroups(req: Request, res: Response, next: NextFunction) {
   CustomerGroupsService.getGroups(req.query)
     .then(data => {
       res.send(data)
@@ -39,7 +39,7 @@ function getGroups(req, res, next) {
     .catch(next)
 }
 
-function getSingleGroup(req, res, next) {
+function getSingleGroup(req: Request, res: Response, next: NextFunction) {
   CustomerGroupsService.getSingleGroup(req.params.id)
     .then(data => {
       if (data) {
@@ -51,7 +51,7 @@ function getSingleGroup(req, res, next) {
     .catch(next)
 }
 
-function addGroup(req, res, next) {
+function addGroup(req: Request, res: Response, next: NextFunction) {
   CustomerGroupsService.addGroup(req.body)
     .then(data => {
       res.send(data)
@@ -59,7 +59,7 @@ function addGroup(req, res, next) {
     .catch(next)
 }
 
-function updateGroup(req, res, next) {
+function updateGroup(req: Request, res: Response, next: NextFunction) {
   CustomerGroupsService.updateGroup(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -71,7 +71,7 @@ function updateGroup(req, res, next) {
     .catch(next)
 }
 
-function deleteGroup(req, res, next) {
+function deleteGroup(req: Request, res: Response, next: NextFunction) {
   CustomerGroupsService.deleteGroup(req.params.id)
     .then(data => {
       res.status(data ? 200 : 404).end()

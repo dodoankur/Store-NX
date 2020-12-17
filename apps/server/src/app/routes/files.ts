@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express"
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import FilesService from "../services/files"
 
@@ -21,7 +21,7 @@ router
     deleteFile.bind(this)
   )
 
-function getFiles(req: Request, res: Response, next) {
+function getFiles(req: Request, res: Response, next: NextFunction) {
   FilesService.getFiles()
     .then(data => {
       res.send(data)
@@ -29,11 +29,11 @@ function getFiles(req: Request, res: Response, next) {
     .catch(next)
 }
 
-function uploadFile(req: Request, res: Response, next) {
+function uploadFile(req: Request, res: Response, next: NextFunction) {
   FilesService.uploadFile(req, res)
 }
 
-function deleteFile(req, res, next) {
+function deleteFile(req: Request, res: Response, next: NextFunction) {
   FilesService.deleteFile(req.params.file)
     .then(() => {
       res.end()

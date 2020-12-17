@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import PaymentMethodsService from "../services/orders/paymentMethods"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,7 +31,7 @@ router
     deleteMethod.bind(this)
   )
 
-function getMethods(req, res, next) {
+function getMethods(req: Request, res: Response, next: NextFunction) {
   PaymentMethodsService.getMethods(req.query)
     .then(data => {
       res.send(data)
@@ -39,7 +39,7 @@ function getMethods(req, res, next) {
     .catch(next)
 }
 
-function getSingleMethod(req, res, next) {
+function getSingleMethod(req: Request, res: Response, next: NextFunction) {
   PaymentMethodsService.getSingleMethod(req.params.id)
     .then(data => {
       if (data) {
@@ -51,7 +51,7 @@ function getSingleMethod(req, res, next) {
     .catch(next)
 }
 
-function addMethod(req, res, next) {
+function addMethod(req: Request, res: Response, next: NextFunction) {
   PaymentMethodsService.addMethod(req.body)
     .then(data => {
       res.send(data)
@@ -59,7 +59,7 @@ function addMethod(req, res, next) {
     .catch(next)
 }
 
-function updateMethod(req, res, next) {
+function updateMethod(req: Request, res: Response, next: NextFunction) {
   PaymentMethodsService.updateMethod(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -71,7 +71,7 @@ function updateMethod(req, res, next) {
     .catch(next)
 }
 
-function deleteMethod(req, res, next) {
+function deleteMethod(req: Request, res: Response, next: NextFunction) {
   PaymentMethodsService.deleteMethod(req.params.id)
     .then(data => {
       res.status(data ? 200 : 404).end()

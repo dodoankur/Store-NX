@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import WebhooksService from "../services/webhooks"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,7 +31,7 @@ router
     deleteWebhook.bind(this)
   )
 
-function getWebhooks(req, res, next) {
+function getWebhooks(req: Request, res: Response, next: NextFunction) {
   WebhooksService.getWebhooks(req.query)
     .then(data => {
       res.send(data)
@@ -39,7 +39,7 @@ function getWebhooks(req, res, next) {
     .catch(next)
 }
 
-function getSingleWebhook(req, res, next) {
+function getSingleWebhook(req: Request, res: Response, next: NextFunction) {
   WebhooksService.getSingleWebhook(req.params.id)
     .then(data => {
       if (data) {
@@ -51,7 +51,7 @@ function getSingleWebhook(req, res, next) {
     .catch(next)
 }
 
-function addWebhook(req, res, next) {
+function addWebhook(req: Request, res: Response, next: NextFunction) {
   WebhooksService.addWebhook(req.body)
     .then(data => {
       res.send(data)
@@ -59,7 +59,7 @@ function addWebhook(req, res, next) {
     .catch(next)
 }
 
-function updateWebhook(req, res, next) {
+function updateWebhook(req: Request, res: Response, next: NextFunction) {
   WebhooksService.updateWebhook(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -71,7 +71,7 @@ function updateWebhook(req, res, next) {
     .catch(next)
 }
 
-function deleteWebhook(req, res, next) {
+function deleteWebhook(req: Request, res: Response, next: NextFunction) {
   WebhooksService.deleteWebhook(req.params.id)
     .then(data => {
       res.status(data ? 200 : 404).end()

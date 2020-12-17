@@ -1,9 +1,9 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
-import ThemeService from "../services/theme/theme"
-import ThemeSettingsService from "../services/theme/settings"
 import ThemeAssetsService from "../services/theme/assets"
 import ThemePlaceholdersService from "../services/theme/placeholders"
-import { Router } from "express"
+import ThemeSettingsService from "../services/theme/settings"
+import ThemeService from "../services/theme/theme"
 
 const router = Router()
 
@@ -72,15 +72,15 @@ router
     deletePlaceholder.bind(this)
   )
 
-function exportTheme(req, res, next) {
+function exportTheme(req: Request, res: Response, next: NextFunction) {
   ThemeService.exportTheme(req, res)
 }
 
-function installTheme(req, res, next) {
+function installTheme(req: Request, res: Response, next: NextFunction) {
   ThemeService.installTheme(req, res)
 }
 
-function getSettings(req, res, next) {
+function getSettings(req: Request, res: Response, next: NextFunction) {
   ThemeSettingsService.getSettings()
     .then(data => {
       res.send(data)
@@ -88,7 +88,7 @@ function getSettings(req, res, next) {
     .catch(next)
 }
 
-function updateSettings(req, res, next) {
+function updateSettings(req: Request, res: Response, next: NextFunction) {
   ThemeSettingsService.updateSettings(req.body)
     .then(() => {
       res.end()
@@ -96,7 +96,7 @@ function updateSettings(req, res, next) {
     .catch(next)
 }
 
-function getSettingsSchema(req, res, next) {
+function getSettingsSchema(req: Request, res: Response, next: NextFunction) {
   ThemeSettingsService.getSettingsSchema()
     .then(data => {
       res.send(data)
@@ -104,11 +104,11 @@ function getSettingsSchema(req, res, next) {
     .catch(next)
 }
 
-function uploadFile(req, res, next) {
+function uploadFile(req: Request, res: Response, next: NextFunction) {
   ThemeAssetsService.uploadFile(req, res, next)
 }
 
-function deleteFile(req, res, next) {
+function deleteFile(req: Request, res: Response, next: NextFunction) {
   ThemeAssetsService.deleteFile(req.params.file)
     .then(() => {
       res.end()
@@ -116,7 +116,7 @@ function deleteFile(req, res, next) {
     .catch(next)
 }
 
-function getPlaceholders(req, res, next) {
+function getPlaceholders(req: Request, res: Response, next: NextFunction) {
   ThemePlaceholdersService.getPlaceholders()
     .then(data => {
       res.send(data)
@@ -124,7 +124,7 @@ function getPlaceholders(req, res, next) {
     .catch(next)
 }
 
-function getSinglePlaceholder(req, res, next) {
+function getSinglePlaceholder(req: Request, res: Response, next: NextFunction) {
   ThemePlaceholdersService.getSinglePlaceholder(req.params.key)
     .then(data => {
       if (data) {
@@ -136,7 +136,7 @@ function getSinglePlaceholder(req, res, next) {
     .catch(next)
 }
 
-function addPlaceholder(req, res, next) {
+function addPlaceholder(req: Request, res: Response, next: NextFunction) {
   ThemePlaceholdersService.addPlaceholder(req.body)
     .then(data => {
       res.send(data)
@@ -144,7 +144,7 @@ function addPlaceholder(req, res, next) {
     .catch(next)
 }
 
-function updatePlaceholder(req, res, next) {
+function updatePlaceholder(req: Request, res: Response, next: NextFunction) {
   ThemePlaceholdersService.updatePlaceholder(req.params.key, req.body)
     .then(data => {
       if (data) {
@@ -156,7 +156,7 @@ function updatePlaceholder(req, res, next) {
     .catch(next)
 }
 
-function deletePlaceholder(req, res, next) {
+function deletePlaceholder(req: Request, res: Response, next: NextFunction) {
   ThemePlaceholdersService.deletePlaceholder(req.params.key)
     .then(data => {
       res.status(data ? 200 : 404).end()

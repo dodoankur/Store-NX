@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import RedirectsService from "../services/redirects"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,7 +31,7 @@ router
     deleteRedirect.bind(this)
   )
 
-function getRedirects(req, res, next) {
+function getRedirects(req: Request, res: Response, next: NextFunction) {
   RedirectsService.getRedirects(req.query)
     .then(data => {
       res.send(data)
@@ -39,7 +39,7 @@ function getRedirects(req, res, next) {
     .catch(next)
 }
 
-function getSingleRedirect(req, res, next) {
+function getSingleRedirect(req: Request, res: Response, next: NextFunction) {
   RedirectsService.getSingleRedirect(req.params.id)
     .then(data => {
       if (data) {
@@ -51,7 +51,7 @@ function getSingleRedirect(req, res, next) {
     .catch(next)
 }
 
-function addRedirect(req, res, next) {
+function addRedirect(req: Request, res: Response, next: NextFunction) {
   RedirectsService.addRedirect(req.body)
     .then(data => {
       res.send(data)
@@ -59,7 +59,7 @@ function addRedirect(req, res, next) {
     .catch(next)
 }
 
-function updateRedirect(req, res, next) {
+function updateRedirect(req: Request, res: Response, next: NextFunction) {
   RedirectsService.updateRedirect(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -71,7 +71,7 @@ function updateRedirect(req, res, next) {
     .catch(next)
 }
 
-function deleteRedirect(req, res, next) {
+function deleteRedirect(req: Request, res: Response, next: NextFunction) {
   RedirectsService.deleteRedirect(req.params.id)
     .then(data => {
       res.status(data ? 200 : 404).end()

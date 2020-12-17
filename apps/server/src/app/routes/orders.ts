@@ -1,12 +1,11 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
-import OrdersService from "../services/orders/orders"
-import OrderAddressService from "../services/orders/orderAddress"
-import OrderItemsService from "../services/orders/orderItems"
-import OrdertTansactionsService from "../services/orders/orderTransactions"
-import OrdertDiscountsService from "../services/orders/orderDiscounts"
-import SettingsService from "../services/settings/settings"
 import PaymentGateways from "../paymentGateways"
-import { Router } from "express"
+import OrderAddressService from "../services/orders/orderAddress"
+import OrdertDiscountsService from "../services/orders/orderDiscounts"
+import OrderItemsService from "../services/orders/orderItems"
+import OrdersService from "../services/orders/orders"
+import OrdertTansactionsService from "../services/orders/orderTransactions"
 
 const router = Router()
 
@@ -129,7 +128,7 @@ router
     chargeOrder.bind(this)
   )
 
-function getOrders(req, res, next) {
+function getOrders(req: Request, res: Response, next: NextFunction) {
   OrdersService.getOrders(req.query)
     .then(data => {
       res.send(data)
@@ -137,7 +136,7 @@ function getOrders(req, res, next) {
     .catch(next)
 }
 
-function getSingleOrder(req, res, next) {
+function getSingleOrder(req: Request, res: Response, next: NextFunction) {
   OrdersService.getSingleOrder(req.params.id)
     .then(data => {
       if (data) {
@@ -149,7 +148,7 @@ function getSingleOrder(req, res, next) {
     .catch(next)
 }
 
-function addOrder(req, res, next) {
+function addOrder(req: Request, res: Response, next: NextFunction) {
   OrdersService.addOrder(req.body)
     .then(data => {
       res.send(data)
@@ -157,7 +156,7 @@ function addOrder(req, res, next) {
     .catch(next)
 }
 
-function updateOrder(req, res, next) {
+function updateOrder(req: Request, res: Response, next: NextFunction) {
   OrdersService.updateOrder(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -169,7 +168,7 @@ function updateOrder(req, res, next) {
     .catch(next)
 }
 
-function deleteOrder(req, res, next) {
+function deleteOrder(req: Request, res: Response, next: NextFunction) {
   OrdersService.deleteOrder(req.params.id)
     .then(data => {
       res.status(data ? 200 : 404).end()
@@ -177,7 +176,7 @@ function deleteOrder(req, res, next) {
     .catch(next)
 }
 
-function recalculateOrder(req, res, next) {
+function recalculateOrder(req: Request, res: Response, next: NextFunction) {
   OrderItemsService.calculateAndUpdateAllItems(req.params.id)
     .then(data => {
       if (data) {
@@ -189,7 +188,7 @@ function recalculateOrder(req, res, next) {
     .catch(next)
 }
 
-function checkoutOrder(req, res, next) {
+function checkoutOrder(req: Request, res: Response, next: NextFunction) {
   OrdersService.checkoutOrder(req.params.id)
     .then(data => {
       res.send(data)
@@ -197,7 +196,7 @@ function checkoutOrder(req, res, next) {
     .catch(next)
 }
 
-function cancelOrder(req, res, next) {
+function cancelOrder(req: Request, res: Response, next: NextFunction) {
   OrdersService.cancelOrder(req.params.id)
     .then(data => {
       res.send(data)
@@ -205,7 +204,7 @@ function cancelOrder(req, res, next) {
     .catch(next)
 }
 
-function closeOrder(req, res, next) {
+function closeOrder(req: Request, res: Response, next: NextFunction) {
   OrdersService.closeOrder(req.params.id)
     .then(data => {
       res.send(data)
@@ -213,7 +212,7 @@ function closeOrder(req, res, next) {
     .catch(next)
 }
 
-function updateBillingAddress(req, res, next) {
+function updateBillingAddress(req: Request, res: Response, next: NextFunction) {
   OrderAddressService.updateBillingAddress(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -225,7 +224,11 @@ function updateBillingAddress(req, res, next) {
     .catch(next)
 }
 
-function updateShippingAddress(req, res, next) {
+function updateShippingAddress(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   OrderAddressService.updateShippingAddress(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -237,7 +240,7 @@ function updateShippingAddress(req, res, next) {
     .catch(next)
 }
 
-function addItem(req, res, next) {
+function addItem(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   OrderItemsService.addItem(order_id, req.body)
     .then(data => {
@@ -246,7 +249,7 @@ function addItem(req, res, next) {
     .catch(next)
 }
 
-function updateItem(req, res, next) {
+function updateItem(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const item_id = req.params.item_id
   OrderItemsService.updateItem(order_id, item_id, req.body)
@@ -260,7 +263,7 @@ function updateItem(req, res, next) {
     .catch(next)
 }
 
-function deleteItem(req, res, next) {
+function deleteItem(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const item_id = req.params.item_id
   OrderItemsService.deleteItem(order_id, item_id)
@@ -270,7 +273,7 @@ function deleteItem(req, res, next) {
     .catch(next)
 }
 
-function addTransaction(req, res, next) {
+function addTransaction(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   OrdertTansactionsService.addTransaction(order_id, req.body)
     .then(data => {
@@ -279,7 +282,7 @@ function addTransaction(req, res, next) {
     .catch(next)
 }
 
-function updateTransaction(req, res, next) {
+function updateTransaction(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const transaction_id = req.params.item_id
   OrdertTansactionsService.updateTransaction(order_id, transaction_id, req.body)
@@ -293,7 +296,7 @@ function updateTransaction(req, res, next) {
     .catch(next)
 }
 
-function deleteTransaction(req, res, next) {
+function deleteTransaction(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const transaction_id = req.params.item_id
   OrdertTansactionsService.deleteTransaction(order_id, transaction_id)
@@ -303,7 +306,7 @@ function deleteTransaction(req, res, next) {
     .catch(next)
 }
 
-function addDiscount(req, res, next) {
+function addDiscount(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   OrdertDiscountsService.addDiscount(order_id, req.body)
     .then(data => {
@@ -312,7 +315,7 @@ function addDiscount(req, res, next) {
     .catch(next)
 }
 
-function updateDiscount(req, res, next) {
+function updateDiscount(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const discount_id = req.params.item_id
   OrdertDiscountsService.updateDiscount(order_id, discount_id, req.body)
@@ -326,7 +329,7 @@ function updateDiscount(req, res, next) {
     .catch(next)
 }
 
-function deleteDiscount(req, res, next) {
+function deleteDiscount(req: Request, res: Response, next: NextFunction) {
   const order_id = req.params.id
   const discount_id = req.params.item_id
   OrdertDiscountsService.deleteDiscount(order_id, discount_id)
@@ -336,7 +339,11 @@ function deleteDiscount(req, res, next) {
     .catch(next)
 }
 
-function getPaymentFormSettings(req, res, next) {
+function getPaymentFormSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const orderId = req.params.id
   PaymentGateways.getPaymentFormSettings(orderId)
     .then(data => {
@@ -345,7 +352,7 @@ function getPaymentFormSettings(req, res, next) {
     .catch(next)
 }
 
-async function chargeOrder(req, res, next) {
+async function chargeOrder(req: Request, res: Response, next: NextFunction) {
   const orderId = req.params.id
   try {
     const isSuccess = await OrdersService.chargeOrder(orderId)

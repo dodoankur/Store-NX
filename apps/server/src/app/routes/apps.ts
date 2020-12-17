@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import AppSettingsService from "../services/apps/settings"
-import { Router } from "express"
 
 const router = Router()
 
@@ -16,7 +16,7 @@ router
     updateSettings.bind(this)
   )
 
-function getSettings(req, res, next) {
+function getSettings(req: Request, res: Response, next: NextFunction) {
   AppSettingsService.getSettings(req.params.key)
     .then(data => {
       res.send(data)
@@ -24,7 +24,7 @@ function getSettings(req, res, next) {
     .catch(next)
 }
 
-function updateSettings(req, res, next) {
+function updateSettings(req: Request, res: Response, next: NextFunction) {
   AppSettingsService.updateSettings(req.params.key, req.body)
     .then(data => {
       if (data) {

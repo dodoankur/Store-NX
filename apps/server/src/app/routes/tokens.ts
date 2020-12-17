@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import SecurityTokensService from "../services/security/tokens"
-import { Router } from "express"
 
 const router = Router()
 
@@ -45,7 +45,7 @@ function getTokens(req, res, next) {
     .catch(next)
 }
 
-function getTokensBlacklist(req, res, next) {
+function getTokensBlacklist(req: Request, res: Response, next: NextFunction) {
   SecurityTokensService.getTokensBlacklist()
     .then(data => {
       res.send(data)
@@ -53,7 +53,7 @@ function getTokensBlacklist(req, res, next) {
     .catch(next)
 }
 
-function getSingleToken(req, res, next) {
+function getSingleToken(req: Request, res: Response, next: NextFunction) {
   SecurityTokensService.getSingleToken(req.params.id)
     .then(data => {
       if (data) {
@@ -65,7 +65,7 @@ function getSingleToken(req, res, next) {
     .catch(next)
 }
 
-function addToken(req, res, next) {
+function addToken(req: Request, res: Response, next: NextFunction) {
   SecurityTokensService.addToken(req.body)
     .then(data => {
       res.send(data)
@@ -73,7 +73,7 @@ function addToken(req, res, next) {
     .catch(next)
 }
 
-function updateToken(req, res, next) {
+function updateToken(req: Request, res: Response, next: NextFunction) {
   SecurityTokensService.updateToken(req.params.id, req.body)
     .then(data => {
       if (data) {
@@ -85,7 +85,7 @@ function updateToken(req, res, next) {
     .catch(next)
 }
 
-function deleteToken(req, res, next) {
+function deleteToken(req: Request, res: Response, next: NextFunction) {
   SecurityTokensService.deleteToken(req.params.id)
     .then(data => {
       res.end()
@@ -93,7 +93,11 @@ function deleteToken(req, res, next) {
     .catch(next)
 }
 
-function sendDashboardSigninUrl(req, res, next) {
+function sendDashboardSigninUrl(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   SecurityTokensService.sendDashboardSigninUrl(req)
     .then(data => {
       res.send(data)

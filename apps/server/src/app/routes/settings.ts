@@ -96,7 +96,7 @@ async function getSettings(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-function updateSettings(req, res, next) {
+function updateSettings(req: Request, res: Response, next: NextFunction) {
   SettingsService.updateSettings(req.body)
     .then(data => {
       if (data) {
@@ -108,7 +108,7 @@ function updateSettings(req, res, next) {
     .catch(next)
 }
 
-function getEmailSettings(req, res, next) {
+function getEmailSettings(req: Request, res: Response, next: NextFunction) {
   EmailSettingsService.getEmailSettings()
     .then(data => {
       res.send(data)
@@ -116,7 +116,7 @@ function getEmailSettings(req, res, next) {
     .catch(next)
 }
 
-function updateEmailSettings(req, res, next) {
+function updateEmailSettings(req: Request, res: Response, next: NextFunction) {
   EmailSettingsService.updateEmailSettings(req.body)
     .then(data => {
       if (data) {
@@ -128,7 +128,7 @@ function updateEmailSettings(req, res, next) {
     .catch(next)
 }
 
-function getImportSettings(req, res, next) {
+function getImportSettings(req: Request, res: Response, next: NextFunction) {
   ImportSettingsService.getImportSettings()
     .then(data => {
       res.send(data)
@@ -136,7 +136,7 @@ function getImportSettings(req, res, next) {
     .catch(next)
 }
 
-function updateImportSettings(req, res, next) {
+function updateImportSettings(req: Request, res: Response, next: NextFunction) {
   ImportSettingsService.updateImportSettings(req.body)
     .then(data => {
       if (data) {
@@ -148,7 +148,11 @@ function updateImportSettings(req, res, next) {
     .catch(next)
 }
 
-function retrieveCommerceSettings(req, res, next) {
+function retrieveCommerceSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   CommerceSettingsService.retrieveCommerceSettings()
     .then(data => {
       res.send(data)
@@ -156,7 +160,11 @@ function retrieveCommerceSettings(req, res, next) {
     .catch(next)
 }
 
-function updateCommerceSettings(req, res, next) {
+function updateCommerceSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   CommerceSettingsService.updateCommerceSettings(req.body)
     .then(data => {
       if (data) {
@@ -168,7 +176,7 @@ function updateCommerceSettings(req, res, next) {
     .catch(next)
 }
 
-function getEmailTemplate(req, res, next) {
+function getEmailTemplate(req: Request, res: Response, next: NextFunction) {
   EmailTemplatesService.getEmailTemplate(req.params.name)
     .then(data => {
       res.send(data)
@@ -176,7 +184,7 @@ function getEmailTemplate(req, res, next) {
     .catch(next)
 }
 
-function updateEmailTemplate(req, res, next) {
+function updateEmailTemplate(req: Request, res: Response, next: NextFunction) {
   EmailTemplatesService.updateEmailTemplate(req.params.name, req.body)
     .then(data => {
       if (data) {
@@ -188,7 +196,7 @@ function updateEmailTemplate(req, res, next) {
     .catch(next)
 }
 
-function getCheckoutFields(req, res, next) {
+function getCheckoutFields(req: Request, res: Response, next: NextFunction) {
   CheckoutFieldsService.getCheckoutFields()
     .then(data => {
       res.send(data)
@@ -196,7 +204,7 @@ function getCheckoutFields(req, res, next) {
     .catch(next)
 }
 
-function getCheckoutField(req, res, next) {
+function getCheckoutField(req: Request, res: Response, next: NextFunction) {
   CheckoutFieldsService.getCheckoutField(req.params.name)
     .then(data => {
       res.send(data)
@@ -204,7 +212,7 @@ function getCheckoutField(req, res, next) {
     .catch(next)
 }
 
-function updateCheckoutField(req, res, next) {
+function updateCheckoutField(req: Request, res: Response, next: NextFunction) {
   CheckoutFieldsService.updateCheckoutField(req.params.name, req.body)
     .then(data => {
       if (data) {
@@ -216,11 +224,11 @@ function updateCheckoutField(req, res, next) {
     .catch(next)
 }
 
-function uploadLogo(req, res, next) {
+function uploadLogo(req: Request, res: Response, next: NextFunction) {
   SettingsService.uploadLogo(req, res, next)
 }
 
-function deleteLogo(req, res, next) {
+function deleteLogo(req: Request, res: Response, next: NextFunction) {
   SettingsService.deleteLogo().then(() => {
     res.end()
   })

@@ -1,4 +1,4 @@
-import { Router } from "express"
+import { NextFunction, Request, Response, Router } from "express"
 import security from "../lib/security"
 import ProductImagesService from "../services/products/images"
 import ProductOptionsService from "../services/products/options"
@@ -145,7 +145,7 @@ router
     setVariantOption.bind(this)
   )
 
-function getProducts(req, res, next) {
+function getProducts(req: Request, res: Response, next: NextFunction) {
   ProductsService.getProducts(req.query)
     .then(data => {
       res.send(data)
@@ -153,7 +153,7 @@ function getProducts(req, res, next) {
     .catch(next)
 }
 
-function getSingleProduct(req, res, next) {
+function getSingleProduct(req: Request, res: Response, next: NextFunction) {
   ProductsService.getSingleProduct(req.params.productId)
     .then(data => {
       if (data) {
@@ -165,7 +165,7 @@ function getSingleProduct(req, res, next) {
     .catch(next)
 }
 
-function addProduct(req, res, next) {
+function addProduct(req: Request, res: Response, next: NextFunction) {
   ProductsService.addProduct(req.body)
     .then(data => {
       res.send(data)
@@ -173,7 +173,7 @@ function addProduct(req, res, next) {
     .catch(next)
 }
 
-function updateProduct(req, res, next) {
+function updateProduct(req: Request, res: Response, next: NextFunction) {
   ProductsService.updateProduct(req.params.productId, req.body)
     .then(data => {
       if (data) {
@@ -185,7 +185,7 @@ function updateProduct(req, res, next) {
     .catch(next)
 }
 
-function deleteProduct(req, res, next) {
+function deleteProduct(req: Request, res: Response, next: NextFunction) {
   ProductsService.deleteProduct(req.params.productId)
     .then(data => {
       res.status(data ? 200 : 404).end()
@@ -193,7 +193,7 @@ function deleteProduct(req, res, next) {
     .catch(next)
 }
 
-function getImages(req, res, next) {
+function getImages(req: Request, res: Response, next: NextFunction) {
   ProductImagesService.getImages(req.params.productId)
     .then(data => {
       res.send(data)
@@ -201,11 +201,11 @@ function getImages(req, res, next) {
     .catch(next)
 }
 
-async function addImage(req, res, next) {
+async function addImage(req: Request, res: Response, next: NextFunction) {
   await ProductImagesService.addImage(req, res, next)
 }
 
-function updateImage(req, res, next) {
+function updateImage(req: Request, res: Response, next: NextFunction) {
   ProductImagesService.updateImage(
     req.params.productId,
     req.params.imageId,
@@ -215,7 +215,7 @@ function updateImage(req, res, next) {
   })
 }
 
-function deleteImage(req, res, next) {
+function deleteImage(req: Request, res: Response, next: NextFunction) {
   ProductImagesService.deleteImage(
     req.params.productId,
     req.params.imageId
@@ -224,7 +224,7 @@ function deleteImage(req, res, next) {
   })
 }
 
-function isSkuExists(req, res, next) {
+function isSkuExists(req: Request, res: Response, next: NextFunction) {
   ProductsService.isSkuExists(req.query.sku, req.params.productId)
     .then(exists => {
       res.status(exists ? 200 : 404).end()
@@ -232,7 +232,7 @@ function isSkuExists(req, res, next) {
     .catch(next)
 }
 
-function isSlugExists(req, res, next) {
+function isSlugExists(req: Request, res: Response, next: NextFunction) {
   ProductsService.isSlugExists(req.query.slug, req.params.productId)
     .then(exists => {
       res.status(exists ? 200 : 404).end()
@@ -240,7 +240,7 @@ function isSlugExists(req, res, next) {
     .catch(next)
 }
 
-function getOptions(req, res, next) {
+function getOptions(req: Request, res: Response, next: NextFunction) {
   ProductOptionsService.getOptions(req.params.productId)
     .then(data => {
       res.send(data)
@@ -248,7 +248,7 @@ function getOptions(req, res, next) {
     .catch(next)
 }
 
-function getSingleOption(req, res, next) {
+function getSingleOption(req: Request, res: Response, next: NextFunction) {
   ProductOptionsService.getSingleOption(
     req.params.productId,
     req.params.optionId
@@ -263,7 +263,7 @@ function getSingleOption(req, res, next) {
     .catch(next)
 }
 
-function addOption(req, res, next) {
+function addOption(req: Request, res: Response, next: NextFunction) {
   ProductOptionsService.addOption(req.params.productId, req.body)
     .then(data => {
       res.send(data)
@@ -271,7 +271,7 @@ function addOption(req, res, next) {
     .catch(next)
 }
 
-function updateOption(req, res, next) {
+function updateOption(req: Request, res: Response, next: NextFunction) {
   ProductOptionsService.updateOption(
     req.params.productId,
     req.params.optionId,
@@ -283,7 +283,7 @@ function updateOption(req, res, next) {
     .catch(next)
 }
 
-function deleteOption(req, res, next) {
+function deleteOption(req: Request, res: Response, next: NextFunction) {
   ProductOptionsService.deleteOption(req.params.productId, req.params.optionId)
     .then(data => {
       res.send(data)
@@ -291,7 +291,7 @@ function deleteOption(req, res, next) {
     .catch(next)
 }
 
-function getOptionValues(req, res, next) {
+function getOptionValues(req: Request, res: Response, next: NextFunction) {
   ProductOptionValuesService.getOptionValues(
     req.params.productId,
     req.params.optionId
@@ -302,7 +302,7 @@ function getOptionValues(req, res, next) {
     .catch(next)
 }
 
-function getSingleOptionValue(req, res, next) {
+function getSingleOptionValue(req: Request, res: Response, next: NextFunction) {
   ProductOptionValuesService.getSingleOptionValue(
     req.params.productId,
     req.params.optionId,
@@ -318,7 +318,7 @@ function getSingleOptionValue(req, res, next) {
     .catch(next)
 }
 
-function addOptionValue(req, res, next) {
+function addOptionValue(req: Request, res: Response, next: NextFunction) {
   ProductOptionValuesService.addOptionValue(
     req.params.productId,
     req.params.optionId,
@@ -330,7 +330,7 @@ function addOptionValue(req, res, next) {
     .catch(next)
 }
 
-function updateOptionValue(req, res, next) {
+function updateOptionValue(req: Request, res: Response, next: NextFunction) {
   ProductOptionValuesService.updateOptionValue(
     req.params.productId,
     req.params.optionId,
@@ -343,7 +343,7 @@ function updateOptionValue(req, res, next) {
     .catch(next)
 }
 
-function deleteOptionValue(req, res, next) {
+function deleteOptionValue(req: Request, res: Response, next: NextFunction) {
   ProductOptionValuesService.deleteOptionValue(
     req.params.productId,
     req.params.optionId,
@@ -355,7 +355,7 @@ function deleteOptionValue(req, res, next) {
     .catch(next)
 }
 
-function getVariants(req, res, next) {
+function getVariants(req: Request, res: Response, next: NextFunction) {
   ProductVariantsService.getVariants(req.params.productId)
     .then(data => {
       res.send(data)
@@ -363,7 +363,7 @@ function getVariants(req, res, next) {
     .catch(next)
 }
 
-function addVariant(req, res, next) {
+function addVariant(req: Request, res: Response, next: NextFunction) {
   ProductVariantsService.addVariant(req.params.productId, req.body)
     .then(data => {
       res.send(data)
@@ -371,7 +371,7 @@ function addVariant(req, res, next) {
     .catch(next)
 }
 
-function updateVariant(req, res, next) {
+function updateVariant(req: Request, res: Response, next: NextFunction) {
   ProductVariantsService.updateVariant(
     req.params.productId,
     req.params.variantId,
@@ -383,7 +383,7 @@ function updateVariant(req, res, next) {
     .catch(next)
 }
 
-function deleteVariant(req, res, next) {
+function deleteVariant(req: Request, res: Response, next: NextFunction) {
   ProductVariantsService.deleteVariant(
     req.params.productId,
     req.params.variantId
@@ -394,7 +394,7 @@ function deleteVariant(req, res, next) {
     .catch(next)
 }
 
-function setVariantOption(req, res, next) {
+function setVariantOption(req: Request, res: Response, next: NextFunction) {
   ProductVariantsService.setVariantOption(
     req.params.productId,
     req.params.variantId,
