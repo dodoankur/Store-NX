@@ -1,14 +1,14 @@
 import { Request, Response } from "express"
 import formidable from "formidable"
 import fse from "fs-extra"
-// import mongodb from "mongodb"
+import mongodb from "mongodb"
 import path from "path"
-// import { db } from "../lib/mongo"
+import winston from "winston"
+import { db } from "../lib/mongo"
 import settings from "../lib/settings"
 import utils from "../lib/utils"
 
 const contentPath = path.resolve(settings.filesUploadPath)
-// const bucket = new mongodb.GridFSBucket(db)
 
 class FilesService {
   getFileData(fileName: string) {
@@ -34,6 +34,8 @@ class FilesService {
 
   getFiles() {
     return new Promise((resolve, reject) => {
+      // const bucket = new mongodb.GridFSBucket(db)
+      // resolve(bucket.find({}))
       fse.readdir(contentPath, (err, files) => {
         if (err) {
           reject(err)
@@ -48,13 +50,15 @@ class FilesService {
   deleteFile(fileName: string) {
     return new Promise((resolve, reject) => {
       const filePath = contentPath + "/" + fileName
-      if (fse.existsSync(filePath)) {
-        fse.unlink(filePath, err => {
-          resolve(200)
-        })
-      } else {
-        reject("File not found")
-      }
+      const bucket = new mongodb.GridFSBucket(db)
+      bucket.find({ filename: fileName }).destroy()
+      // if (fse.existsSync(filePath)) {
+      //   fse.unlink(filePath, err => {
+      //     resolve(200)
+      //   })
+      // } else {
+      //   reject("File not found")
+      // }
     })
   }
 
@@ -77,6 +81,17 @@ class FilesService {
         // every time a file has been uploaded successfully,
         file_name = file.name
         file_size = file.size
+        const bucket = new mongodb.GridFSBucket(db)
+        fse
+          .createReadStream(file.path)
+          .pipe(bucket.openUploadStream(file_name))
+          .on("error", error => {
+            winston.error(error)
+          })
+        //     .on("finish", function () {
+        //       console.log("done!");
+        //       process.exit(0);
+        //     });
       })
       .on("error", error => {
         res.status(500).send(this.getErrorMessage(error))
