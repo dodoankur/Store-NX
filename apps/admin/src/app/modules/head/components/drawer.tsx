@@ -13,32 +13,32 @@ import { messages } from "../../../lib"
 const menuItems = [
   {
     title: messages.drawer_home,
-    url: "/admin/",
+    url: "/",
     icon: "home",
   },
   {
     title: messages.drawer_products,
-    url: "/admin/products",
+    url: "/products",
     icon: "local_offer",
   },
   {
     title: messages.drawer_orders,
-    url: "/admin/orders",
+    url: "/orders",
     icon: "shopping_cart",
   },
   {
     title: messages.drawer_customers,
-    url: "/admin/customers",
+    url: "/customers",
     icon: "person",
   },
   {
     title: messages.settings_pages,
-    url: "/admin/pages",
+    url: "/pages",
     icon: "description",
   },
   {
     title: messages.files,
-    url: "/admin/files",
+    url: "/files",
     icon: "folder",
   },
   {
@@ -47,17 +47,17 @@ const menuItems = [
   },
   {
     title: messages.drawer_settings,
-    url: "/admin/settings",
+    url: "/settings",
     icon: "settings",
   },
   {
     title: messages.apps,
-    url: "/admin/apps",
+    url: "/apps",
     icon: "apps",
   },
   {
     title: messages.drawer_logout,
-    url: "/admin/logout",
+    url: "/logout",
     icon: "exit_to_app",
   },
 ]

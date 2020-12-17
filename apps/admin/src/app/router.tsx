@@ -62,48 +62,33 @@ const AppRouter = () => (
         </div>
         <div id="bodyContainer">
           <Switch>
-            <Route path="/admin/" exact component={Home} />
-            <Route path="/admin/login" component={Login} />
-            <Route path="/admin/logout" component={Logout} />
-            <Route path="/admin/products" exact component={Products} />
-            <Route path="/admin/products/import" component={ProductImport} />
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/products" exact component={Products} />
+            <Route path="/products/import" component={ProductImport} />
             <Route
-              path="/admin/products/categories"
+              path="/products/categories"
               exact
               component={ProductCategories}
             />
-            <Route path="/admin/orders" exact component={Orders} />
+            <Route path="/orders" exact component={Orders} />
+            <Route path="/orders/statuses" exact component={OrderStatuses} />
+            <Route path="/order/:orderId" exact component={OrderDetails} />
+            <Route path="/customers" exact component={Customers} />
+            <Route path="/customers/groups" exact component={CustomerGroups} />
             <Route
-              path="/admin/orders/statuses"
-              exact
-              component={OrderStatuses}
-            />
-            <Route
-              path="/admin/order/:orderId"
-              exact
-              component={OrderDetails}
-            />
-            <Route path="/admin/customers" exact component={Customers} />
-            <Route
-              path="/admin/customers/groups"
-              exact
-              component={CustomerGroups}
-            />
-            <Route
-              path="/admin/customer/:customerId"
+              path="/customer/:customerId"
               exact
               component={CustomerDetails}
             />
-            <Route
-              path="/admin/product/:productId"
-              component={ProductDetails}
-            />
-            <Route path="/admin/pages" exact component={Pages} />
-            <Route path="/admin/pages/add" exact component={PagesDetails} />
-            <Route path="/admin/pages/:pageId" component={PagesDetails} />
-            <Route path="/admin/settings" component={Settings} />
-            <Route path="/admin/apps" component={Apps} />
-            <Route path="/admin/files" exact component={Files} />
+            <Route path="/product/:productId" component={ProductDetails} />
+            <Route path="/pages" exact component={Pages} />
+            <Route path="/pages/add" exact component={PagesDetails} />
+            <Route path="/pages/:pageId" component={PagesDetails} />
+            <Route path="/settings" component={Settings} />
+            <Route path="/apps" component={Apps} />
+            <Route path="/files" exact component={Files} />
             <Route component={NotFound} />
           </Switch>
         </div>
