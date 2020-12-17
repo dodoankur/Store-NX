@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import SecurityTokensService from "../services/security/tokens"
-import { Router } from "express"
 
 const router = Router()
 
@@ -37,68 +38,93 @@ router
   )
   .post("/v1/authorize", sendDashboardSigninUrl.bind(this))
 
-function getTokens(req, res, next) {
-  SecurityTokensService.getTokens(req.query)
-    .then(data => {
+async function getTokens(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await SecurityTokensService.getTokens(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getTokensBlacklist(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await SecurityTokensService.getTokensBlacklist()
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleToken(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await SecurityTokensService.getSingleToken(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getTokensBlacklist(req, res, next) {
-  SecurityTokensService.getTokensBlacklist()
-    .then(data => {
+async function addToken(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await SecurityTokensService.addToken(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function updateToken(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await SecurityTokensService.updateToken(
+      req.params.id,
+      req.body
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleToken(req, res, next) {
-  SecurityTokensService.getSingleToken(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function deleteToken(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await SecurityTokensService.deleteToken(req.params.id)
+    res.end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addToken(req, res, next) {
-  SecurityTokensService.addToken(req.body)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
-}
-
-function updateToken(req, res, next) {
-  SecurityTokensService.updateToken(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function deleteToken(req, res, next) {
-  SecurityTokensService.deleteToken(req.params.id)
-    .then(data => {
-      res.end()
-    })
-    .catch(next)
-}
-
-function sendDashboardSigninUrl(req, res, next) {
-  SecurityTokensService.sendDashboardSigninUrl(req)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+async function sendDashboardSigninUrl(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await SecurityTokensService.sendDashboardSigninUrl(req)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

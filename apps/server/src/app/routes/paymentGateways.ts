@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import PaymentGatewaysService from "../services/settings/paymentGateways"
-import { Router } from "express"
 
 const router = Router()
 
@@ -16,20 +17,27 @@ router
     updateGateway.bind(this)
   )
 
-function getGateway(req, res, next) {
-  PaymentGatewaysService.getGateway(req.params.name)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+async function getGateway(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await PaymentGatewaysService.getGateway(req.params.name)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateGateway(req, res, next) {
-  PaymentGatewaysService.updateGateway(req.params.name, req.body)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+async function updateGateway(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await PaymentGatewaysService.updateGateway(
+      req.params.name,
+      req.body
+    )
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

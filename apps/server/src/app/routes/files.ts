@@ -1,4 +1,5 @@
-import { Request, Response, Router } from "express"
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import FilesService from "../services/files"
 
@@ -21,24 +22,28 @@ router
     deleteFile.bind(this)
   )
 
-function getFiles(req: Request, res: Response, next) {
-  FilesService.getFiles()
-    .then(data => {
-      res.send(data)
-    })
-    .catch(next)
+async function getFiles(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await FilesService.getFiles()
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function uploadFile(req: Request, res: Response, next) {
+function uploadFile(req: Request, res: Response, next: NextFunction) {
   FilesService.uploadFile(req, res)
 }
 
-function deleteFile(req, res, next) {
-  FilesService.deleteFile(req.params.file)
-    .then(() => {
-      res.end()
-    })
-    .catch(next)
+async function deleteFile(req: Request, res: Response, next: NextFunction) {
+  try {
+    await FilesService.deleteFile(req.params.file)
+    res.end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

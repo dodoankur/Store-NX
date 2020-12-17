@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import CustomerGroupsService from "../services/customers/customerGroups"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,52 +32,65 @@ router
     deleteGroup.bind(this)
   )
 
-function getGroups(req, res, next) {
-  CustomerGroupsService.getGroups(req.query)
-    .then(data => {
+async function getGroups(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomerGroupsService.getGroups(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleGroup(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomerGroupsService.getSingleGroup(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleGroup(req, res, next) {
-  CustomerGroupsService.getSingleGroup(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addGroup(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomerGroupsService.addGroup(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addGroup(req, res, next) {
-  CustomerGroupsService.addGroup(req.body)
-    .then(data => {
+async function updateGroup(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomerGroupsService.updateGroup(
+      req.params.id,
+      req.body
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateGroup(req, res, next) {
-  CustomerGroupsService.updateGroup(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function deleteGroup(req, res, next) {
-  CustomerGroupsService.deleteGroup(req.params.id)
-    .then(data => {
-      res.status(data ? 200 : 404).end()
-    })
-    .catch(next)
+async function deleteGroup(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomerGroupsService.deleteGroup(req.params.id)
+    res.status(data ? 200 : 404).end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

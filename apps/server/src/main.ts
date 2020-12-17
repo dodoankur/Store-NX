@@ -3,6 +3,7 @@ import * as cookieParser from "cookie-parser"
 import * as express from "express"
 import * as helmet from "helmet"
 import * as responseTime from "response-time"
+import winston from "winston"
 import ajaxRouter from "./app/ajaxRouter"
 import apiRouter from "./app/apiRouter"
 import dashboardWebSocket from "./app/lib/dashboardWebSocket"
@@ -39,7 +40,7 @@ app.use("/api", apiRouter)
 app.use(logger.sendResponse)
 
 const server = app.listen(port, () => {
-  console.log(`API listening at http://localhost:${port}/`)
+  winston.info(`API listening at http://localhost:${port}/`)
 })
 
 dashboardWebSocket.listen(server)

@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import SitemapService from "../services/sitemap"
-import { Router } from "express"
 
 const router = Router()
 
@@ -10,23 +11,26 @@ router.get(
   getPaths.bind(this)
 )
 
-function getPaths(req, res, next) {
-  if (req.query.path) {
-    SitemapService.getSinglePath(req.query.path, req.query.enabled)
-      .then(data => {
-        if (data) {
-          res.send(data)
-        } else {
-          res.status(404).end()
-        }
-      })
-      .catch(next)
-  } else {
-    SitemapService.getPaths(req.query.enabled)
-      .then(data => {
+async function getPaths(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (req.query.path) {
+      const data = await SitemapService.getSinglePath(
+        req.query.path,
+        req.query.enabled === "true"
+      )
+
+      if (data) {
         res.send(data)
-      })
-      .catch(next)
+      } else {
+        res.status(404).end()
+      }
+    } else {
+      const data = await SitemapService.getPaths(req.query.enabled)
+      res.send(data)
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
   }
 }
 

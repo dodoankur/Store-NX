@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import RedirectsService from "../services/redirects"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,52 +32,66 @@ router
     deleteRedirect.bind(this)
   )
 
-function getRedirects(req, res, next) {
-  RedirectsService.getRedirects(req.query)
-    .then(data => {
+async function getRedirects(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await RedirectsService.getRedirects(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleRedirect(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await RedirectsService.getSingleRedirect(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleRedirect(req, res, next) {
-  RedirectsService.getSingleRedirect(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addRedirect(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await RedirectsService.addRedirect(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addRedirect(req, res, next) {
-  RedirectsService.addRedirect(req.body)
-    .then(data => {
+async function updateRedirect(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await RedirectsService.updateRedirect(req.params.id, req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateRedirect(req, res, next) {
-  RedirectsService.updateRedirect(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function deleteRedirect(req, res, next) {
-  RedirectsService.deleteRedirect(req.params.id)
-    .then(data => {
-      res.status(data ? 200 : 404).end()
-    })
-    .catch(next)
+async function deleteRedirect(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await RedirectsService.deleteRedirect(req.params.id)
+    res.status(data ? 200 : 404).end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

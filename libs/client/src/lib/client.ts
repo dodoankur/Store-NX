@@ -34,6 +34,7 @@ import Redirects from "./api/redirects"
 import Settings from "./api/settings"
 import ShippingMethods from "./api/shippingMethods"
 import Sitemap from "./api/sitemap"
+import Status from "./api/status"
 import Text from "./api/text"
 import ThemeAssets from "./api/theme/assets"
 import ThemePlaceholders from "./api/theme/placeholders"
@@ -78,6 +79,7 @@ class Client {
   apps: any
   ajax: any
   webstore: any
+  status: Status
   constructor(
     options: {
       apiBaseUrl?: string
@@ -128,6 +130,7 @@ class Client {
     this.tokens = new Tokens(apiClient)
     this.redirects = new Redirects(apiClient)
     this.webhooks = new Webhooks(apiClient)
+    this.status = new Status(apiClient)
     this.files = new Files(apiClient)
     this.apps = {}
     this.apps.settings = new AppSettings(apiClient)

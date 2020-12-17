@@ -52,7 +52,7 @@ const SettingsMenu = () => (
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings"
+      to="/settings"
       exact
     >
       <ListItem
@@ -63,7 +63,7 @@ const SettingsMenu = () => (
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/shipping"
+      to="/settings/shipping"
     >
       <ListItem
         primaryText={messages.settings_shipping}
@@ -73,7 +73,7 @@ const SettingsMenu = () => (
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/payments"
+      to="/settings/payments"
     >
       <ListItem
         primaryText={messages.settings_payments}
@@ -83,14 +83,14 @@ const SettingsMenu = () => (
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/theme"
+      to="/settings/theme"
     >
       <ListItem primaryText={messages.settings_theme} leftIcon={<Palette />} />
     </NavLink>
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/checkout"
+      to="/settings/checkout"
     >
       <ListItem
         primaryText={messages.settings_checkout}
@@ -100,7 +100,7 @@ const SettingsMenu = () => (
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/email"
+      to="/settings/email"
     >
       <ListItem
         primaryText={messages.settings_emails}
@@ -110,14 +110,14 @@ const SettingsMenu = () => (
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/redirects"
+      to="/settings/redirects"
     >
       <ListItem primaryText={messages.redirects} leftIcon={<SwapCalls />} />
     </NavLink>
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/import"
+      to="/settings/import"
       exact
     >
       <ListItem primaryText={messages.drawer_importing} leftIcon={<GetApp />} />
@@ -125,19 +125,19 @@ const SettingsMenu = () => (
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/webhooks"
+      to="/settings/webhooks"
     >
       <ListItem primaryText={messages.webhooks} leftIcon={<Http />} />
     </NavLink>
     <NavLink
       style={styles.link}
       activeStyle={styles.linkActive}
-      to="/admin/settings/tokens"
+      to="/settings/tokens"
     >
       <ListItem primaryText={messages.settings_tokens} leftIcon={<VpnKey />} />
     </NavLink>
-    {/* <NavLink style={styles.link} activeStyle={styles.linkActive} to="/admin/settings/taxes"><ListItem primaryText={messages.settings_taxes} leftIcon={<AttachMoney />}/></NavLink>
-    <NavLink style={styles.link} activeStyle={styles.linkActive} to="/admin/settings/security"><ListItem primaryText={messages.settings_security} leftIcon={<Security />}/></NavLink> */}
+    {/* <NavLink style={styles.link} activeStyle={styles.linkActive} to="/settings/taxes"><ListItem primaryText={messages.settings_taxes} leftIcon={<AttachMoney />}/></NavLink>
+    <NavLink style={styles.link} activeStyle={styles.linkActive} to="/settings/security"><ListItem primaryText={messages.settings_security} leftIcon={<Security />}/></NavLink> */}
   </List>
 )
 
@@ -149,74 +149,49 @@ const Settings = ({ match }) => {
       </div>
       <div className="col-xs-12 col-sm-8 col-md-9 col--no-gutter scroll col-full-height">
         <Switch>
-          <Route path="/admin/settings" exact component={General} />
-          <Route path="/admin/settings/general/logo" component={GeneralLogo} />
-          <Route path="/admin/settings/theme" component={Theme} />
-          <Route path="/admin/settings/shipping" exact component={Shipping} />
+          <Route path="/settings" exact component={General} />
+          <Route path="/settings/general/logo" component={GeneralLogo} />
+          <Route path="/settings/theme" component={Theme} />
+          <Route path="/settings/shipping" exact component={Shipping} />
+          <Route path="/settings/shipping/add" exact component={ShippingEdit} />
+          <Route path="/settings/shipping/:methodId" component={ShippingEdit} />
+          <Route path="/settings/payments" exact component={Payments} />
+          <Route path="/settings/payments/add" exact component={PaymentsEdit} />
+          <Route path="/settings/payments/:methodId" component={PaymentsEdit} />
+          <Route path="/settings/tokens" exact component={Tokens} />
+          <Route path="/settings/tokens/add" exact component={TokensEdit} />
+          <Route path="/settings/tokens/:tokenId" component={TokensEdit} />
+          <Route path="/settings/email" exact component={Email} />
+          <Route path="/settings/email/smtp" component={Smtp} />
           <Route
-            path="/admin/settings/shipping/add"
-            exact
-            component={ShippingEdit}
-          />
-          <Route
-            path="/admin/settings/shipping/:methodId"
-            component={ShippingEdit}
-          />
-          <Route path="/admin/settings/payments" exact component={Payments} />
-          <Route
-            path="/admin/settings/payments/add"
-            exact
-            component={PaymentsEdit}
-          />
-          <Route
-            path="/admin/settings/payments/:methodId"
-            component={PaymentsEdit}
-          />
-          <Route path="/admin/settings/tokens" exact component={Tokens} />
-          <Route
-            path="/admin/settings/tokens/add"
-            exact
-            component={TokensEdit}
-          />
-          <Route
-            path="/admin/settings/tokens/:tokenId"
-            component={TokensEdit}
-          />
-          <Route path="/admin/settings/email" exact component={Email} />
-          <Route path="/admin/settings/email/smtp" component={Smtp} />
-          <Route
-            path="/admin/settings/email/templates/:templateName"
+            path="/settings/email/templates/:templateName"
             component={EmailTemplate}
           />
-          <Route path="/admin/settings/import" exact component={Import} />
+          <Route path="/settings/import" exact component={Import} />
           <Route
-            path="/admin/settings/import/googlespreadsheet"
+            path="/settings/import/googlespreadsheet"
             exact
             component={GoogleSpredsheet}
           />
-          <Route path="/admin/settings/checkout" exact component={Checkout} />
+          <Route path="/settings/checkout" exact component={Checkout} />
           <Route
-            path="/admin/settings/checkout/fields/:fieldName"
+            path="/settings/checkout/fields/:fieldName"
             component={CheckoutFields}
           />
-          <Route path="/admin/settings/redirects" exact component={Redirects} />
+          <Route path="/settings/redirects" exact component={Redirects} />
           <Route
-            path="/admin/settings/redirects/add"
+            path="/settings/redirects/add"
             exact
             component={RedirectsEdit}
           />
           <Route
-            path="/admin/settings/redirects/:redirectId"
+            path="/settings/redirects/:redirectId"
             component={RedirectsEdit}
           />
-          <Route path="/admin/settings/webhooks" exact component={Webhooks} />
+          <Route path="/settings/webhooks" exact component={Webhooks} />
+          <Route path="/settings/webhooks/add" exact component={WebhooksEdit} />
           <Route
-            path="/admin/settings/webhooks/add"
-            exact
-            component={WebhooksEdit}
-          />
-          <Route
-            path="/admin/settings/webhooks/:webhookId"
+            path="/settings/webhooks/:webhookId"
             component={WebhooksEdit}
           />
         </Switch>

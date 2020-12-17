@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import OrderStatusesService from "../services/orders/orderStatuses"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,52 +32,69 @@ router
     deleteStatus.bind(this)
   )
 
-function getStatuses(req, res, next) {
-  OrderStatusesService.getStatuses(req.query)
-    .then(data => {
+async function getStatuses(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrderStatusesService.getStatuses(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleStatus(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await OrderStatusesService.getSingleStatus(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleStatus(req, res, next) {
-  OrderStatusesService.getSingleStatus(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addStatus(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrderStatusesService.addStatus(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addStatus(req, res, next) {
-  OrderStatusesService.addStatus(req.body)
-    .then(data => {
+async function updateStatus(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrderStatusesService.updateStatus(
+      req.params.id,
+      req.body
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateStatus(req, res, next) {
-  OrderStatusesService.updateStatus(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function deleteStatus(req, res, next) {
-  OrderStatusesService.deleteStatus(req.params.id)
-    .then(data => {
-      res.status(data ? 200 : 404).end()
-    })
-    .catch(next)
+async function deleteStatus(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await OrderStatusesService.deleteStatus(req.params.id)
+    res.status(data ? 200 : 404).end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

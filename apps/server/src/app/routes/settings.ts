@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import CheckoutFieldsService from "../services/settings/checkoutFields"
 import CommerceSettingsService from "../services/settings/commerce"
@@ -96,134 +97,212 @@ async function getSettings(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-function updateSettings(req, res, next) {
-  SettingsService.updateSettings(req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function getEmailSettings(req, res, next) {
-  EmailSettingsService.getEmailSettings()
-    .then(data => {
+async function updateSettings(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await SettingsService.updateSettings(req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateEmailSettings(req, res, next) {
-  EmailSettingsService.updateEmailSettings(req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function getEmailSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await EmailSettingsService.getEmailSettings()
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getImportSettings(req, res, next) {
-  ImportSettingsService.getImportSettings()
-    .then(data => {
+async function updateEmailSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await EmailSettingsService.updateEmailSettings(req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateImportSettings(req, res, next) {
-  ImportSettingsService.updateImportSettings(req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function getImportSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await ImportSettingsService.getImportSettings()
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function retrieveCommerceSettings(req, res, next) {
-  CommerceSettingsService.retrieveCommerceSettings()
-    .then(data => {
+async function updateImportSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await ImportSettingsService.updateImportSettings(req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateCommerceSettings(req, res, next) {
-  CommerceSettingsService.updateCommerceSettings(req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function retrieveCommerceSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await CommerceSettingsService.retrieveCommerceSettings()
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getEmailTemplate(req, res, next) {
-  EmailTemplatesService.getEmailTemplate(req.params.name)
-    .then(data => {
+async function updateCommerceSettings(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await CommerceSettingsService.updateCommerceSettings(req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateEmailTemplate(req, res, next) {
-  EmailTemplatesService.updateEmailTemplate(req.params.name, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function getEmailTemplate(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await EmailTemplatesService.getEmailTemplate(req.params.name)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getCheckoutFields(req, res, next) {
-  CheckoutFieldsService.getCheckoutFields()
-    .then(data => {
+async function updateEmailTemplate(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await EmailTemplatesService.updateEmailTemplate(
+      req.params.name,
+      req.body
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getCheckoutField(req, res, next) {
-  CheckoutFieldsService.getCheckoutField(req.params.name)
-    .then(data => {
+async function getCheckoutFields(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await CheckoutFieldsService.getCheckoutFields()
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getCheckoutField(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await CheckoutFieldsService.getCheckoutField(req.params.name)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function updateCheckoutField(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await CheckoutFieldsService.updateCheckoutField(
+      req.params.name,
+      req.body
+    )
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateCheckoutField(req, res, next) {
-  CheckoutFieldsService.updateCheckoutField(req.params.name, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function uploadLogo(req, res, next) {
+function uploadLogo(req: Request, res: Response, next: NextFunction) {
   SettingsService.uploadLogo(req, res, next)
 }
 
-function deleteLogo(req, res, next) {
-  SettingsService.deleteLogo().then(() => {
+async function deleteLogo(req: Request, res: Response, next: NextFunction) {
+  try {
+    await SettingsService.deleteLogo()
     res.end()
-  })
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

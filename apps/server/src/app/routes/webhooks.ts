@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import WebhooksService from "../services/webhooks"
-import { Router } from "express"
 
 const router = Router()
 
@@ -31,52 +32,66 @@ router
     deleteWebhook.bind(this)
   )
 
-function getWebhooks(req, res, next) {
-  WebhooksService.getWebhooks(req.query)
-    .then(data => {
+async function getWebhooks(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await WebhooksService.getWebhooks(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleWebhook(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await WebhooksService.getSingleWebhook(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleWebhook(req, res, next) {
-  WebhooksService.getSingleWebhook(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addWebhook(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await WebhooksService.addWebhook(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addWebhook(req, res, next) {
-  WebhooksService.addWebhook(req.body)
-    .then(data => {
+async function updateWebhook(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await WebhooksService.updateWebhook(req.params.id, req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateWebhook(req, res, next) {
-  WebhooksService.updateWebhook(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
-}
-
-function deleteWebhook(req, res, next) {
-  WebhooksService.deleteWebhook(req.params.id)
-    .then(data => {
-      res.status(data ? 200 : 404).end()
-    })
-    .catch(next)
+async function deleteWebhook(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await WebhooksService.deleteWebhook(req.params.id)
+    res.status(data ? 200 : 404).end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router

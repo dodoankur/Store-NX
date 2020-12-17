@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response, Router } from "express"
+import winston from "winston"
 import security from "../lib/security"
 import CustomersService from "../services/customers/customers"
-import { Router } from "express"
 
 const router = Router()
 
@@ -56,101 +57,133 @@ router
     setDefaultShipping.bind(this)
   )
 
-function getCustomers(req, res, next) {
-  CustomersService.getCustomers(req.query)
-    .then(data => {
+async function getCustomers(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomersService.getCustomers(req.query)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
+}
+
+async function getSingleCustomer(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await CustomersService.getSingleCustomer(req.params.id)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function getSingleCustomer(req, res, next) {
-  CustomersService.getSingleCustomer(req.params.id)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function addCustomer(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomersService.addCustomer(req.body)
+    res.send(data)
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function addCustomer(req, res, next) {
-  CustomersService.addCustomer(req.body)
-    .then(data => {
+async function updateCustomer(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomersService.updateCustomer(req.params.id, req.body)
+    if (data) {
       res.send(data)
-    })
-    .catch(next)
+    } else {
+      res.status(404).end()
+    }
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateCustomer(req, res, next) {
-  CustomersService.updateCustomer(req.params.id, req.body)
-    .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(next)
+async function deleteCustomer(req: Request, res: Response, next: NextFunction) {
+  try {
+    const data = await CustomersService.deleteCustomer(req.params.id)
+    res.status(data ? 200 : 404).end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function deleteCustomer(req, res, next) {
-  CustomersService.deleteCustomer(req.params.id)
-    .then(data => {
-      res.status(data ? 200 : 404).end()
-    })
-    .catch(next)
-}
-
-function addAddress(req, res, next) {
+async function addAddress(req: Request, res: Response, next: NextFunction) {
   const customer_id = req.params.id
-  CustomersService.addAddress(customer_id, req.body)
-    .then(data => {
-      res.end()
-    })
-    .catch(next)
+  try {
+    await CustomersService.addAddress(customer_id, req.body)
+    res.end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function updateAddress(req, res, next) {
+async function updateAddress(req: Request, res: Response, next: NextFunction) {
   const customer_id = req.params.id
   const address_id = req.params.address_id
-  CustomersService.updateAddress(customer_id, address_id, req.body)
-    .then(data => {
-      res.end()
-    })
-    .catch(next)
+  try {
+    await CustomersService.updateAddress(customer_id, address_id, req.body)
+    res.end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function deleteAddress(req, res, next) {
+async function deleteAddress(req: Request, res: Response, next: NextFunction) {
   const customer_id = req.params.id
   const address_id = req.params.address_id
-  CustomersService.deleteAddress(customer_id, address_id)
-    .then(data => {
-      res.end()
-    })
-    .catch(next)
+  try {
+    await CustomersService.deleteAddress(customer_id, address_id)
+    res.end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function setDefaultBilling(req, res, next) {
+async function setDefaultBilling(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const customer_id = req.params.id
   const address_id = req.params.address_id
-  CustomersService.setDefaultBilling(customer_id, address_id)
-    .then(data => {
-      res.end()
-    })
-    .catch(next)
+  try {
+    await CustomersService.setDefaultBilling(customer_id, address_id)
+    res.end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
-function setDefaultShipping(req, res, next) {
+async function setDefaultShipping(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const customer_id = req.params.id
   const address_id = req.params.address_id
-  CustomersService.setDefaultShipping(customer_id, address_id)
-    .then(data => {
-      res.end()
-    })
-    .catch(next)
+  try {
+    await CustomersService.setDefaultShipping(customer_id, address_id)
+    res.end()
+  } catch (error) {
+    winston.error(error)
+    next(error)
+  }
 }
 
 export default router
