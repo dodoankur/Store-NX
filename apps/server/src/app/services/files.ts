@@ -13,6 +13,7 @@ const contentPath = path.resolve(settings.filesUploadPath)
 class FilesService {
   getFileData(fileName: string) {
     const filePath = contentPath + "/" + fileName
+
     const stats = fse.statSync(filePath)
     if (stats.isFile()) {
       return {
@@ -21,7 +22,21 @@ class FilesService {
         modified: stats.mtime,
       }
     } else {
-      return null
+      const bucket = new mongodb.GridFSBucket(db)
+      bucket
+        .openDownloadStreamByName(fileName)
+        .pipe(fse.createWriteStream(filePath))
+        .on("error", (error: Error) => {
+          winston.error(error)
+        })
+        .on("finish", () => {
+          winston.info("Done!")
+        })
+      return {
+        file: fileName,
+        size: stats.size,
+        modified: stats.mtime,
+      }
     }
   }
 
