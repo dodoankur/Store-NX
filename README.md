@@ -22,7 +22,7 @@ And now you can run admin with,
 `nx run admin:serve`
 
 To start the store,
-`nx run admin:store
+`nx run admin:store`
 
 However also note store have some bugs.
 
