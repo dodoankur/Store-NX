@@ -48,7 +48,7 @@
     "cookie-parser": "^1.4.5",
     "core-js": "^3.8.1",
     "cross-fetch": "^3.0.6",
-    "document-register-element": "1.13.1",
+    "document-register-element": "1.14.10",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "esm": "^3.2.25",
