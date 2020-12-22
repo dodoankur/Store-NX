@@ -1389,14 +1389,14 @@
   dependencies:
     clsx "^1.0.4"
 
-"@draft-js-plugins/linkify@^4.0.0-beta2":
-  version "4.0.0-beta2"
-  resolved "https://registry.yarnpkg.com/@draft-js-plugins/linkify/-/linkify-4.0.0-beta2.tgz#beaa12fd1e0b9ff4a0bd59be03710e0af160f74e"
-  integrity sha512-Wh78yhCTs8GzlLDHVqQYs8a1yXojssEW5MQYBgkF0EnUklJFe52BDkRZdeLgW/Sv2cBJ664RUw1P/A6PWiXyrA==
+"@draft-js-plugins/linkify@^4.0.0-beta3":
+  version "4.0.0-beta3"
+  resolved "https://registry.yarnpkg.com/@draft-js-plugins/linkify/-/linkify-4.0.0-beta3.tgz#7b10d49c5356c8567e02f88cd91d3283323a1761"
+  integrity sha512-aS3MYP8tHpi95RphxYJvSgY1nKne4fCcsL7tzqPngC+HsIzLizS0Jv0IFALPY8UeYRTwHn0pLc7W6ooeQkE7Bg==
   dependencies:
     clsx "^1.0.4"
-    linkify-it "^2.0.3"
-    tlds "^1.189.0"
+    linkify-it "^3.0.2"
+    tlds "^1.216.0"
 
 "@emotion/hash@^0.8.0":
   version "0.8.0"
@@ -9547,10 +9547,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-linkify-it@^2.0.3:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-2.2.0.tgz#e3b54697e78bf915c70a38acd78fd09e0058b1cf"
-  integrity sha512-GnAl/knGn+i1U/wjBz3akz2stz+HrHLsxMwHQGofCDfPvlf+gDKN58UtfmUquTY4/MXeE2x7k19KQmeoZi94Iw==
+linkify-it@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-3.0.2.tgz#f55eeb8bc1d3ae754049e124ab3bb56d97797fb8"
+  integrity sha512-gDBO4aHNZS6coiZCKVhSNh43F9ioIL4JwRjLZPkoLIY4yZFwg264Y5lu2x6rb1Js42Gh6Yqm2f6L2AJcnkzinQ==
   dependencies:
     uc.micro "^1.0.1"
 
@@ -14532,10 +14532,10 @@ tiny-warning@^1.0.0, tiny-warning@^1.0.2, tiny-warning@^1.0.3:
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
 
-tlds@^1.189.0:
-  version "1.212.0"
-  resolved "https://registry.yarnpkg.com/tlds/-/tlds-1.212.0.tgz#f3f29bd5d10d0fd9a6f171a5f9d57d58b71eccf7"
-  integrity sha512-03rYYO1rGhOYpdYB+wlLY2d0xza6hdN/S67ol2ZpaH+CtFedMVAVhj8ft0rwxEkr90zatou8opBv7Xp6X4cK6g==
+tlds@^1.216.0:
+  version "1.216.0"
+  resolved "https://registry.yarnpkg.com/tlds/-/tlds-1.216.0.tgz#9749abcbe1bafb4f7b22d44391bd7bf64fa8a435"
+  integrity sha512-y9A+eMRKLdAOclcFRTk3durpvCWiEdWcQhCOopCO654pckH9+o5Z5VgBsTTAFqtyxB8yFRXSG1q7BCCeHyrm0w==
 
 tmp@0.0.33, tmp@^0.0.33:
   version "0.0.33"

@@ -33,7 +33,7 @@
     "@babel/preset-react": "^7.12.10",
     "@draft-js-plugins/editor": "^4.0.0-beta4",
     "@draft-js-plugins/hashtag": "^4.0.0-beta2",
-    "@draft-js-plugins/linkify": "^4.0.0-beta2",
+    "@draft-js-plugins/linkify": "^4.0.0-beta3",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@reduxjs/toolkit": "^1.5.0",
