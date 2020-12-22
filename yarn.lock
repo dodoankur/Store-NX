@@ -1776,12 +1776,12 @@
     puka "^1.0.1"
     read-package-json-fast "^1.1.3"
 
-"@nrwl/cli@11.0.16":
-  version "11.0.16"
-  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-11.0.16.tgz#adccd9685244cef03da286832e7b7b831f6809ad"
-  integrity sha512-Y60iokPwc8s2gUIquQScP1OdEj4fwo/GIvFi3YWAi7mBEXrFs2KnZucv2BNymyJrP3bQ7997fX6pRRPf37ZF7Q==
+"@nrwl/cli@11.0.18":
+  version "11.0.18"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-11.0.18.tgz#8c87152fb20805f29ca277f4f2ba673d3063c75b"
+  integrity sha512-tumoaf2y/ZJc/QPNuk4nz2n1k7iylz24cIJMhqug6QvlVrX1YWkYw1wS1XOaBwIbpSapWVIeeCMJ73I7sz9tIw==
   dependencies:
-    "@nrwl/tao" "11.0.16"
+    "@nrwl/tao" "11.0.18"
     chalk "4.1.0"
     tmp "0.0.33"
     yargs "15.4.1"
@@ -1934,10 +1934,10 @@
     eslint-plugin-react-hooks "^2.4.0"
     url-loader "^3.0.0"
 
-"@nrwl/tao@11.0.16":
-  version "11.0.16"
-  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.16.tgz#dd3d4bd070909b927bf9253cb4da36668d341f61"
-  integrity sha512-1Y4XWLNOoWfjYHBwYruSFxuyE4ZNvrXBOr/nerTmDgOmAXcVectMyR3ld/Jc1u0rc4iLOQ0ngbwf8thAcTjUeQ==
+"@nrwl/tao@11.0.17":
+  version "11.0.17"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.17.tgz#37ec4d715aff126b3a0f2060b104cc74842c5522"
+  integrity sha512-4vAgr3XtzkMnKBmlwXDUHNziz2hg4oMRqAJkURPYhftQvLPKY4wAbYhrX02S/Kxkk2xjBMI4WnXWNEIsaVkSJQ==
   dependencies:
     "@angular-devkit/architect" "~0.1100.1"
     "@angular-devkit/core" "~11.0.1"
@@ -1953,10 +1953,10 @@
     tslib "^2.0.0"
     yargs-parser "20.0.0"
 
-"@nrwl/tao@11.0.17":
-  version "11.0.17"
-  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.17.tgz#37ec4d715aff126b3a0f2060b104cc74842c5522"
-  integrity sha512-4vAgr3XtzkMnKBmlwXDUHNziz2hg4oMRqAJkURPYhftQvLPKY4wAbYhrX02S/Kxkk2xjBMI4WnXWNEIsaVkSJQ==
+"@nrwl/tao@11.0.18":
+  version "11.0.18"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.18.tgz#8f914345f25da9a53e447b9197e0c639455f32ec"
+  integrity sha512-ZNFWtSPj3w0y8gm6fhQ32v92m7uCXlUWVzuOEATt3ukt46O/zgrQMGy5MdBn2VoQ4S39sDOR3gMLhhzYHWAEdQ==
   dependencies:
     "@angular-devkit/architect" "~0.1100.1"
     "@angular-devkit/core" "~11.0.1"
