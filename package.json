@@ -133,7 +133,7 @@
     "@types/express": "^4.17.9",
     "@types/express-jwt": "^0.0.42",
     "@types/formidable": "^1.0.31",
-    "@types/fs-extra": "^9.0.5",
+    "@types/fs-extra": "^9.0.6",
     "@types/html-to-draftjs": "^1.4.0",
     "@types/jest": "26.0.19",
     "@types/jsonwebtoken": "^8.5.0",
