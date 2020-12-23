@@ -121,7 +121,7 @@
     "@nrwl/node": "11.0.4",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/react": "11.0.4",
-    "@nrwl/tao": "11.0.17",
+    "@nrwl/tao": "11.0.18",
     "@nrwl/web": "11.0.4",
     "@nrwl/workspace": "11.0.4",
     "@testing-library/jest-dom": "^5.11.6",
