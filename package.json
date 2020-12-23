@@ -101,7 +101,7 @@
     "regenerator-runtime": "^0.13.7",
     "request-promise": "^4.2.2",
     "response-time": "^2.3.2",
-    "sitemap": "^6.3.3",
+    "sitemap": "^6.3.4",
     "slug": "^4.0.2",
     "stripe": "^8.128.0",
     "tslib": "^2.0.3",
