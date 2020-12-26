@@ -99,10 +99,7 @@ const ProductItem = ({ product, onSelect, selected, settings }) => {
               </div>
             </div>
             <div className="col-xs-8">
-              <Link
-                to={"/admin/product/" + product.id}
-                className={productClass}
-              >
+              <Link to={"/product/" + product.id} className={productClass}>
                 {productName}
                 <br />
                 <small>{product.category_name}</small>

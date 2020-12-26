@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dispatch(updateWebhook(webhook))
       } else {
         dispatch(createWebhook(webhook))
-        ownProps.history.push("/admin/settings/webhooks")
+        ownProps.history.push("/settings/webhooks")
       }
     },
   }

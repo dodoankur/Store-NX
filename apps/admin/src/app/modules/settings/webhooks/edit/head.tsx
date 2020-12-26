@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onDelete: webhookId => {
       dispatch(deleteWebhook(webhookId))
-      ownProps.history.push("/admin/settings/webhooks")
+      ownProps.history.push("/settings/webhooks")
     },
   }
 }
