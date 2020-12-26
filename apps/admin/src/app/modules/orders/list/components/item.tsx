@@ -119,7 +119,7 @@ const OrdersListItem = ({ order, onSelect, selected, settings }) => {
             </div>
             <div className="col-xs-1">{stateIcons}</div>
             <div className="col-xs-2">
-              <Link to={`/admin/order/${order.id}`} className={style.number}>
+              <Link to={`/order/${order.id}`} className={style.number}>
                 {order.number || 0}
               </Link>
               <br />

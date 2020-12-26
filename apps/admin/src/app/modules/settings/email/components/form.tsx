@@ -21,10 +21,7 @@ const EmailSettings = props => {
       <Paper className="paper-box" elevation={4}>
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
-            <Link
-              to="/admin/settings/email/smtp"
-              style={{ textDecoration: "none" }}
-            >
+            <Link to="/settings/email/smtp" style={{ textDecoration: "none" }}>
               <ListItem
                 rightIcon={<KeyboardArrowRight />}
                 primaryText={
@@ -52,7 +49,7 @@ const EmailSettings = props => {
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
             <Link
-              to="/admin/settings/email/templates/order_confirmation"
+              to="/settings/email/templates/order_confirmation"
               style={{ textDecoration: "none" }}
             >
               <ListItem
@@ -61,7 +58,7 @@ const EmailSettings = props => {
               />
             </Link>
             <Link
-              to="/admin/settings/email/templates/register_doi_en"
+              to="/settings/email/templates/register_doi_en"
               style={{ textDecoration: "none" }}
             >
               <ListItem
@@ -70,7 +67,7 @@ const EmailSettings = props => {
               />
             </Link>
             {/* <Link
-								to="/admin/settings/email/templates/register_doi_de"
+								to="/settings/email/templates/register_doi_de"
 								style={{ textDecoration: 'none' }}
 							>
 								<ListItem
@@ -81,7 +78,7 @@ const EmailSettings = props => {
 								/>
 							</Link>
 							<Link
-								to="/admin/settings/email/templates/register_doi_ru"
+								to="/settings/email/templates/register_doi_ru"
 								style={{ textDecoration: 'none' }}
 							>
 								<ListItem
@@ -92,7 +89,7 @@ const EmailSettings = props => {
 								/>
 							</Link> */}
             <Link
-              to="/admin/settings/email/templates/forgot_password_en"
+              to="/settings/email/templates/forgot_password_en"
               style={{ textDecoration: "none" }}
             >
               <ListItem
@@ -101,7 +98,7 @@ const EmailSettings = props => {
               />
             </Link>
             {/* <Link
-								to="/admin/settings/email/templates/forgot_password_de"
+								to="/settings/email/templates/forgot_password_de"
 								style={{ textDecoration: 'none' }}
 							>
 								<ListItem
@@ -112,7 +109,7 @@ const EmailSettings = props => {
 								/>
 							</Link>
 							<Link
-								to="/admin/settings/email/templates/forgot_password_ru"
+								to="/settings/email/templates/forgot_password_ru"
 								style={{ textDecoration: 'none' }}
 							>
 								<ListItem

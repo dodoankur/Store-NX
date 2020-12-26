@@ -64,7 +64,7 @@ const StatusesList: FC<props> = (props: props) => {
       {rows}
 
       {showManage && (
-        <Link to="/admin/orders/statuses" style={{ textDecoration: "none" }}>
+        <Link to="/orders/statuses" style={{ textDecoration: "none" }}>
           <ListItem
             className="treeItem"
             primaryText={messages.manageOrderStatuses}

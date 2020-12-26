@@ -20,7 +20,7 @@ const PageItem = ({ page }: PageItemProps) => {
   return (
     <>
       <Divider />
-      <Link to={`/admin/pages/${page.id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/pages/${page.id}`} style={{ textDecoration: "none" }}>
         <ListItem
           rightIcon={<KeyboardArrowRight />}
           leftIcon={page.is_system ? <LockOutlined /> : null}

@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onDelete: id => {
       dispatch(deletePage(id))
-      ownProps.history.push("/admin/pages")
+      ownProps.history.push("/pages")
     },
   }
 }

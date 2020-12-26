@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dispatch(updatePaymentMethod(method))
       } else {
         dispatch(createPaymentMethod(method))
-        ownProps.history.push("/admin/settings/payments")
+        ownProps.history.push("/settings/payments")
       }
     },
   }

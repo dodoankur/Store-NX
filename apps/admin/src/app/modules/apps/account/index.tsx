@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       if (webstoreAuthorized) {
         dispatch(fetchAccount())
       } else {
-        ownProps.history.push("/admin/apps/login")
+        ownProps.history.push("/apps/login")
       }
     },
     onAccountSubmit: values => {

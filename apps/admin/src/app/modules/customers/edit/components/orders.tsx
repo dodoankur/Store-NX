@@ -70,7 +70,7 @@ const CustomerOrder = ({ order, settings }) => {
   return (
     <>
       <Divider />
-      <Link to={`/admin/order/${order.id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/order/${order.id}`} style={{ textDecoration: "none" }}>
         <ListItem
           rightIcon={<KeyboardArrowRight />}
           primaryText={

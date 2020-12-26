@@ -16,7 +16,7 @@ const ServiceItem: FC<props> = ({ service }: props) => {
 
   return (
     <Item
-      path={`/admin/apps/service/${id}`}
+      path={`/apps/service/${id}`}
       coverUrl={cover_url}
       title={name}
       developer={developer.name}

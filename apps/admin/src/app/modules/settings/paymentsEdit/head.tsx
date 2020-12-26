@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onDelete: id => {
       dispatch(deletePaymentMethod(id))
-      ownProps.history.push("/admin/settings/payments")
+      ownProps.history.push("/settings/payments")
     },
   }
 }

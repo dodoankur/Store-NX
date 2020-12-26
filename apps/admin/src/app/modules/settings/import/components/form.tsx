@@ -23,7 +23,7 @@ const ImportSettings = (props: props) => {
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
             <Link
-              to="/admin/settings/import/googlespreadsheet"
+              to="/settings/import/googlespreadsheet"
               style={{ textDecoration: "none" }}
             >
               <ListItem

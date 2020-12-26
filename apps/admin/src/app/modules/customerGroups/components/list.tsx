@@ -67,7 +67,7 @@ const Groups = props => {
       {rows}
 
       {showManage && (
-        <Link to="/admin/customers/groups" style={{ textDecoration: "none" }}>
+        <Link to="/customers/groups" style={{ textDecoration: "none" }}>
           <ListItem
             className="treeItem"
             primaryText={messages.customerGroups_titleEditMany}

@@ -55,7 +55,7 @@ const ServicesList: FC<props> = (props: props) => {
           }}
         >
           {messages.loadFromWebstore}&nbsp;&nbsp;
-          <Link to="/admin/apps/login">
+          <Link to="/apps/login">
             <Button variant="contained" color="primary">
               {messages.loginTitle}
             </Button>

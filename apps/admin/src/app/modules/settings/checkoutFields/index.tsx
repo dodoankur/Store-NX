@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onSubmit: values => {
       dispatch(updateCheckoutField(values))
-      ownProps.history.push("/admin/settings/checkout")
+      ownProps.history.push("/settings/checkout")
     },
   }
 }

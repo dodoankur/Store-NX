@@ -6,7 +6,7 @@ import { messages } from "../../../../../lib"
 
 const Buttons = () => (
   <span>
-    <Link to="/admin/settings/tokens/add">
+    <Link to="/settings/tokens/add">
       <IconButton
         touch
         tooltipPosition="bottom-left"

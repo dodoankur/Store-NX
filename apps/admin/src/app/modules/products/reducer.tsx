@@ -170,7 +170,7 @@ export const createProduct = createAsyncThunk(
     try {
       const { json } = await api.products.create(productDraft)
       dispatch(successCreateProduct(json.id))
-      history.push("/admin/product/" + json.id)
+      history.push("/product/" + json.id)
     } catch (error) {
       console.error(error)
     }

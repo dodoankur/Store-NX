@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onDelete: () => {
       dispatch(deleteCurrentProduct())
-      ownProps.history.push("/admin/products")
+      ownProps.history.push("/products")
     },
   }
 }

@@ -61,7 +61,7 @@ const ProductShort = (props: ProductShortProps) => {
         {thumbnailUrl && thumbnailUrl !== "" && <img src={thumbnailUrl} />}
       </div>
       <div className={style.relatedProductText}>
-        <Link to={`/admin/product/${id}`}>{name}</Link>
+        <Link to={`/product/${id}`}>{name}</Link>
         <br />
         <p>{priceFormatted}</p>
       </div>
