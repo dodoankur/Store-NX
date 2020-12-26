@@ -83,3 +83,4 @@ logs/*
 *.zip
 debug.log
 *.map
+.yarn/releases/yarn-berry.cjs
