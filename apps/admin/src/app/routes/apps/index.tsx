@@ -9,15 +9,11 @@ import NotFound from "../notFound"
 
 export default () => (
   <Switch>
-    <Route path="/admin/apps" exact component={Services} />
-    <Route
-      path="/admin/apps/service/:serviceId"
-      exect
-      component={ServiceDetails}
-    />
-    <Route path="/admin/apps/app/:appKey" exect component={AppDetails} />
-    <Route path="/admin/apps/login" exact component={Login} />
-    <Route path="/admin/apps/account" exact component={Account} />
+    <Route path="/apps" exact component={Services} />
+    <Route path="/apps/service/:serviceId" exect component={ServiceDetails} />
+    <Route path="/apps/app/:appKey" exect component={AppDetails} />
+    <Route path="/apps/login" exact component={Login} />
+    <Route path="/apps/account" exact component={Account} />
     <Route component={NotFound} />
   </Switch>
 )

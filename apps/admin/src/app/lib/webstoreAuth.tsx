@@ -2,8 +2,8 @@ import { toNumber } from "lodash"
 import { parseJWT } from "./auth"
 import messages from "./text"
 
-const loginPath = "/admin/apps/login"
-const homePath = "/admin/apps"
+const loginPath = "/apps/login"
+const homePath = "/apps"
 
 const getParameterByName = (name: string, url: string) => {
   if (!url) url = window.location.href

@@ -22,7 +22,7 @@ const Config = {
   adminBaseUrl: `http://localhost:4200`,
 
   // used by API
-  adminLoginUrl: "/admin/login",
+  adminLoginUrl: "/login",
 
   apiListenPort: 3001,
   storeListenPort: 3000,
