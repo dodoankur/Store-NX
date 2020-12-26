@@ -81,7 +81,7 @@ const GeneralSettings: FC<props & InjectedFormProps<{}, props>> = (
           <div style={{ width: "100%" }}>
             <List>
               <Link
-                to="/admin/settings/general/logo"
+                to="/settings/general/logo"
                 style={{ textDecoration: "none" }}
               >
                 <ListItem

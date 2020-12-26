@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onDelete: () => {
       const { tokenId } = ownProps.match.params
       dispatch(deleteToken(tokenId))
-      ownProps.history.push("/admin/settings/tokens")
+      ownProps.history.push("/settings/tokens")
     },
   }
 }

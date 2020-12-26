@@ -38,3 +38,27 @@ testem.log
 .DS_Store
 Thumbs.db
 logs/server.log
+
+# testing
+/coverage
+
+public/admin-assets/js/app-*
+public/admin-assets/js/vendor-*
+public/admin-assets/css/bundle-*
+public/admin/index.html
+public/content/*
+!public/content/404.svg
+!public/content/*.md
+theme/dist/*
+theme/assets/js/app-*
+theme/assets/js/theme-*
+theme/assets/css/bundle-*
+theme/assets/index.html
+theme/assets/sw.js
+theme/assets/workbox-*.js
+logs/*
+*.zip
+debug.log
+*.map
+
+.yarn/releases/yarn-berry.cjs

@@ -6,7 +6,7 @@ import { messages } from "../../../../../lib"
 
 const Buttons = () => (
   <span>
-    <Link to="/admin/settings/webhooks/add">
+    <Link to="/settings/webhooks/add">
       <IconButton
         touch
         tooltipPosition="bottom-left"

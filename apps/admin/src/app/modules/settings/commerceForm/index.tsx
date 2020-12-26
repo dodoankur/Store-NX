@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onSubmit: values => {
       dispatch(updateCommerceSettings(values))
-      ownProps.history.push("/admin/settings/general/commerceform")
+      ownProps.history.push("/settings/general/commerceform")
     },
   }
 }

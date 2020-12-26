@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deleteOption: () => {
       const { productId, optionId } = ownProps.match.params
       dispatch(deleteOption({ productId, optionId }))
-      ownProps.history.push(`/admin/product/${productId}`)
+      ownProps.history.push(`/product/${productId}`)
     },
     onSubmit: values => {
       const { productId, optionId } = ownProps.match.params

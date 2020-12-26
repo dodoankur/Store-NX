@@ -39,7 +39,7 @@ const CustomersListItem = (props: props) => {
             </div>
             <div className="col-xs-5">
               <Link
-                to={"/admin/customer/" + customer.id}
+                to={"/customer/" + customer.id}
                 className={style.customerName}
               >
                 {customer.full_name}

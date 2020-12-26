@@ -457,7 +457,7 @@ export function createOrder(history) {
       .then(orderResponse => {
         const orderId = orderResponse.json.id
         dispatch(createOrdersSuccess())
-        history.push(`/admin/order/${orderId}`)
+        history.push(`/order/${orderId}`)
       })
       .catch(error => {})
   }

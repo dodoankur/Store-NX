@@ -95,7 +95,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dispatch(updateShippingMethod(method))
       } else {
         dispatch(createShippingMethod(method))
-        ownProps.history.push("/admin/settings/shipping")
+        ownProps.history.push("/settings/shipping")
       }
     },
   }

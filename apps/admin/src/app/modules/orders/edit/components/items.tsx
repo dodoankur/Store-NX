@@ -194,7 +194,7 @@ export const OrderItem = props => {
           )}
         </div>
         <div className={style.itemName + " col-xs-4"}>
-          <Link to={`/admin/product/${item.product_id}`}>{item.name}</Link>
+          <Link to={`/product/${item.product_id}`}>{item.name}</Link>
           <p>{item.variant_name}</p>
           <p>
             {messages.products_sku}: {item.sku}

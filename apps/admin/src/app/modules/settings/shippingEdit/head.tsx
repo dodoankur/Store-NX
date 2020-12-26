@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onDelete: id => {
       dispatch(deleteShippingMethod(id))
-      ownProps.history.push("/admin/settings/shipping")
+      ownProps.history.push("/settings/shipping")
     },
   }
 }

@@ -5,14 +5,14 @@ import { Link } from "react-router-dom"
 import { helper, messages } from "../../../../lib"
 import style from "./style.module.sass"
 
-const THUMBNAIL_WIDTH = 100
+const thumbnailWidth = 100
 const ImagePlaceholder = (
   <PhotoCamera style={{ fontSize: 30, color: "#cccccc" }} />
 )
 
 const ItemImage = ({ images }) => {
   if (images && images.length > 0) {
-    const imageUrl = helper.getThumbnailUrl(images[0].url, THUMBNAIL_WIDTH)
+    const imageUrl = helper.getThumbnailUrl(images[0].url, thumbnailWidth)
     return <img src={imageUrl} className={style.image} />
   } else {
     return ImagePlaceholder
@@ -99,10 +99,7 @@ const ProductItem = ({ product, onSelect, selected, settings }) => {
               </div>
             </div>
             <div className="col-xs-8">
-              <Link
-                to={"/admin/product/" + product.id}
-                className={productClass}
-              >
+              <Link to={"/product/" + product.id} className={productClass}>
                 {productName}
                 <br />
                 <small>{product.category_name}</small>

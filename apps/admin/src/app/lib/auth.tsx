@@ -1,8 +1,8 @@
 import { toNumber } from "lodash"
 import messages from "./text"
 
-const loginPath = "/admin/login"
-const homePath = "/admin/"
+const loginPath = "/login"
+const homePath = "/"
 
 const getParameterByName = (name: string, url: string) => {
   if (!url) url = window.location.href

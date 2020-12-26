@@ -158,10 +158,7 @@ const OrderCustomer = props => {
       <Paper className="paper-box" elevation={4}>
         <div className={style.innerBox}>
           <div className={style.address}>
-            <Link
-              to={`/admin/customer/${order.customer_id}`}
-              className={style.link}
-            >
+            <Link to={`/customer/${order.customer_id}`} className={style.link}>
               {order.customer && order.customer.full_name}
             </Link>
             <a href={"MailTo:" + order.email} className={style.link}>

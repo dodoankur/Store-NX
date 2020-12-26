@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dispatch(updatePage(page))
       } else {
         dispatch(createPage(page))
-        ownProps.history.push("/admin/pages")
+        ownProps.history.push("/pages")
       }
     },
     eraseData: () => {

@@ -158,7 +158,7 @@ const ProductVariantsGrid = (props: VariantGridProps) => {
         <div key={index} className={style.gridCol}>
           <Link
             title={messages.editProductOption}
-            to={`/admin/product/${productId}/option/${option.id}`}
+            to={`/product/${productId}/option/${option.id}`}
           >
             {option.name}
           </Link>

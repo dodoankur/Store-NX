@@ -1,7 +1,7 @@
 // import { getHeader } from "../support/app.po"
 
 describe("admin", () => {
-  beforeEach(() => cy.visit("/admin"))
+  beforeEach(() => cy.visit("/"))
 
   it("should display header", () => {
     // Custom command example, see `../support/commands.ts` file
@@ -14,17 +14,17 @@ describe("admin", () => {
     cy.contains("Orders")
     cy.contains("Sales")
 
-    cy.visit("/admin/products")
+    cy.visit("/products")
     cy.contains("Products")
     cy.contains("Clothing")
     cy.contains("Product A")
 
-    cy.visit("/admin/orders")
+    cy.visit("/orders")
     cy.contains("Orders")
     cy.contains("1000")
     cy.contains("All Statuses")
 
-    cy.visit("/admin/customers")
+    cy.visit("/customers")
     cy.contains("Customers")
     cy.contains("Himadu")
     cy.contains("All Customers")

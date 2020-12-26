@@ -6,7 +6,7 @@ import { messages } from "../../../../lib"
 
 const Buttons = () => (
   <span>
-    <Link to="/admin/pages/add">
+    <Link to="/pages/add">
       <IconButton
         touch
         tooltipPosition="bottom-left"
