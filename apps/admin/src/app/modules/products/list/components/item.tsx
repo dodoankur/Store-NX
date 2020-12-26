@@ -5,14 +5,14 @@ import { Link } from "react-router-dom"
 import { helper, messages } from "../../../../lib"
 import style from "./style.module.sass"
 
-const THUMBNAIL_WIDTH = 100
+const thumbnailWidth = 100
 const ImagePlaceholder = (
   <PhotoCamera style={{ fontSize: 30, color: "#cccccc" }} />
 )
 
 const ItemImage = ({ images }) => {
   if (images && images.length > 0) {
-    const imageUrl = helper.getThumbnailUrl(images[0].url, THUMBNAIL_WIDTH)
+    const imageUrl = helper.getThumbnailUrl(images[0].url, thumbnailWidth)
     return <img src={imageUrl} className={style.image} />
   } else {
     return ImagePlaceholder

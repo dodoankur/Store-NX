@@ -11,9 +11,9 @@ interface props {
   items
   selected
   loadingItems
-  onSelect
-  onSelectAll
-  selectedAll
+  onSelect: Function
+  onSelectAll: Function
+  selectedAll: Function
   loadMore
   settings
   hasMore
@@ -40,7 +40,7 @@ const ProductsList: FC<props> = (props: props) => {
     onLoad()
   }, [])
 
-  const rows = items.map((item, index) => {
+  const rows = items.map((item, index: number) => {
     const itemSelected = selected.includes(item.id)
     return (
       <ProductsListItem
