@@ -31,13 +31,18 @@ const CustomerEditForm: FC<props & InjectedFormProps<{}, props>> = (
 ) => {
   const [groups, setGroups] = useState([])
 
-  useEffect(() => {
-    api.customerGroups.list().then(({ status, json }) => {
-      setGroups(json)
-    })
-  }, [])
-
   const { handleSubmit, pristine, submitting, onCancel } = props
+
+  useEffect(() => {
+    ;async () => {
+      try {
+        const { json } = await api.customerGroups.list()
+        setGroups(json)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }, [])
 
   let groupItems = groups.map((item, index) => (
     <MenuItem key={index} value={item.id} primaryText={item.name} />
