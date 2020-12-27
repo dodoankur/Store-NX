@@ -117,6 +117,7 @@
     "react-chartjs-2": "^2.11.1",
     "react-dom": "17.0.1",
     "react-dropzone": "^11.2.4",
+    "react-final-form": "^6.5.2",
     "react-helmet": "^6.1.0",
     "react-image-gallery": "^1.0.8",
     "react-image-lightbox": "^5.1.1",
@@ -156,6 +157,8 @@
     "ws": "^7.4.1"
   },
   "devDependencies": {
+    "@nrwl/cypress": "11.0.4",
+    "@nrwl/jest": "11.0.4",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "11.2.2",
     "@types/bcrypt": "^3.0.0",
@@ -192,6 +195,7 @@
     "@types/ws": "^7.4.0",
     "@typescript-eslint/eslint-plugin": "4.11.0",
     "@typescript-eslint/parser": "4.11.0",
+    "chai": "^4.2.0",
     "cypress": "^6.2.0",
     "eslint": "^7.12.1",
     "eslint-config-airbnb": "^18.2.0",
@@ -202,12 +206,9 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-react-hooks": "4.2.0",
-    "ts-jest": "26.4.4",
     "jest": "26.6.3",
     "prettier": "2.2.1",
-    "typescript": "^4.0.5",
-    "chai": "^4.2.0",
-    "@nrwl/cypress": "11.0.4",
-    "@nrwl/jest": "11.0.4"
+    "ts-jest": "26.4.4",
+    "typescript": "^4.0.5"
   }
 }
