@@ -1,19 +1,33 @@
 import { Button, Paper } from "@material-ui/core"
 import Dialog from "material-ui/Dialog"
-import React, { useState } from "react"
+import React, { FC, useState } from "react"
 import { helper, messages } from "../../../../lib"
 import style from "./style.module.sass"
 import SummaryForm from "./summaryForm"
 
-const CustomerSummary = props => {
+interface props {
+  customer: {
+    total_spent: number
+    full_name: string
+    group_name: string
+    email: string
+    mobile: string
+    note: string
+  }
+  settings
+  onCustomerSummaryUpdate
+}
+
+const CustomerSummary: FC<props> = (props: props) => {
   const [openSummaryEdit, setOpenSummaryEdit] = useState(false)
 
+  const { customer, settings, onCustomerSummaryUpdate } = props
+
   const saveSummaryEdit = customer => {
-    props.onCustomerSummaryUpdate(customer)
+    onCustomerSummaryUpdate(customer)
     setOpenSummaryEdit(false)
   }
 
-  const { customer, settings } = props
   const totalSpent = helper.formatCurrency(customer.total_spent, settings)
 
   return (

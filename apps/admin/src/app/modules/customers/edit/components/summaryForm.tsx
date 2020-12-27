@@ -1,8 +1,7 @@
-import { Button } from "@material-ui/core"
-import MenuItem from "material-ui/MenuItem"
+import { Button, Grid, MenuItem } from "@material-ui/core"
+import { Select, TextField } from "mui-rff"
 import React, { FC, useEffect, useState } from "react"
-import { Field, InjectedFormProps, reduxForm } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
+import { Form } from "react-final-form"
 import { api, messages } from "../../../../lib"
 import style from "./style.module.sass"
 
@@ -20,18 +19,22 @@ const validate = values => {
 }
 
 interface props {
-  handleSubmit
-  pristine
-  submitting
-  onCancel
+  initialValues: {
+    total_spent: number
+    full_name: string
+    group_name: string
+    email: string
+    mobile: string
+    note: string
+  }
+  onSubmit: Function
+  onCancel: Function
 }
 
-const CustomerEditForm: FC<props & InjectedFormProps<{}, props>> = (
-  props: props & InjectedFormProps<{}, props>
-) => {
+const CustomerEditForm: FC<props> = (props: props) => {
   const [groups, setGroups] = useState([])
 
-  const { handleSubmit, pristine, submitting, onCancel } = props
+  const { initialValues, onSubmit, onCancel } = props
 
   useEffect(() => {
     ;async () => {
@@ -45,79 +48,85 @@ const CustomerEditForm: FC<props & InjectedFormProps<{}, props>> = (
   }, [])
 
   let groupItems = groups.map((item, index) => (
-    <MenuItem key={index} value={item.id} primaryText={item.name} />
+    <MenuItem key={index} value={item.id}>
+      {item.name}
+    </MenuItem>
   ))
+
   groupItems.push(
-    <MenuItem
-      key="none"
-      value={null}
-      primaryText={messages.customers_noGroup}
-    />
+    <MenuItem key="none" value={null}>
+      {messages.customers_noGroup}
+    </MenuItem>
   )
 
-  return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "initial",
-        width: "100%",
-      }}
-    >
-      <>
-        <Field
-          component={TextField}
-          fullWidth
-          name="full_name"
-          floatingLabelText={messages.fullName}
-        />
-        <Field
-          component={SelectField}
-          fullWidth
-          name="group_id"
-          floatingLabelText={messages.group}
-        >
+  const formFields = [
+    {
+      field: <TextField fullWidth name="full_name" label={messages.fullName} />,
+    },
+    {
+      field: (
+        <Select fullWidth name="group_id" label={messages.group}>
           {groupItems}
-        </Field>
-        <Field
-          component={TextField}
-          fullWidth
-          name="email"
-          floatingLabelText={messages.email}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="mobile"
-          floatingLabelText={messages.mobile}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="note"
-          floatingLabelText={messages.note}
-          multiLine
-        />
-      </>
-      <div className={style.shippingButtons}>
-        <Button variant="contained" color="primary" onClick={onCancel}>
-          {messages.cancel}
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ marginLeft: 12 }}
-          disabled={pristine || submitting}
+        </Select>
+      ),
+    },
+    {
+      field: <TextField fullWidth name="email" label={messages.email} />,
+    },
+    {
+      field: <TextField fullWidth name="mobile" label={messages.mobile} />,
+    },
+    {
+      field: (
+        <TextField fullWidth name="note" label={messages.note} multiline />
+      ),
+    },
+  ]
+
+  return (
+    <Form
+      onSubmit={() => onSubmit}
+      initialValues={initialValues}
+      validate={validate}
+      enableReinitialize
+    >
+      {({ handleSubmit, pristine, submitting }) => (
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "initial",
+            width: "100%",
+          }}
         >
-          {messages.save}
-        </Button>
-      </div>
-    </form>
+          <Grid container alignItems="flex-start" spacing={2}>
+            {formFields.map((item, index) => (
+              <Grid item xs={6} key={index}>
+                {item.field}
+              </Grid>
+            ))}
+            <div className={style.shippingButtons}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => onCancel}
+              >
+                {messages.cancel}
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ marginLeft: 12 }}
+                disabled={pristine || submitting}
+              >
+                {messages.save}
+              </Button>
+            </div>
+          </Grid>
+        </form>
+      )}
+    </Form>
   )
 }
 
-export default reduxForm<props, { onCancel: Function }>({
-  form: "CustomerEditForm",
-  validate,
-  enableReinitialize: true,
-})(CustomerEditForm)
+export default CustomerEditForm
