@@ -1,8 +1,7 @@
-import { Button } from "@material-ui/core"
-import MenuItem from "material-ui/MenuItem"
+import { Button, Grid, MenuItem } from "@material-ui/core"
+import { Select, TextField } from "mui-rff"
 import React, { FC, useEffect, useState } from "react"
-import { Field, InjectedFormProps, reduxForm } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
+import { Form } from "react-final-form"
 import { api, messages } from "../../../../lib"
 import style from "./style.module.sass"
 
@@ -20,27 +19,23 @@ const validate = (values: any) => {
 }
 
 interface props {
-  handleSubmit
-  pristine
-  submitting
+  onSubmit: Function
   onCancel?: Function
-  initialValues
+  initialValues?: any
 }
 
-const SummaryForm: FC<props & InjectedFormProps<{}, props>> = (
-  props: props & InjectedFormProps<{}, props>
-) => {
+const SummaryForm: FC<props> = (props: props) => {
   const [shippingMethods, setShippingMethods] = useState([])
   const [paymentMethods, setPaymentMethods] = useState([])
   const [orderStatuses, setOrderStatuses] = useState([])
 
-  const { handleSubmit, pristine, submitting, onCancel, initialValues } = props
+  const { initialValues, onSubmit, onCancel } = props
 
   useEffect(() => {
     fetchData(initialValues.id)
   }, [])
 
-  const fetchData = async orderId => {
+  const fetchData = async (orderId: string) => {
     const filter = {
       order_id: orderId,
     }
@@ -60,107 +55,126 @@ const SummaryForm: FC<props & InjectedFormProps<{}, props>> = (
   }
 
   const statusItems = orderStatuses.map((item, index) => (
-    <MenuItem key={index} value={item.id} primaryText={item.name} />
+    <MenuItem key={index} value={item.id}>
+      {item.name}
+    </MenuItem>
   ))
   const shippingItems = shippingMethods.map((item, index) => (
-    <MenuItem key={index} value={item.id} primaryText={item.name} />
+    <MenuItem key={index} value={item.id}>
+      {item.name}
+    </MenuItem>
   ))
   const paymentItems = paymentMethods.map((item, index) => (
-    <MenuItem key={index} value={item.id} primaryText={item.name} />
+    <MenuItem key={index} value={item.id}>
+      {item.name}
+    </MenuItem>
   ))
 
   statusItems.push(
-    <MenuItem key="none" value={null} primaryText={messages.noOrderStatus} />
+    <MenuItem key="none" value={null}>
+      {messages.noOrderStatus}
+    </MenuItem>
   )
 
-  return (
-    <form
-      onSubmit={() => handleSubmit}
-      style={{
-        display: "initial",
-        width: "100%",
-      }}
-    >
-      <>
-        <Field
-          component={SelectField}
-          fullWidth
-          name="status_id"
-          floatingLabelText={messages.orderStatus}
-        >
+  const formFields = [
+    {
+      field: (
+        <Select fullWidth name="status_id" label={messages.orderStatus}>
           {statusItems}
-        </Field>
-        <Field
-          component={TextField}
+        </Select>
+      ),
+    },
+    {
+      field: (
+        <TextField
           fullWidth
           name="tracking_number"
-          floatingLabelText={messages.trackingNumber}
+          label={messages.trackingNumber}
         />
-        <Field
-          component={SelectField}
+      ),
+    },
+    {
+      field: (
+        <Select
           fullWidth
           name="shipping_method_id"
-          floatingLabelText={messages.shippingMethod}
+          label={messages.shippingMethod}
         >
           {shippingItems}
-        </Field>
-
-        <Field
-          component={SelectField}
+        </Select>
+      ),
+    },
+    {
+      field: (
+        <Select
           fullWidth
           name="payment_method_id"
-          floatingLabelText={messages.paymentsMethod}
+          label={messages.paymentsMethod}
         >
           {paymentItems}
-        </Field>
+        </Select>
+      ),
+    },
+    {
+      field: (
+        <TextField fullWidth name="comments" label={messages.customerComment} />
+      ),
+    },
+    {
+      field: <TextField fullWidth name="note" label={messages.note} />,
+    },
+    {
+      field: <TextField fullWidth name="email" label={messages.email} />,
+    },
+    {
+      field: <TextField fullWidth name="mobile" label={messages.mobile} />,
+    },
+  ]
 
-        <>
-          <Field
-            component={TextField}
-            fullWidth
-            name="comments"
-            floatingLabelText={messages.customerComment}
-          />
-          <Field
-            component={TextField}
-            fullWidth
-            name="note"
-            floatingLabelText={messages.note}
-          />
-          <Field
-            component={TextField}
-            fullWidth
-            name="email"
-            floatingLabelText={messages.email}
-          />
-          <Field
-            component={TextField}
-            fullWidth
-            name="mobile"
-            floatingLabelText={messages.mobile}
-          />
-        </>
-      </>
-      <div className={style.shippingButtons}>
-        <Button variant="contained" color="primary" onClick={() => onCancel}>
-          {messages.cancel}
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ marginLeft: 12 }}
-          disabled={pristine || submitting}
+  return (
+    <Form
+      onSubmit={() => onSubmit}
+      initialValues={initialValues}
+      validate={validate}
+      enableReinitialize
+    >
+      {({ handleSubmit, pristine, submitting }) => (
+        <form
+          onSubmit={() => handleSubmit}
+          style={{
+            display: "initial",
+            width: "100%",
+          }}
         >
-          {messages.save}
-        </Button>
-      </div>
-    </form>
+          <Grid container alignItems="flex-start" spacing={2}>
+            {formFields.map((item, index) => (
+              <Grid item xs={6} key={index}>
+                {item.field}
+              </Grid>
+            ))}
+            <div className={style.shippingButtons}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => onCancel}
+              >
+                {messages.cancel}
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ marginLeft: 12 }}
+                disabled={pristine || submitting}
+              >
+                {messages.save}
+              </Button>
+            </div>
+          </Grid>
+        </form>
+      )}
+    </Form>
   )
 }
 
-export default reduxForm<props, { onCancel?: Function }>({
-  form: "SummaryForm",
-  validate,
-  enableReinitialize: true,
-})(SummaryForm)
+export default SummaryForm
