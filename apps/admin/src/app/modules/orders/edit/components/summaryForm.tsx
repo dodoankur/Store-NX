@@ -5,7 +5,7 @@ import { Form } from "react-final-form"
 import { api, messages } from "../../../../lib"
 import style from "./style.module.sass"
 
-const validate = (values: any) => {
+const validate = (values: {}) => {
   const errors = {}
   const requiredFields = []
 
@@ -21,7 +21,7 @@ const validate = (values: any) => {
 interface props {
   onSubmit: Function
   onCancel?: Function
-  initialValues?: any
+  initialValues?: { id: string }
 }
 
 const SummaryForm: FC<props> = (props: props) => {
