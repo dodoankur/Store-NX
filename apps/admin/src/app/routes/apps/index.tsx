@@ -7,7 +7,7 @@ import Services from "../../modules/apps/services"
 import Login from "../apps/login"
 import NotFound from "../notFound"
 
-export default () => (
+const AppsRoute = () => (
   <Switch>
     <Route path="/apps" exact component={Services} />
     <Route path="/apps/service/:serviceId" exect component={ServiceDetails} />
@@ -17,3 +17,5 @@ export default () => (
     <Route component={NotFound} />
   </Switch>
 )
+
+export default AppsRoute
