@@ -1,11 +1,11 @@
-import { Button } from "@material-ui/core"
+import { Button, Grid } from "@material-ui/core"
+import { TextField } from "mui-rff"
 import React, { FC } from "react"
-import { Field, InjectedFormProps, reduxForm } from "redux-form"
-import { TextField } from "redux-form-material-ui"
+import { Form } from "react-final-form"
 import { messages } from "../../../../lib"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: {}) => {
   const errors = {}
   const requiredFields = ["city"]
 
@@ -19,102 +19,85 @@ const validate = values => {
 }
 
 interface props {
-  handleSubmit?
-  pristine?
-  submitting?
-  onCancel?: Function
-  onSubmit?: Function
+  onCancel: Function
+  onSubmit: Function
 }
 
-const CustomerAddressForm: FC<props & InjectedFormProps<{}, props>> = (
-  props: props & InjectedFormProps<{}, props>
-) => {
-  const { handleSubmit, pristine, submitting, onCancel, onSubmit } = props
+const CustomerAddressForm: FC<props> = (props: props) => {
+  const { onCancel, onSubmit } = props
+
+  const formFields = [
+    {
+      field: <TextField fullWidth name="full_name" label={messages.fullName} />,
+    },
+    {
+      field: <TextField fullWidth name="company" label={messages.company} />,
+    },
+    {
+      field: <TextField fullWidth name="address1" label={messages.address1} />,
+    },
+    {
+      field: <TextField fullWidth name="address2" label={messages.address2} />,
+    },
+    {
+      field: <TextField fullWidth name="city" label={messages.city} />,
+    },
+    {
+      field: <TextField fullWidth name="state" label={messages.state} />,
+    },
+    {
+      field: (
+        <TextField fullWidth name="postal_code" label={messages.postal_code} />
+      ),
+    },
+    {
+      field: <TextField fullWidth name="country" label={messages.country} />,
+    },
+    {
+      field: <TextField fullWidth name="phone" label={messages.phone} />,
+    },
+  ]
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "initial",
-        width: "100%",
-      }}
-    >
-      <>
-        <Field
-          component={TextField}
-          fullWidth
-          name="full_name"
-          floatingLabelText={messages.fullName}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="company"
-          floatingLabelText={messages.company}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="address1"
-          floatingLabelText={messages.address1}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="address2"
-          floatingLabelText={messages.address2}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="city"
-          floatingLabelText={messages.city}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="state"
-          floatingLabelText={messages.state}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="postal_code"
-          floatingLabelText={messages.postal_code}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="country"
-          floatingLabelText={messages.country}
-        />
-        <Field
-          component={TextField}
-          fullWidth
-          name="phone"
-          floatingLabelText={messages.phone}
-        />
-      </>
-      <div className={style.shippingButtons}>
-        <Button variant="contained" color="primary" onClick={() => onCancel}>
-          {messages.cancel}
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ marginLeft: 12 }}
-          disabled={pristine || submitting}
+    <Form onSubmit={() => onSubmit} validate={validate} enableReinitialize>
+      {({ handleSubmit, pristine, submitting }) => (
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "initial",
+            width: "100%",
+          }}
         >
-          {messages.save}
-        </Button>
-      </div>
-    </form>
+          <Grid container alignItems="flex-start" spacing={2}>
+            {formFields.map((item, index) => (
+              <Grid item xs={6} key={index}>
+                {item.field}
+              </Grid>
+            ))}
+
+            <div className={style.shippingButtons}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => onCancel}
+              >
+                {messages.cancel}
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ marginLeft: 12 }}
+                disabled={pristine || submitting}
+              >
+                {messages.save}
+              </Button>
+            </div>
+          </Grid>
+        </form>
+      )}
+    </Form>
   )
 }
 
-export default reduxForm<props, { onCancel?: Function }>({
-  form: "CustomerAddressForm",
-  validate,
-  enableReinitialize: true,
-})(CustomerAddressForm)
+export default CustomerAddressForm
