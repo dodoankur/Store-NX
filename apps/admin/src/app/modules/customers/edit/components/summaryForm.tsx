@@ -37,14 +37,14 @@ const CustomerEditForm: FC<props> = (props: props) => {
   const { initialValues, onSubmit, onCancel } = props
 
   useEffect(() => {
-    ;async () => {
+    ;(async () => {
       try {
         const { json } = await api.customerGroups.list()
         setGroups(json)
       } catch (error) {
         console.error(error)
       }
-    }
+    })()
   }, [])
 
   let groupItems = groups.map((item, index) => (
