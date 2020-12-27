@@ -3,7 +3,8 @@
 This repository will be the future update of cezerin3,
 therefore we kindly request to make all pull request to this!
 
-This has little bit of bugs in here, but admin, server works very fine!
+⭐**[Please read this: Link](https://github.com/Cezerin3/Store-NX/discussions/36)**‼
+
 To start,
 You need to have cli,
 `yarn global add nx`
