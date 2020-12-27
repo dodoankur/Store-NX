@@ -61,4 +61,9 @@ logs/*
 debug.log
 *.map
 
-.yarn/releases/yarn-berry.cjs
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
