@@ -1,12 +1,12 @@
 import { Button, Paper } from "@material-ui/core"
 import Dialog from "material-ui/Dialog"
 import moment from "moment"
-import React, { useState } from "react"
+import React, { FC, useState } from "react"
 import { messages } from "../../../../lib"
 import style from "./style.module.sass"
 import SummaryForm from "./summaryForm"
 
-const getOrderStates = order => {
+const getOrderStates = (order: any) => {
   let states = []
 
   if (order.hold) {
@@ -60,19 +60,34 @@ const getOrderStates = order => {
   return states
 }
 
-const OrderSummary = props => {
+interface props {
+  order
+  settings
+  onCheckout
+  processingCheckout
+  onOrderSummaryUpdate: Function
+}
+
+const OrderSummary: FC<props> = (props: props) => {
   const [openSummaryEdit, setOpenSummaryEdit] = useState(false)
+
+  const {
+    order,
+    settings,
+    onCheckout,
+    processingCheckout,
+    onOrderSummaryUpdate,
+  } = props
 
   const hideSummaryEdit = () => {
     setOpenSummaryEdit(false)
   }
 
   const saveSummaryEdit = order => {
-    props.onOrderSummaryUpdate(order)
+    onOrderSummaryUpdate(order)
     hideSummaryEdit()
   }
 
-  const { order, settings, onCheckout, processingCheckout } = props
   const allowEdit = order.closed === false && order.cancelled === false
   const isDraft = order.draft === true
   const dateCreated = moment(order.date_placed || order.date_created)
