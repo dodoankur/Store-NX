@@ -19,12 +19,13 @@ const validate = (values: {}) => {
 }
 
 interface props {
-  onCancel: Function
+  initialValues: {}
   onSubmit: Function
+  onCancel: Function
 }
 
 const CustomerAddressForm: FC<props> = (props: props) => {
-  const { onCancel, onSubmit } = props
+  const { initialValues, onSubmit, onCancel } = props
 
   const formFields = [
     {
@@ -59,7 +60,12 @@ const CustomerAddressForm: FC<props> = (props: props) => {
   ]
 
   return (
-    <Form onSubmit={() => onSubmit} validate={validate} enableReinitialize>
+    <Form
+      onSubmit={() => onSubmit}
+      initialValues={initialValues}
+      validate={validate}
+      enableReinitialize
+    >
       {({ handleSubmit, pristine, submitting }) => (
         <form
           onSubmit={handleSubmit}
