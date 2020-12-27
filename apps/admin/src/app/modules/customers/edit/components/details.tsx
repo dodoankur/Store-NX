@@ -1,14 +1,11 @@
-import React, { useEffect } from "react"
+import React, { FC, useEffect } from "react"
 import CustomerAddresses from "./addresses"
 import CustomerOrders from "./orders"
 import CustomerSummary from "./summary"
 
-const CustomerDetails = props => {
+const CustomerDetails: FC<any> = (props: any) => {
   useEffect(() => {
     props.fetchData()
-  }, [])
-
-  useEffect(() => {
     return () => props.clearData()
   }, [])
 
