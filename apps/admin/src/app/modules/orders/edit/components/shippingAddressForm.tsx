@@ -1,11 +1,12 @@
 import { Button } from "@material-ui/core"
+import { TextField } from "mui-rff"
 import React, { FC } from "react"
-import { Field, InjectedFormProps, reduxForm } from "redux-form"
-import { TextField } from "redux-form-material-ui"
+import { Form } from "react-final-form"
+import { Field } from "redux-form"
 import { helper, messages } from "../../../../lib"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: {}) => {
   const errors = {}
   const requiredFields = []
 
@@ -18,22 +19,25 @@ const validate = values => {
   return errors
 }
 
-const getShippingFieldLabel = ({ label, key }) => {
+const getShippingFieldLabel = ({
+  label,
+  key,
+}: {
+  label: string
+  key: string
+}) => {
   return label && label.length > 0 ? label : helper.getOrderFieldLabelByKey(key)
 }
 
 interface props {
-  handleSubmit
-  pristine
-  submitting
+  initialValues: {}
+  onSubmit: Function
   onCancel: Function
-  shippingMethod
+  shippingMethod: { fields: { key: string; label: string }[] }
 }
 
-const ShippingAddressForm: FC<props & InjectedFormProps<{}, props>> = (
-  props: props & InjectedFormProps<{}, props>
-) => {
-  const { handleSubmit, pristine, submitting, onCancel, shippingMethod } = props
+const ShippingAddressForm: FC<props> = (props: props) => {
+  const { onSubmit, onCancel, shippingMethod } = props
 
   let shippingFields = null
   if (
@@ -57,60 +61,48 @@ const ShippingAddressForm: FC<props & InjectedFormProps<{}, props>> = (
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <>
-        {shippingFields}
-        <Field
-          component={TextField}
-          fullWidth
-          name="city"
-          floatingLabelText={messages.city}
-        />
-        <div className="row">
-          <div className="col-xs-6">
-            <Field
-              component={TextField}
-              fullWidth
-              name="state"
-              floatingLabelText={messages.state}
-            />
+    <Form onSubmit={() => onSubmit} validate={validate} enableReinitialize>
+      {({ handleSubmit, pristine, submitting }) => (
+        <form onSubmit={() => handleSubmit}>
+          <>
+            {shippingFields}
+            <TextField fullWidth name="city" label={messages.city} />
+            <div className="row">
+              <div className="col-xs-6">
+                <TextField fullWidth name="state" label={messages.state} />
+              </div>
+              <div className="col-xs-6">
+                <TextField
+                  fullWidth
+                  name="postal_code"
+                  label={messages.postal_code}
+                />
+              </div>
+            </div>
+            <TextField fullWidth name="country" label={messages.country} />
+          </>
+          <div className={style.shippingButtons}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => onCancel}
+            >
+              {messages.cancel}
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ marginLeft: 12 }}
+              disabled={pristine || submitting}
+            >
+              {messages.save}
+            </Button>
           </div>
-          <div className="col-xs-6">
-            <Field
-              component={TextField}
-              fullWidth
-              name="postal_code"
-              floatingLabelText={messages.postal_code}
-            />
-          </div>
-        </div>
-        <Field
-          component={TextField}
-          fullWidth
-          name="country"
-          floatingLabelText={messages.country}
-        />
-      </>
-      <div className={style.shippingButtons}>
-        <Button variant="contained" color="primary" onClick={() => onCancel}>
-          {messages.cancel}
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ marginLeft: 12 }}
-          disabled={pristine || submitting}
-        >
-          {messages.save}
-        </Button>
-      </div>
-    </form>
+        </form>
+      )}
+    </Form>
   )
 }
 
-export default reduxForm<props, { onCancel: Function; shippingMethod }>({
-  form: "ShippingAddressForm",
-  validate,
-  enableReinitialize: true,
-})(ShippingAddressForm)
+export default ShippingAddressForm
