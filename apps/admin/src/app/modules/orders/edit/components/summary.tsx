@@ -1,5 +1,4 @@
-import { Button, Paper } from "@material-ui/core"
-import Dialog from "material-ui/Dialog"
+import { Button, Dialog, Paper } from "@material-ui/core"
 import moment from "moment"
 import React, { FC, useState } from "react"
 import { messages } from "../../../../lib"
@@ -63,7 +62,7 @@ const getOrderStates = (order: any) => {
 interface props {
   order
   settings
-  onCheckout
+  onCheckout: Function
   processingCheckout
   onOrderSummaryUpdate: Function
 }
@@ -83,7 +82,7 @@ const OrderSummary: FC<props> = (props: props) => {
     setOpenSummaryEdit(false)
   }
 
-  const saveSummaryEdit = order => {
+  const saveSummaryEdit = (order: {}) => {
     onOrderSummaryUpdate(order)
     hideSummaryEdit()
   }
@@ -101,7 +100,9 @@ const OrderSummary: FC<props> = (props: props) => {
   try {
     const url = new URL(order.referrer_url)
     referrerDomain = url.hostname
-  } catch (e) {}
+  } catch (error) {
+    console.error(error)
+  }
 
   const referrerLink =
     order.referrer_url && order.referrer_url.includes("http") ? (
@@ -195,7 +196,7 @@ const OrderSummary: FC<props> = (props: props) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={onCheckout}
+              onClick={() => onCheckout()}
               disabled={processingCheckout}
             >
               {messages.placeOrder}
@@ -205,17 +206,18 @@ const OrderSummary: FC<props> = (props: props) => {
 
         <Dialog
           title={messages.order}
-          modal={false}
+          // modal={false}
           open={openSummaryEdit}
-          onRequestClose={hideSummaryEdit}
-          autoScrollBodyContent
-          contentStyle={{ width: 600 }}
+          onClose={hideSummaryEdit}
+          // autoScrollBodyContent
         >
-          <SummaryForm
-            initialValues={order}
-            onCancel={hideSummaryEdit}
-            onSubmit={saveSummaryEdit}
-          />
+          <div style={{ padding: "20px" }}>
+            <SummaryForm
+              initialValues={order}
+              onCancel={hideSummaryEdit}
+              onSubmit={saveSummaryEdit}
+            />
+          </div>
         </Dialog>
       </div>
     </Paper>

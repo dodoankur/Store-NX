@@ -48,33 +48,33 @@ class RestClient {
       .then(json => ({ status: response.status, json }))
       .catch(() => ({ status: response.status, json: null }))
 
-  get(endpoint, filter, cookie) {
+  get(endpoint: string, filter, cookie) {
     return fetch(
       `${this.baseUrl}${endpoint}?${queryString.stringify(filter)}`,
       this.getConfig("get", cookie)
     ).then(this.returnStatusAndJson)
   }
 
-  post(endpoint, data) {
+  post(endpoint: string, data) {
     return fetch(this.baseUrl + endpoint, this.getConfig("post", data)).then(
       this.returnStatusAndJson
     )
   }
 
-  postFormData(endpoint, formData) {
+  postFormData(endpoint: string, formData) {
     return fetch(
       this.baseUrl + endpoint,
       this.postFormDataConfig(formData)
     ).then(this.returnStatusAndJson)
   }
 
-  put(endpoint, data) {
+  put(endpoint: string, data) {
     return fetch(this.baseUrl + endpoint, this.getConfig("put", data)).then(
       this.returnStatusAndJson
     )
   }
 
-  delete(endpoint) {
+  delete(endpoint: string) {
     return fetch(this.baseUrl + endpoint, this.getConfig("delete")).then(
       this.returnStatusAndJson
     )

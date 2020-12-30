@@ -4,17 +4,19 @@ import createLinkifyPlugin from "@draft-js-plugins/linkify"
 import { ContentState, convertToRaw, EditorState } from "draft-js"
 import draftToHtml from "draftjs-to-html"
 import htmlToDraft from "html-to-draftjs"
-import React, { FC, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 const hashtagPlugin = createHashtagPlugin()
 const linkifyPlugin = createLinkifyPlugin()
 
 const plugins = [linkifyPlugin, hashtagPlugin]
 interface props {
-  input: { value: string; onChange: Function }
+  name?: string
+  input?: { value: string; onChange: Function }
+  entityId?
 }
 
-const Draft: FC<props> = (props: props) => {
+const Draft = (props: props) => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   )

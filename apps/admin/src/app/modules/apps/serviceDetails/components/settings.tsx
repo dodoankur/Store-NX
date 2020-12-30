@@ -1,28 +1,24 @@
 import { Button, Divider, Paper } from "@material-ui/core"
-import React from "react"
-import { Field, reduxForm } from "redux-form"
-import { TextField } from "redux-form-material-ui"
+import { TextField } from "mui-rff"
+import React, { FC } from "react"
+import { Form } from "react-final-form"
 import { messages } from "../../../../lib"
 import { CustomToggle } from "../../../shared/form"
 import style from "./style.module.sass"
-
 interface props {
-  handleSubmit
-  pristine
-  submitting
-  initialValues
+  initialValues: {}
+  onSubmit: Function
 }
 
-const ServiceSettingsForm = (props: props) => {
-  const { handleSubmit, pristine, submitting, initialValues } = props
+const ServiceSettingsForm: FC<props> = (props: props) => {
+  const { initialValues, onSubmit } = props
   const fields = Object.keys(initialValues).map((key, index) => {
     const value = initialValues[key]
     return (
       <div key={index}>
         {typeof value === "boolean" && (
           <>
-            <Field
-              component={CustomToggle}
+            <CustomToggle
               name={key}
               fullWidth={false}
               label={key}
@@ -33,22 +29,11 @@ const ServiceSettingsForm = (props: props) => {
         )}
 
         {typeof value === "number" && (
-          <Field
-            component={TextField}
-            fullWidth={true}
-            type="number"
-            name={key}
-            floatingLabelText={key}
-          />
+          <TextField fullWidth type="number" name={key} label={key} />
         )}
 
         {typeof value !== "boolean" && typeof value !== "number" && (
-          <Field
-            component={TextField}
-            fullWidth={true}
-            name={key}
-            floatingLabelText={key}
-          />
+          <TextField fullWidth name={key} label={key} />
         )}
       </div>
     )
@@ -59,36 +44,41 @@ const ServiceSettingsForm = (props: props) => {
       <div className="gray-title" style={{ margin: "0 0 15px 20px" }}>
         {messages.drawer_settings}
       </div>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: "initial",
-          width: "100%",
-        }}
+      <Form
+        onSubmit={() => onSubmit}
+        initialValues={initialValues}
+        enableReinitialize
       >
-        <Paper style={{ margin: "0px 20px" }} elevation={4}>
-          <div style={{ padding: "10px 30px 30px 30px" }}>{fields}</div>
-          <div
-            className="buttons-box"
-            style={{ display: pristine ? "none" : "block" }}
+        {({ handleSubmit, pristine, submitting }) => (
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              display: "initial",
+              width: "100%",
+            }}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              className={style.button}
-              disabled={pristine || submitting}
-            >
-              {messages.save}
-            </Button>
-          </div>
-        </Paper>
-      </form>
+            <Paper style={{ margin: "0px 20px" }} elevation={4}>
+              <div style={{ padding: "10px 30px 30px 30px" }}>{fields}</div>
+              <div
+                className="buttons-box"
+                style={{ display: pristine ? "none" : "block" }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  className={style.button}
+                  disabled={pristine || submitting}
+                >
+                  {messages.save}
+                </Button>
+              </div>
+            </Paper>
+          </form>
+        )}
+      </Form>
     </div>
   )
 }
 
-export default reduxForm({
-  form: "WebStoreServiceSettingsForm",
-  enableReinitialize: true,
-})(ServiceSettingsForm)
+export default ServiceSettingsForm

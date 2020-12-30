@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core"
 import { TextField } from "mui-rff"
+import PropTypes from "prop-types"
 import React, { FC } from "react"
 import { Form } from "react-final-form"
 import { Field } from "redux-form"
@@ -61,9 +62,12 @@ const ShippingAddressForm: FC<props> = (props: props) => {
   }
 
   return (
-    <Form onSubmit={() => onSubmit} validate={validate} enableReinitialize>
-      {({ handleSubmit, pristine, submitting }) => (
-        <form onSubmit={() => handleSubmit}>
+    <Form
+      onSubmit={values => onSubmit(values)}
+      validate={validate}
+      enableReinitialize
+      render={({ handleSubmit, pristine, submitting }) => (
+        <form onSubmit={handleSubmit}>
           <>
             {shippingFields}
             <TextField fullWidth name="city" label={messages.city} />
@@ -85,7 +89,7 @@ const ShippingAddressForm: FC<props> = (props: props) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => onCancel}
+              onClick={() => onCancel()}
             >
               {messages.cancel}
             </Button>
@@ -101,8 +105,13 @@ const ShippingAddressForm: FC<props> = (props: props) => {
           </div>
         </form>
       )}
-    </Form>
+    />
   )
+}
+
+ShippingAddressForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 }
 
 export default ShippingAddressForm

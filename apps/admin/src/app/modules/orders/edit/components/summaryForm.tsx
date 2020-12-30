@@ -1,5 +1,6 @@
 import { Button, Grid, MenuItem } from "@material-ui/core"
 import { Select, TextField } from "mui-rff"
+import PropTypes from "prop-types"
 import React, { FC, useEffect, useState } from "react"
 import { Form } from "react-final-form"
 import { api, messages } from "../../../../lib"
@@ -19,9 +20,9 @@ const validate = (values: {}) => {
 }
 
 interface props {
+  initialValues: { id: string }
   onSubmit: Function
-  onCancel?: Function
-  initialValues?: { id: string }
+  onCancel: Function
 }
 
 const SummaryForm: FC<props> = (props: props) => {
@@ -133,14 +134,13 @@ const SummaryForm: FC<props> = (props: props) => {
 
   return (
     <Form
-      onSubmit={() => onSubmit}
+      onSubmit={order => onSubmit(order)}
       initialValues={initialValues}
       validate={validate}
       enableReinitialize
-    >
-      {({ handleSubmit, pristine, submitting }) => (
+      render={({ handleSubmit, pristine, submitting }) => (
         <form
-          onSubmit={() => handleSubmit}
+          onSubmit={handleSubmit}
           style={{
             display: "initial",
             width: "100%",
@@ -156,7 +156,7 @@ const SummaryForm: FC<props> = (props: props) => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => onCancel}
+                onClick={() => onCancel()}
               >
                 {messages.cancel}
               </Button>
@@ -173,8 +173,13 @@ const SummaryForm: FC<props> = (props: props) => {
           </Grid>
         </form>
       )}
-    </Form>
+    />
   )
+}
+
+SummaryForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 }
 
 export default SummaryForm

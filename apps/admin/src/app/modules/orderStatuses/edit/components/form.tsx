@@ -1,11 +1,11 @@
 import { Button, Paper } from "@material-ui/core"
-import React from "react"
-import { Field, reduxForm } from "redux-form"
-import { TextField } from "redux-form-material-ui"
+import { TextField } from "mui-rff"
+import React, { FC } from "react"
+import { Form } from "react-final-form"
 import { messages } from "../../../../lib"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: {}) => {
   const errors = {}
   const requiredFields = ["name"]
 
@@ -18,8 +18,15 @@ const validate = values => {
   return errors
 }
 
-const Form = props => {
-  const { handleSubmit, pristine, submitting, isSaving, initialValues } = props
+interface props {
+  initialValues: { id: string }
+  onSubmit: Function
+  onCancel: Function
+  isSaving: boolean
+}
+
+const OrderForm: FC<props> = (props: props) => {
+  const { initialValues, onSubmit, onCancel, isSaving } = props
 
   let statusId = null
 
@@ -29,50 +36,48 @@ const Form = props => {
 
   return (
     <Paper className="paper-box" elevation={4}>
-      <form onSubmit={handleSubmit}>
-        <div className={style.innerBox}>
-          <Field
-            name="name"
-            component={TextField}
-            floatingLabelText={messages.orderStatusName + " *"}
-            fullWidth
-          />
-          <br />
-          <Field
-            name="description"
-            component={TextField}
-            floatingLabelText={messages.description}
-            fullWidth
-            multiLine
-            rows={1}
-          />
-        </div>
-        <div className="buttons-box">
-          <Button
-            variant="contained"
-            color="primary"
-            className={style.button}
-            onClick={props.onCancel}
-          >
-            {messages.cancel}
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            className={style.button}
-            disabled={pristine || submitting || isSaving}
-          >
-            {statusId ? messages.save : messages.add}
-          </Button>
-        </div>
-      </form>
+      <Form onSubmit={() => onSubmit} validate={validate} enableReinitialize>
+        {({ handleSubmit, pristine, submitting }) => (
+          <form onSubmit={handleSubmit}>
+            <div className={style.innerBox}>
+              <TextField
+                name="name"
+                label={messages.orderStatusName + " *"}
+                fullWidth
+              />
+              <br />
+              <TextField
+                name="description"
+                label={messages.description}
+                fullWidth
+                multiline
+                rows={1}
+              />
+            </div>
+            <div className="buttons-box">
+              <Button
+                variant="contained"
+                color="primary"
+                className={style.button}
+                onClick={() => onCancel}
+              >
+                {messages.cancel}
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                className={style.button}
+                disabled={pristine || submitting || isSaving}
+              >
+                {statusId ? messages.save : messages.add}
+              </Button>
+            </div>
+          </form>
+        )}
+      </Form>
     </Paper>
   )
 }
 
-export default reduxForm({
-  form: "FormOrderStatus",
-  validate,
-  enableReinitialize: true,
-})(Form)
+export default OrderForm

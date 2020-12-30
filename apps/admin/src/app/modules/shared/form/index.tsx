@@ -4,13 +4,18 @@ import TextField from "material-ui/TextField"
 import Toggle from "material-ui/Toggle"
 import React, { useEffect, useState } from "react"
 
-export const CustomToggle = ({
-  input,
-  label,
-  className = "",
-  disabled = false,
-  style,
-}) => {
+interface props {
+  name?: string
+  input?: any
+  label: string
+  fullWidth?: boolean
+  className?: string
+  disabled?: boolean
+  style?: any
+}
+
+export const CustomToggle = (props: props) => {
+  const { name, input, label, className = "", disabled = false, style } = props
   return (
     <Toggle
       label={label}
