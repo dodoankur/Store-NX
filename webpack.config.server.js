@@ -8,7 +8,7 @@ const nodeExternals = require("webpack-node-externals")
 module.exports = {
   target: "node",
   entry: {
-    server: "./src/store/server/index.js",
+    server: "./src/store/server/index.ts",
   },
 
   performance: {
