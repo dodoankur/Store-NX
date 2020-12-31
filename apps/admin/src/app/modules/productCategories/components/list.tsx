@@ -81,9 +81,9 @@ const Categories = props => {
 
   const handleClickAll = () => {
     props.onSelect("all")(
-      document.getElementsByClassName(
-        "product-list"
-      ) as HTMLCollectionOf<HTMLElement>
+      document.getElementsByClassName("product-list") as HTMLCollectionOf<
+        HTMLElement
+      >
     )[0].style.display = "block"
     if (
       document.getElementsByClassName("spread-sheet-container")[0] !== undefined
@@ -96,9 +96,9 @@ const Categories = props => {
 
   const handleClickRoot = () => {
     props.onSelect("root")(
-      document.getElementsByClassName(
-        "product-list"
-      ) as HTMLCollectionOf<HTMLElement>
+      document.getElementsByClassName("product-list") as HTMLCollectionOf<
+        HTMLElement
+      >
     )[0].style.display = "block"
     if (
       document.getElementsByClassName("spread-sheet-container")[0] !== undefined
@@ -110,9 +110,9 @@ const Categories = props => {
   }
 
   const handleClickImport = () => {
-    ;(document.getElementsByClassName(
-      "product-list"
-    ) as HTMLCollectionOf<HTMLElement>)[0].style.display = "none"
+    ;(document.getElementsByClassName("product-list") as HTMLCollectionOf<
+      HTMLElement
+    >)[0].style.display = "none"
     if (
       document.getElementsByClassName("spread-sheet-container")[0] !== undefined
     ) {

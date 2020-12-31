@@ -231,9 +231,7 @@ const AppBarTop: FC<props> = (props: props) => {
         </IconButton>
       </Link>
     )
-  } else if (
-    pathname === "/settings/email/templates/order_confirmation"
-  ) {
+  } else if (pathname === "/settings/email/templates/order_confirmation") {
     title = messages.settings_orderConfirmation
     leftButton = (
       <Link to="/settings/email">
@@ -251,9 +249,7 @@ const AppBarTop: FC<props> = (props: props) => {
         </IconButton>
       </Link>
     )
-  } else if (
-    pathname === "/settings/email/templates/forgot_password_en"
-  ) {
+  } else if (pathname === "/settings/email/templates/forgot_password_en") {
     title = messages.settings_customerRecovery
     leftButton = (
       <Link to="/settings/email">
@@ -429,10 +425,7 @@ const AppBarTop: FC<props> = (props: props) => {
       </Link>
     )
     rightElements = <PaymentMethodHead />
-  } else if (
-    pathname === "/settings/general" ||
-    pathname === "/settings"
-  ) {
+  } else if (pathname === "/settings/general" || pathname === "/settings") {
     title = messages.settings_generalSettings
   } else if (pathname === "/settings/general/logo") {
     title = messages.logo
