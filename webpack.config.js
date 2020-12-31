@@ -9,7 +9,6 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
 module.exports = {
   entry: {
     app: "./src/store/client/index.js",
-    theme: ["theme"],
   },
 
   performance: {
