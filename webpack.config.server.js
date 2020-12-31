@@ -1,14 +1,14 @@
 const path = require("path")
 const webpack = require("webpack")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
-const { GenerateSW } = require("workbox-webpack-plugin")
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
+const nodeExternals = require("webpack-node-externals")
 
 module.exports = {
+  target: "node",
   entry: {
-    app: "./src/store/client/index.tsx",
+    server: "./src/store/server/index.ts",
   },
 
   performance: {
@@ -17,11 +17,12 @@ module.exports = {
 
   output: {
     publicPath: "/",
-    path: path.resolve(__dirname, "theme"),
-    filename: "assets/js/[name]-[chunkhash].js",
-    chunkFilename: "assets/js/[name]-[chunkhash].js",
+    path: path.resolve(__dirname, "dist/store/server"),
+    // filename: "[name]-[chunkhash].js",
+    // chunkFilename: "[name]-[chunkhash].js",
+    filename: "index.js",
   },
-
+  externals: [nodeExternals()],
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -112,50 +113,18 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [
-        path.resolve("theme/assets/js/*-*.js"),
-        // path.resolve("theme/dist/*"),
-        path.resolve("theme/assets/sw.js"),
-        path.resolve("theme/assets/workbox-*.js"),
-      ],
-    }),
+    // new CleanWebpackPlugin({
+    //   cleanOnceBeforeBuildPatterns: [
+    //     path.resolve("theme/assets/js/*-*.js"),
+    //     // path.resolve("theme/dist/*"),
+    //     path.resolve("theme/assets/sw.js"),
+    //     path.resolve("theme/assets/workbox-*.js"),
+    //   ],
+    // }),
     // new ForkTsCheckerWebpackPlugin({ async: true }),
     new MiniCssExtractPlugin({
       filename: "assets/css/bundle-[contenthash].css",
       chunkFilename: "assets/css/bundle-[contenthash].css",
-    }),
-    new HtmlWebpackPlugin({
-      template: "theme/index.html",
-      inject: "body",
-      filename: "assets/index.html",
-    }),
-    new GenerateSW({
-      swDest: "assets/sw.js",
-      clientsClaim: true,
-      skipWaiting: true,
-      exclude: [/\.html$/, /\.svg$/],
-      runtimeCaching: [
-        {
-          urlPattern: new RegExp("/(images|assets|admin-assets)/"),
-          handler: "NetworkFirst",
-        },
-        {
-          urlPattern: new RegExp("/api/"),
-          handler: "NetworkOnly",
-        },
-        {
-          urlPattern: new RegExp("/ajax/payment_form_settings"),
-          handler: "NetworkOnly",
-        },
-        {
-          urlPattern: new RegExp("/"),
-          handler: "NetworkFirst",
-          options: {
-            networkTimeoutSeconds: 10,
-          },
-        },
-      ],
     }),
     new webpack.BannerPlugin({
       banner: `Created: ${new Date().toUTCString()}`,

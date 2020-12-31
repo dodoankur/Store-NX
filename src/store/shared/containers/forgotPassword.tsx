@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
+import { ForgotPasswordContainer } from "@store/theme"
 import { mapStateToProps, mapDispatchToProps } from "../containerProps"
-import { CheckoutContainer } from "theme"
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CheckoutContainer)
+  connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordContainer)
 )

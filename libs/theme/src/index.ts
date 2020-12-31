@@ -15,7 +15,7 @@ export { default as RegisterContainer } from "./lib/src/containers/register"
 export { default as ResetPasswordContainer } from "./lib/src/containers/resetPassword"
 export { default as SearchContainer } from "./lib/src/containers/search"
 export { default as SharedContainer } from "./lib/src/containers/shared"
-export { initOnClient } from "./lib/src/lib/settings"
+export { initOnClient, initOnServer } from "./lib/src/lib/settings"
 
 // combine all css files into one with webpack. Hack to deal with server side rendering.
 // if (typeof window !== "undefined") {

@@ -23,10 +23,8 @@ And now you can run admin with,
 `nx run admin:serve`
 
 To start the store,
-`yarn theme:build`
-`yarn add ./theme`
-`yarn compile`
 `yarn webpack:store`
+`yarn webpack:store:server`
 `yarn start-store`
 
 To setup database,
