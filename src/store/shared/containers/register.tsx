@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
+import { RegisterContainer } from "@store/theme"
 import { mapStateToProps, mapDispatchToProps } from "../containerProps"
-import { ProductContainer } from "theme"
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ProductContainer)
+  connect(mapStateToProps, mapDispatchToProps)(RegisterContainer)
 )

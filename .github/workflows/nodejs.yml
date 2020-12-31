@@ -31,6 +31,8 @@ jobs:
       - run: npx nx run server:build #--if-present
       - run: npx nx run admin:build #--if-present
       - run: npx nx run store:build #--if-present
+      - run: yarn webpack:store #--if-present
+      - run: yarn webpack:store:server #--if-present
     #- run: yarn test
     #  env:
     #    CI: true
