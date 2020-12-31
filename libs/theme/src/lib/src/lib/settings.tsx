@@ -31,3 +31,7 @@ const setVariables = (options: options) => {
 export const initOnClient = (options: options) => {
   setVariables(options)
 }
+
+export const initOnServer = (options: options) => {
+  setVariables(options)
+}
