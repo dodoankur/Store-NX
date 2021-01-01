@@ -115,6 +115,8 @@ module.exports = {
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
         path.resolve("theme/assets/js/*-*.js"),
+        path.resolve("theme/assets/js/*-*.txt"),
+        path.resolve("theme/assets/css/*-*.css"),
         // path.resolve("theme/dist/*"),
         path.resolve("theme/assets/sw.js"),
         path.resolve("theme/assets/workbox-*.js"),
