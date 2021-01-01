@@ -52,17 +52,6 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/env", "@babel/react"],
-            plugins: ["transform-class-properties"],
-          },
-        },
-      },
-      {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
