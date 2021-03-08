@@ -43,7 +43,7 @@
   "dependencies": {
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.13.8",
-    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "7.12.7",
     "@draft-js-plugins/editor": "^4.0.0-beta4",
