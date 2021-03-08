@@ -154,7 +154,7 @@
     "webpack-cli": "^4.2.0",
     "webpack-node-externals": "^2.5.2",
     "winston": "^3.3.3",
-    "workbox-webpack-plugin": "^5.1.4",
+    "workbox-webpack-plugin": "^6.1.1",
     "ws": "^7.4.1"
   },
   "devDependencies": {
