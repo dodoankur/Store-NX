@@ -1,0 +1,31 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 2
+  ignore:
+  - dependency-name: "@nrwl/cli"
+    versions:
+    - 11.4.0
+    - 11.5.0
+    - 11.5.1
+    - 11.5.2
+    - 11.6.0
+    - 11.6.1
+    - 12.0.0
+    - 12.0.1
+    - 12.0.3
+    - 12.0.4
+    - 12.0.6
+    - 12.0.8
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.16.1
+  - dependency-name: node-sass
+    versions:
+    - 5.0.0
+  - dependency-name: "@types/express-jwt"
+    versions:
+    - 6.0.0
