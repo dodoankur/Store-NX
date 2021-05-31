@@ -155,7 +155,7 @@
     "webpack-node-externals": "^2.5.2",
     "winston": "^3.3.3",
     "workbox-webpack-plugin": "^6.1.1",
-    "ws": "^7.4.1"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@nrwl/cypress": "11.0.4",
